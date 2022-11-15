@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -11,6 +11,16 @@ const NavbarStar = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const location = useNavigate();
+  const goMain = () => {
+    if (!window.scrollY) return;
+    // 현재 위치가 이미 최상단일 경우 return
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <>
@@ -18,14 +28,18 @@ const NavbarStar = () => {
         bg="none"
         variant="light"
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          position: "fixed",
+          left: "50%",
+          transform: "translate(-50%)",
+          zIndex: "999",
         }}
       >
         <S.NavCenter>
           <S.LogoBox>
-            <S.Logo src="http://www.star-pickers.com/html/img/logo.png" />
+            <S.Logo
+              src="http://www.star-pickers.com/html/img/logo.png"
+              onClick={goMain}
+            />
           </S.LogoBox>
           <S.Container>
             <S.Nav className="me-auto">
@@ -70,7 +84,6 @@ const NavbarStar = () => {
     </>
   );
 };
-
 export default NavbarStar;
 
 const S = {
@@ -86,6 +99,7 @@ const S = {
   Logo: styled.img`
     width: 121px;
     height: 61px;
+    cursor: pointer;
   `,
 
   Container: styled.div`
