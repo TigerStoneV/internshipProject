@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
-import Nav from "./components/Nav/Nav";
+import NavbarStar from "./components/Nav/Nav";
 import Company from "./pages/Introduce/Company/Company";
 import Contact from "./pages/Introduce/Contact/Contact";
 import Team from "./pages/Introduce/Team/Team";
@@ -13,7 +13,7 @@ import RiderLog from "./pages/RiderLog/RiderLog";
 const Router = () => {
   return (
     <BrowserRouter>
-      <Nav />
+      <NavbarStar />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/riderlog" element={<RiderLog />} />
