@@ -6,7 +6,7 @@ import Contact from "./pages/Introduce/Contact/Contact";
 import Team from "./pages/Introduce/Team/Team";
 import Tech from "./pages/Introduce/Tech/Tech";
 import Main from "./pages/Main/Main";
-import News from "./pages/RiderLog/News/News";
+import News from "./pages/News/News";
 import Notice from "./pages/Notice/Notice";
 import RiderLog from "./pages/RiderLog/RiderLog";
 
