@@ -14,6 +14,10 @@ const NavbarStar = () => {
   const location = useNavigate();
   const goMain = () => {
     location("/");
+    goTop();
+  };
+
+  const goTop = () => {
     if (!window.scrollY) return;
 
     window.scrollTo({
@@ -43,13 +47,27 @@ const NavbarStar = () => {
           </S.LogoBox>
           <S.Container>
             <S.Nav className="me-auto">
-              <S.Link to="/riderlog">RIDER LOG</S.Link>
-              <S.Link to="/company">COMPANY</S.Link>
-              <S.Link to="/team">TEAM</S.Link>
-              <S.Link to="/tech">TECH</S.Link>
-              <S.Link to="/news">NEWS</S.Link>
-              <S.Link to="/notice">NOTICE</S.Link>
-              <S.Link to="/contact">CONTACT</S.Link>
+              <S.Link to="/riderlog" onClick={goTop}>
+                RIDER LOG
+              </S.Link>
+              <S.Link to="/company" onClick={goTop}>
+                COMPANY
+              </S.Link>
+              <S.Link to="/team" onClick={goTop}>
+                TEAM
+              </S.Link>
+              <S.Link to="/tech" onClick={goTop}>
+                TECH
+              </S.Link>
+              <S.Link to="/news" onClick={goTop}>
+                NEWS
+              </S.Link>
+              <S.Link to="/notice" onClick={goTop}>
+                NOTICE
+              </S.Link>
+              <S.Link to="/contact" onClick={goTop}>
+                CONTACT
+              </S.Link>
               <Button
                 variant="primary"
                 onClick={handleShow}
