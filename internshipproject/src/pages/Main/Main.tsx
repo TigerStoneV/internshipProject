@@ -10,18 +10,21 @@ const Main = () => {
   });
   return (
     <S.MainAll>
-      <S.MainBackground src="http://www.star-pickers.com/html/img/section01_bg01.png" />
-      <S.MainFinger src="http://www.star-pickers.com/html/img/section01_img01.png" />
-      <S.MainBackgroundText>
-        <div data-aos="fade-top" data-aos-duration="1000">
-          센서 기반 소형 모빌리티 관제 솔루션
-        </div>
-      </S.MainBackgroundText>
-      <S.MainBackgroundTextRiderLog>
-        <div data-aos="fade-left" data-aos-duration="1000">
-          라이더 로그(RIDER LOG)
-        </div>
-      </S.MainBackgroundTextRiderLog>
+      <S.MainBackground>
+        <S.MainFinger src="http://www.star-pickers.com/html/img/section01_img01.png" />
+        <S.MainText>
+          <S.MainBackgroundText>
+            <div data-aos="fade-top" data-aos-duration="1000">
+              센서 기반 소형 모빌리티 관제 솔루션
+            </div>
+          </S.MainBackgroundText>
+          <S.MainBackgroundTextRiderLog>
+            <div data-aos="fade-left" data-aos-duration="1000">
+              라이더 로그(RIDER LOG)
+            </div>
+          </S.MainBackgroundTextRiderLog>
+        </S.MainText>
+      </S.MainBackground>
       <S.MainMessageBackground />
       <S.MessageCenter>
         <div data-aos="fade-left" data-aos-duration="2000">
@@ -31,18 +34,21 @@ const Main = () => {
           </S.MessageBox>
         </div>
       </S.MessageCenter>
-      <S.MainBackground src="http://www.star-pickers.com/html/img/section02_bg01.png" />
-      <S.MainPhone src="http://www.star-pickers.com/html/img/section02_img01.png" />
-      <S.MainBackgroundTextFirst>
-        <div data-aos="fade-top" data-aos-duration="1000">
-          세계 최초의
-        </div>
-      </S.MainBackgroundTextFirst>
-      <S.MainBackgroundTextStar>
-        <div data-aos="fade-left" data-aos-duration="1000">
-          H/W기반 인슈테이크 플렛폼을 서비스합니다.
-        </div>
-      </S.MainBackgroundTextStar>
+      <S.MainBackgroundTwo>
+        <S.MainPhone src="http://www.star-pickers.com/html/img/section02_img01.png" />
+        <S.MainTextTwo>
+          <S.MainBackgroundTextFirst>
+            <div data-aos="fade-top" data-aos-duration="1000">
+              세계 최초의
+            </div>
+          </S.MainBackgroundTextFirst>
+          <S.MainBackgroundTextStar>
+            <div data-aos="fade-left" data-aos-duration="1000">
+              H/W기반 인슈테이크 플렛폼을 서비스합니다.
+            </div>
+          </S.MainBackgroundTextStar>
+        </S.MainTextTwo>
+      </S.MainBackgroundTwo>
       <S.MainMessageBackground />
       <S.MessageCenter>
         <div
@@ -120,33 +126,39 @@ const S = {
     ${variables.flex("column", "center", "center")};
   `,
 
-  MainBackground: styled.img`
+  MainBackground: styled.div`
     position: relative;
+    background-image: url("http://www.star-pickers.com/html/img/section01_bg01.png");
     width: 100%;
     height: 100vh;
   `,
-  MainBackgroundText: styled.div`
-    position: absolute;
-    font-size: 50px;
+  MainBackgroundTwo: styled.div`
+    position: relative;
+    background-image: url("http://www.star-pickers.com/html/img/section02_bg01.png");
+    width: 100%;
     height: 100vh;
-    top: 600px;
-    left: 950px;
+  `,
+  MainText: styled.div`
+    ${variables.flex("column", "center", "center")}
+    position: absolute;
+    top: 270px;
+    left: 38%;
+    height: 100%;
+  `,
+  MainBackgroundText: styled.div`
+    font-size: 50px;
     color: rgb(250, 250, 250);
   `,
   MainBackgroundTextRiderLog: styled.div`
-    position: absolute;
     font-size: 80px;
-    height: 100vh;
-    top: 700px;
-    left: 52%;
     color: #ffee00;
   `,
 
   MainFinger: styled.img`
     position: absolute;
-    width: 85%;
+    width: 80%;
     left: 0;
-    top: 120px;
+    top: 110px;
     z-index: 100;
     margin-top: 0;
     animation: motion 0.4s linear 0s infinite alternate;
@@ -192,8 +204,8 @@ const S = {
   MainPhone: styled.img`
     position: absolute;
     width: 50%;
-    left: 50px;
-    top: 2050px;
+    left: 0;
+    top: 110px;
     z-index: 100;
     margin-top: 0;
     animation: motion 0.4s linear 0s infinite alternate;
@@ -208,29 +220,27 @@ const S = {
     }
   `,
   MainBackgroundTextFirst: styled.div`
-    position: absolute;
     font-size: 50px;
-    height: 100vh;
-    top: 2350px;
-    left: 1080px;
     color: rgb(250, 250, 250);
   `,
 
   MainBackgroundTextStar: styled.div`
-    position: absolute;
-    width: 750px;
-    font-size: 60px;
-    height: 100vh;
-    top: 2450px;
-    left: 55%;
+    font-size: 40px;
     color: #ffee00;
     margin-bottom: 0;
+  `,
+  MainTextTwo: styled.div`
+    ${variables.flex("column", "center", "center")}
+    position: absolute;
+    top: 250px;
+    left: 35%;
+    height: 100%;
   `,
   BottomMessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
     position:absolute;
     left: 50%;
-    top: 1950px;
+    top: 1600px;
     height: 100vh;
     width: 1200px;
     transform: translate(-50%);

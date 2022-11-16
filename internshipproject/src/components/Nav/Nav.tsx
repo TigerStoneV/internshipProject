@@ -13,8 +13,8 @@ const NavbarStar = () => {
   const handleShow = () => setShow(true);
   const location = useNavigate();
   const goMain = () => {
+    location("/");
     if (!window.scrollY) return;
-    // 현재 위치가 이미 최상단일 경우 return
 
     window.scrollTo({
       top: 0,
