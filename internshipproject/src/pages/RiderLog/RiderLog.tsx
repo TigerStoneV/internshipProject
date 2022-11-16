@@ -494,7 +494,7 @@ const S = {
     ${variables.flex("column", "space-evenly", "center")}
     width: 200px;
     height: 270px;
-    border: 1px solid #f5821f;
+    border: 1px solid #333;
     border-top: 10px solid #f5821f;
     position: relative;
     text-align: center;
