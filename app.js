@@ -6,12 +6,14 @@ const morgan =require('morgan');
 const appDataSource = require('./models/dataSource');
 const { globalErrorHandler } = require('./utils/error');
 const route = require('./routes');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cookieParser());
 app.use(route);
 app.use(globalErrorHandler);
 
