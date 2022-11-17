@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
-import variables from "../../../styles/variables";
+import variables from "../../../../styles/variables";
 import { Carousel } from "react-bootstrap";
 
 const Team = () => {
@@ -143,6 +143,7 @@ const Team = () => {
                 data-aos="fade-up"
                 data-aos-offset="300"
                 data-aos-duration="1000"
+                data-aos-delay="200"
               >
                 <S.Middle>COO</S.Middle>
                 <h1>김경목/이사</h1>
@@ -167,6 +168,7 @@ const Team = () => {
                   data-aos="fade-up"
                   data-aos-offset="300"
                   data-aos-duration="1000"
+                  data-aos-delay="300"
                 >
                   <S.Middle>CTO</S.Middle>
                   <h1>정성욱/이사</h1>
@@ -188,6 +190,7 @@ const Team = () => {
                   data-aos="fade-up"
                   data-aos-offset="400"
                   data-aos-duration="1000"
+                  data-aos-delay="400"
                 >
                   <S.Middle>연구실장</S.Middle>
                   <h1>윤찬호/실장</h1>
@@ -216,6 +219,7 @@ const Team = () => {
                   data-aos="fade-up"
                   data-aos-offset="400"
                   data-aos-duration="1000"
+                  data-aos-delay="500"
                 >
                   <S.Middle>대리</S.Middle>
                   <h1>이시몽/대리</h1>
@@ -238,6 +242,7 @@ const Team = () => {
                   data-aos="fade-up"
                   data-aos-offset="400"
                   data-aos-duration="1000"
+                  data-aos-delay="600"
                 >
                   <S.Middle>연구원</S.Middle>
                   <h1>권윤재/연구원</h1>
