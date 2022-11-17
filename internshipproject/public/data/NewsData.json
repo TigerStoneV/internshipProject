@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "뉴스1",
+    "content": "content1",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 2,
+    "title": "뉴스2",
+    "content": "content2",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 3,
+    "title": "뉴스3",
+    "content": "content3",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 4,
+    "title": "뉴스4",
+    "content": "content4",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 5,
+    "title": "뉴스5",
+    "content": "content5",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  }
+]

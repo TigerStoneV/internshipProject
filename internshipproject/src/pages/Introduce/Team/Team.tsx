@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
-import variables from "../../../../styles/variables";
 import { Carousel } from "react-bootstrap";
+import variables from "../../../styles/variables";
 
 const Team = () => {
   useEffect(() => {
