@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "별따러가자 홈페이지가 오픈되었습니다.",
+    "content": "content1",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 2,
+    "title": "별따러가자 홈페이지가 오픈되었습니다.",
+    "content": "content2",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 3,
+    "title": "별따러가자 홈페이지가 오픈되었습니다.",
+    "content": "content3",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 4,
+    "title": "별따러가자 홈페이지가 오픈되었습니다.",
+    "content": "content4",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  },
+  {
+    "id": 5,
+    "title": "별따러가자 홈페이지가 오픈되었습니다.",
+    "content": "content5",
+    "date": 2022,
+    "view": 10,
+    "img": "http://www.star-pickers.com/html/img/no-image.png"
+  }
+]

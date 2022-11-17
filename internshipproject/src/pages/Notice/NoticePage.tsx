@@ -5,7 +5,7 @@ import styled from "styled-components";
 import variables from "../../styles/variables";
 import { useNavigate } from "react-router-dom";
 
-export interface News {
+export interface Notice {
   id: number;
   title: string;
   content: string;
@@ -16,7 +16,7 @@ export interface News {
 const DATA = [
   {
     id: 1,
-    title: "별따러가자 홈페이지가 오픈되었습니다.",
+    title: "뉴스1",
     content: "content1",
     date: 2022,
     view: 10,
@@ -24,12 +24,12 @@ const DATA = [
   },
 ];
 
-const NewsPage = () => {
-  const [newsPageData, setNewsPageData] = useState<News[]>([]);
+const NoticePage = () => {
+  const [noticePageData, setNoticePageData] = useState<Notice[]>([]);
   const location = useNavigate();
 
   const goMain = () => {
-    location("/news");
+    location("/notice");
   };
 
   useEffect(() => {
@@ -45,54 +45,54 @@ const NewsPage = () => {
   // }, []);
   return (
     <>
-      <S.NewsMainImage>
-        <S.NewsMainImageMessage>
+      <S.NoticeMainImage>
+        <S.NoticeMainImageMessage>
           <div
             data-aos="fade-up"
             data-aos-offset="200"
             data-aos-duration="1000"
           >
-            별따러가자 공지사항
+            언론에 소개 된 별따러가자와 라이더 로그
           </div>
-        </S.NewsMainImageMessage>
-      </S.NewsMainImage>
+        </S.NoticeMainImageMessage>
+      </S.NoticeMainImage>
       <S.Center>
-        <S.News>
+        <S.Notice>
           <div
             data-aos="fade-up"
             data-aos-offset="300"
             data-aos-duration="1000"
             data-aos-delay="300"
           >
-            Notice
+            PRESS
           </div>
-        </S.News>
+        </S.Notice>
       </S.Center>
       <S.CenterColumn>
-        <S.NewsBox>
-          <S.NewsListBox>
+        <S.NoticeBox>
+          <S.NoticeListBox>
             <S.Title>{DATA[0].title}</S.Title>
-            <S.NewsPageList></S.NewsPageList>
+            <S.NoticePageList></S.NoticePageList>
             <S.Center>
               <S.GoList onClick={goMain}>목록</S.GoList>
             </S.Center>
-          </S.NewsListBox>
-        </S.NewsBox>
+          </S.NoticeListBox>
+        </S.NoticeBox>
       </S.CenterColumn>
     </>
   );
 };
 
-export default NewsPage;
+export default NoticePage;
 
 const S = {
-  NewsMainImage: styled.div`
+  NoticeMainImage: styled.div`
     position: relative;
     width: 100%;
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
-  NewsMainImageMessage: styled.div`
+  NoticeMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
     font-size: 50px;
@@ -110,23 +110,23 @@ const S = {
     ${variables.flex("column", "center", "center")}
     margin: 80px;
   `,
-  News: styled.div`
+  Notice: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
 
-  NewsBox: styled.div`
+  NoticeBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 100%;
     height: 100%;
   `,
-  NewsListBox: styled.div`
+  NoticeListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
     border-top: 2px solid black;
   `,
-  NewsPageList: styled.div`
+  NoticePageList: styled.div`
     ${variables.flex()}
     width: 100%;
     height: 100%;
