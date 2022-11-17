@@ -3,7 +3,7 @@ import Footer from "./components/Footer/Footer";
 import NavbarStar from "./components/Nav/Nav";
 import Company from "./pages/Introduce/Company/Company";
 import Contact from "./pages/Introduce/Contact/Contact";
-import Team from "./pages/Introduce/Team/Team";
+import Team from "./pages/Introduce/Contact/Team/Team";
 import Tech from "./pages/Introduce/Tech/Tech";
 import Main from "./pages/Main/Main";
 import News from "./pages/News/News";
