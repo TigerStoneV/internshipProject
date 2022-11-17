@@ -3,10 +3,11 @@ import Footer from "./components/Footer/Footer";
 import NavbarStar from "./components/Nav/Nav";
 import Company from "./pages/Introduce/Company/Company";
 import Contact from "./pages/Introduce/Contact/Contact";
-import Team from "./pages/Introduce/Contact/Team/Team";
+import Team from "./pages/Introduce/Team/Team";
 import Tech from "./pages/Introduce/Tech/Tech";
 import Main from "./pages/Main/Main";
 import News from "./pages/News/News";
+import NewsPage from "./pages/News/NewsPage";
 import Notice from "./pages/Notice/Notice";
 import RiderLog from "./pages/RiderLog/RiderLog";
 
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/team" element={<Team />} />
         <Route path="/tech" element={<Tech />} />
         <Route path="/news" element={<News />} />
+        <Route path="/news/:id" element={<NewsPage />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
