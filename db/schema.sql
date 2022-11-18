@@ -120,6 +120,7 @@ CREATE TABLE `news` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
+  `image_url` varchar(500) NOT NULL DEFAULT 'https://star-picker.s3.ap-northeast-2.amazonaws.com/star-picker.png',
   `view_count` bigint NOT NULL DEFAULT '0',
   `admin_id` int NOT NULL,
   `branch_id` int NOT NULL,
@@ -166,7 +167,6 @@ CREATE TABLE `questions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `image_url` varchar(500) DEFAULT 'https://star-picker.s3.ap-northeast-2.amazonaws.com/star-picker.png',
   `view_count` bigint NOT NULL DEFAULT '0',
   `user_id` int NOT NULL,
   `branch_id` int NOT NULL,
@@ -274,5 +274,7 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20221115074534'),
   ('20221116005433'),
   ('20221117083151'),
-  ('20221117084123');
+  ('20221117084123'),
+  ('20221118020609'),
+  ('20221118020734');
 UNLOCK TABLES;
