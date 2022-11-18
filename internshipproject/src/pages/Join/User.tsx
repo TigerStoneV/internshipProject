@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 
-// export interface text {
-//   title: string;
-//   linkText: string;
-//   url: string;
-// }
+interface Text {
+  title: string;
+  linkText: string;
+  url: string;
+}
+interface Props {
+  text: Text;
+}
 
-const User = ({ text }) => {
+const User = ({ text }: Props) => {
   const { title, linkText, url } = text;
 
   return (
