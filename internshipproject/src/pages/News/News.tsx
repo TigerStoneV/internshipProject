@@ -13,16 +13,23 @@ export interface News {
   date: number;
   view: number;
 }
-
+interface Search {
+  searchParams: Params;
+  setSearchPhams: any;
+}
+interface Params {
+  get: string;
+  set: any;
+}
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
   // const [searchParams, setSearchPhams] = useSearchParams();
-  // const limit = searchParams.get('limit');
-  // const offset = searchParams.get('offset');
+  // const limit = searchParams.get("limit");
+  // const offset = searchParams.get("offset");
 
-  // const goPage = pageNumber => {
-  //   searchParams.set('limit', 10);
-  //   searchParams.set('offset', (pageNumber - 1) * 10);
+  // const goPage = (pageNumber: number): void => {
+  //   searchParams.set("limit":string, 10);
+  //   searchParams.set("offset", (pageNumber - 1) * 10);
   //   setSearchPhams(searchParams);
   // };
 

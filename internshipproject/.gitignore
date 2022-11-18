@@ -24,3 +24,6 @@ yarn-error.log*
 
 ### schema.sql ###
 /db/schema.sql
+
+
+.env
