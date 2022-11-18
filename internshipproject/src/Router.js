@@ -5,6 +5,7 @@ import Company from "./pages/Introduce/Company/Company";
 import Contact from "./pages/Introduce/Contact/Contact";
 import Team from "./pages/Introduce/Team/Team";
 import Tech from "./pages/Introduce/Tech/Tech";
+import SignIn from "./pages/Join/SignIn";
 import Main from "./pages/Main/Main";
 import News from "./pages/News/News";
 import NewsPage from "./pages/News/NewsPage";
@@ -25,6 +26,9 @@ const Router = () => {
         <Route path="/news/:id" element={<NewsPage />} />
         <Route path="/notice" element={<Notice />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/join" element={<SignIn />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/signup" element={<SignIn />} />
       </Routes>
       <Footer />
     </BrowserRouter>

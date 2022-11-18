@@ -1,16 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 
 const NavbarStar = () => {
-  const [show, setShow] = useState<boolean>(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
   const location = useNavigate();
   const goMain = () => {
     location("/");
@@ -68,32 +62,9 @@ const NavbarStar = () => {
               <S.Link to="/contact" onClick={goTop}>
                 CONTACT
               </S.Link>
-              <Button
-                variant="primary"
-                onClick={handleShow}
-                style={{
-                  fontSize: " 23px",
-                  fontWeight: "semi-bold",
-                  background: "none",
-                  border: "none",
-                }}
-              >
-                Join
-              </Button>
-              <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-              >
-                <Modal.Header closeButton></Modal.Header>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Close
-                  </Button>
-                  <Button variant="primary">Understood</Button>
-                </Modal.Footer>
-              </Modal>
+              <S.Link to="/join" onClick={goTop}>
+                JOIN
+              </S.Link>
             </S.Nav>
           </S.Container>
           <S.RiderLogo src="http://www.star-pickers.com/html/img/link_riderlog_pc.png" />
@@ -142,5 +113,8 @@ const S = {
   RiderLogo: styled.img`
     width: 160px;
     height: 41px;
+  `,
+  Modal: styled.div`
+    width: 1000px;
   `,
 };
