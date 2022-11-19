@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Carousel } from "react-bootstrap";
 import variables from "../../../styles/variables";
 
@@ -123,7 +123,7 @@ const Team = () => {
               data-aos-duration="1000"
             >
               <S.Middle>CEO</S.Middle>
-              <h1>박추진/대표</h1>
+              <S.Name>박추진/대표</S.Name>
               <S.Middle>∙ 연세대학교 공학박사</S.Middle>
               <S.Middle>∙ 엘지디스플레이(주)</S.Middle>
               <S.Small> - 연구소</S.Small>
@@ -143,10 +143,10 @@ const Team = () => {
                 data-aos="fade-up"
                 data-aos-offset="300"
                 data-aos-duration="1000"
-                data-aos-delay="200"
+                data-aos-delay="50"
               >
                 <S.Middle>COO</S.Middle>
-                <h1>김경목/이사</h1>
+                <S.Name>김경목/이사</S.Name>
                 <S.Middle>∙ 카이스트 공학박사</S.Middle>
                 <S.Middle>∙ 엘지디스플레이(주)</S.Middle>
                 <S.Small> - 연구소</S.Small>
@@ -168,10 +168,10 @@ const Team = () => {
                   data-aos="fade-up"
                   data-aos-offset="300"
                   data-aos-duration="1000"
-                  data-aos-delay="300"
+                  data-aos-delay="100"
                 >
                   <S.Middle>CTO</S.Middle>
-                  <h1>정성욱/이사</h1>
+                  <S.Name>정성욱/이사</S.Name>
                   <S.Middle>∙ 서울대학교 공학석사</S.Middle>
                   <S.Middle>
                     ∙ 전)서울대학교 공기연소추진연구실(APCL) 전임 연구원
@@ -188,12 +188,12 @@ const Team = () => {
               <S.TeamInfo>
                 <div
                   data-aos="fade-up"
-                  data-aos-offset="400"
+                  data-aos-offset="300"
                   data-aos-duration="1000"
-                  data-aos-delay="400"
+                  data-aos-delay="150"
                 >
                   <S.Middle>연구실장</S.Middle>
-                  <h1>윤찬호/실장</h1>
+                  <S.Name>윤찬호/실장</S.Name>
                   <S.Middle>∙ 성균관대 전자공학과</S.Middle>
                   <S.Middle>∙ 삼성전자</S.Middle>
                   <S.Small> - 네트워크 사업부 프로젝트 리더</S.Small>
@@ -217,12 +217,12 @@ const Team = () => {
               <S.TeamInfo>
                 <div
                   data-aos="fade-up"
-                  data-aos-offset="400"
+                  data-aos-offset="300"
                   data-aos-duration="1000"
                   data-aos-delay="500"
                 >
                   <S.Middle>대리</S.Middle>
-                  <h1>이시몽/대리</h1>
+                  <S.Name>이시몽/대리</S.Name>
                   <S.Middle>∙ 칭화대학교</S.Middle>
                   <S.Small>일본어과</S.Small>
                 </div>
@@ -240,12 +240,12 @@ const Team = () => {
               <S.TeamInfo>
                 <div
                   data-aos="fade-up"
-                  data-aos-offset="400"
+                  data-aos-offset="300"
                   data-aos-duration="1000"
                   data-aos-delay="600"
                 >
                   <S.Middle>연구원</S.Middle>
-                  <h1>권윤재/연구원</h1>
+                  <S.Name>권윤재/연구원</S.Name>
                   <S.Middle>∙ 숭실대학교</S.Middle>
                   <S.Small>정보통계 보험 수리학과</S.Small>
                 </div>
@@ -311,7 +311,7 @@ const S = {
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/team_gradient_bg.png");
     width: 50%;
-    height: 100%;
+    height: 98%;
   `,
   TeamAllBox: styled.div`
     ${variables.flex()}
@@ -341,11 +341,23 @@ const S = {
   Middle: styled.div`
     font-size: 20px;
     margin-top: 5px;
+    @media (max-width: 1440px) {
+      font-size: 15px;
+    }
   `,
   Small: styled.div`
     font-size: 15px;
     color: gray;
     transform: translate(20px);
     margin-top: 5px;
+    @media (max-width: 1440px) {
+      font-size: 10px;
+    }
+  `,
+  Name: styled.div`
+    font-size: 35px;
+    @media (max-width: 1440px) {
+      font-size: 25px;
+    }
   `,
 };
