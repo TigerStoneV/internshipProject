@@ -13,6 +13,7 @@ import {
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 import { Carousel } from "react-bootstrap";
+import NavbarStar from "../../components/Nav/Nav";
 
 const Main = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const Main = () => {
   });
   return (
     <>
+      <NavbarStar />
       <ScrollContainer>
         <S.MainBackground>
           <ScrollPage page={1}>
@@ -44,8 +46,8 @@ const Main = () => {
           <S.MessageCenter>
             <div
               data-aos="fade-left"
-              data-aos-offset="300"
-              data-aos-duration="1500"
+              data-aos-offset="600"
+              data-aos-duration="700"
             >
               <S.MessageBox>
                 <S.Message>안전운행 유도 </S.Message>

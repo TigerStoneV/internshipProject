@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import { Carousel } from "react-bootstrap";
 import variables from "../../../styles/variables";
+import NavbarBlock from "../../../components/Nav/NavBlock";
 
 const Team = () => {
   useEffect(() => {
@@ -12,6 +13,7 @@ const Team = () => {
   return (
     <>
       <S.TeamMainImage>
+        <NavbarBlock />
         <S.TeamMainImageMessage>
           <div
             data-aos="fade-up"

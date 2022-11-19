@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../../styles/variables";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import NavbarBlock from "../../../components/Nav/NavBlock";
 const Contact = () => {
   useEffect(() => {
     AOS.init();
@@ -11,6 +12,7 @@ const Contact = () => {
   return (
     <>
       <S.ContactMainImage>
+        <NavbarBlock />
         <S.ContactMainImageMessage>
           <div
             data-aos="fade-up"

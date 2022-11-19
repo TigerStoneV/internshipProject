@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../../styles/variables";
+import NavbarBlock from "../../../components/Nav/NavBlock";
 
 const Company = () => {
   useEffect(() => {
@@ -11,6 +12,7 @@ const Company = () => {
   return (
     <>
       <S.CompanyMainImage>
+        <NavbarBlock />
         <S.CompnayMainImageMessage>
           <div
             data-aos="fade-up"
