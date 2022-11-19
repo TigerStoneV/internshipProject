@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import AOS from "aos";
 import User from "./User";
 import "aos/dist/aos.css";
@@ -8,6 +8,7 @@ import variables from "../../styles/variables";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import NavbarBlock from "../../components/Nav/NavBlock";
+
 const LOGIN_TEXT = {
   title: "로그인",
   linkText: "계정이 없으신가요? 회원가입",
@@ -17,21 +18,27 @@ const LOGIN_TEXT = {
 const SIGNUP_TEXT = {
   title: "회원가입",
   linkText: "이미 가입하셨나요? 로그인",
-  url: "/login",
+  url: "/join",
 };
 const SignIn = () => {
   useEffect(() => {
     AOS.init();
   });
+
+  //로그인 메뉴탭
   const location = useLocation();
   const currentURL = location.pathname;
-  const isSelecLogin = currentURL === "/login" && true;
+  const isSelecLogin = currentURL === "/join" && true;
 
   const [show, setShow] = useState<boolean>(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const location = useNavigate();
+
+  //카카오 로그인
+  const [searchParams, setSearchParams] = useSearchParams();
+  const code = searchParams.get("code");
+  console.log(code);
   return (
     <>
       <S.JoinMainImage>
