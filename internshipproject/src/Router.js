@@ -15,9 +15,8 @@ import RiderLog from "./pages/RiderLog/RiderLog";
 const Router = () => {
   return (
     <BrowserRouter>
-      <NavbarStar />
       <Routes>
-        <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main />} />
         <Route path="/riderlog" element={<RiderLog />} />
         <Route path="/company" element={<Company />} />
         <Route path="/team" element={<Team />} />

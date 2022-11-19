@@ -3,6 +3,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
+import NavbarBlock from "../../components/Nav/NavBlock";
 
 const RiderLog = () => {
   useEffect(() => {
@@ -11,6 +12,7 @@ const RiderLog = () => {
   return (
     <>
       <S.MainImage>
+        <NavbarBlock />
         <S.MainImageMessage>
           <div
             data-aos="fade-up"

@@ -4,6 +4,7 @@ import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../../styles/variables";
 import Table from "react-bootstrap/Table";
+import NavbarBlock from "../../../components/Nav/NavBlock";
 const Tech = () => {
   useEffect(() => {
     AOS.init();
@@ -19,6 +20,7 @@ const Tech = () => {
   return (
     <>
       <S.TechMainImage>
+        <NavbarBlock />
         <S.TechMainImageMessage>
           <div
             data-aos="fade-up"

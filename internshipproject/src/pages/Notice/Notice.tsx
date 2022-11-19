@@ -5,6 +5,7 @@ import styled from "styled-components";
 import variables from "../../styles/variables";
 import { Link, useSearchParams } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
+import NavbarBlock from "../../components/Nav/NavBlock";
 export interface Notice {
   id: number;
   title: string;
@@ -51,6 +52,7 @@ const Notice = () => {
   return (
     <>
       <S.NoticeMainImage>
+        <NavbarBlock />
         <S.NoticeMainImageMessage>
           <div
             data-aos="fade-up"

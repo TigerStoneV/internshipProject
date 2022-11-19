@@ -5,9 +5,9 @@ import User from "./User";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
-
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import NavbarBlock from "../../components/Nav/NavBlock";
 const LOGIN_TEXT = {
   title: "로그인",
   linkText: "계정이 없으신가요? 회원가입",
@@ -35,6 +35,7 @@ const SignIn = () => {
   return (
     <>
       <S.JoinMainImage>
+        <NavbarBlock />
         <S.JoinMainImageMessage>
           <div
             data-aos="fade-up"
