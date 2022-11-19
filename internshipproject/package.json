@@ -13,6 +13,7 @@
     "@types/react-bootstrap": "^0.32.32",
     "@types/react-dom": "^18.0.9",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-scroll-motion": "^1.8.5",
     "@types/styled-components": "^5.1.26",
     "aos": "^2.3.4",
     "bootstrap": "^5.2.2",
@@ -22,6 +23,7 @@
     "react-kakao-maps-sdk": "^1.1.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "react-scroll-motion": "^0.3.0",
     "styled-components": "^5.3.6",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4"
@@ -49,5 +51,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./types"]
+},
+"include": ["./src/**/*"] 
 }

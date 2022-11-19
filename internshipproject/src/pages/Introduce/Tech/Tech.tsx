@@ -302,7 +302,7 @@ const S = {
   TableCenter: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: auto;
-    width: 1500px;
+    width: 100%;
     text-align: center;
   `,
   IconCenter: styled.div`
@@ -333,7 +333,9 @@ const S = {
   `,
   IconRoundText: styled.div`
     font-size: 15px;
+    width: 80%;
     margin-top: 5px;
+    text-align: center;
   `,
   IconOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");

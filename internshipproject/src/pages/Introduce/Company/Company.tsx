@@ -76,13 +76,10 @@ const Company = () => {
             data-aos-offset="300"
             data-aos-duration="1000"
           >
-            <S.RiderMainImageMessage>차별화된</S.RiderMainImageMessage>
             <S.RiderMainImageMessage>
-              기술력과 뛰어난 인력으로
+              안전한 운행 동기 부여로 이륜차 운전자의
             </S.RiderMainImageMessage>
-            <S.RiderMainImageMessage>
-              모빌리티 안전 사각지대를 해소하겠습니다
-            </S.RiderMainImageMessage>
+            <S.RiderMainImageMessage>잠재적 위험 해소</S.RiderMainImageMessage>
           </div>
         </S.RiderMessageBox>
       </S.RiderMainImage>
@@ -159,6 +156,11 @@ const S = {
     width: 100%;
     font-weight: 400;
     letter-spacing: -2px;
+    @media (max-width: 1440px) {
+      width: 66%;
+      font-size: 30px;
+      transform: translate(200px);
+    }
   `,
   IconOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_01.png");
@@ -218,7 +220,7 @@ const S = {
   `,
   RiderMessageBox: styled.div`
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 10%;
   `,
   RiderIconOne: styled.div`

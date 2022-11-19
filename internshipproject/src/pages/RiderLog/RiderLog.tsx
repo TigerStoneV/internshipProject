@@ -14,7 +14,7 @@ const RiderLog = () => {
         <S.MainImageMessage>
           <div
             data-aos="fade-up"
-            data-aos-offset="700"
+            data-aos-offset="200"
             data-aos-duration="1000"
           >
             이륜차에 <b>안전을 장착하다</b>
@@ -22,7 +22,7 @@ const RiderLog = () => {
         </S.MainImageMessage>
       </S.MainImage>
       <S.ProblemMessageBox>
-        <div data-aos="fade-up" data-aos-offset="500" data-aos-duration="1000">
+        <div data-aos="fade-up" data-aos-offset="300" data-aos-duration="1000">
           <S.Problem>PROBLEM</S.Problem>
         </div>
         <div data-aos="fade-up" data-aos-offset="300" data-aos-duration="1000">
@@ -51,27 +51,31 @@ const RiderLog = () => {
           <S.RiderSizeData src="http://www.star-pickers.com/html/img/insights_graph_02.png" />
         </S.RiderSizeBox>
         <S.RiderSizeBackground>
-          <S.RiderSizeBackgroundImage src="http://www.star-pickers.com/html/img/insights_vector.png" />
-          <S.RiderSizeBackgroundMessageBox>
-            <div
-              data-aos="fade-up"
-              data-aos-offset="500"
-              data-aos-duration="1000"
-            >
-              <S.RiderSizeBackgroundMessage>
-                <b>◦ 경기불황과 극심한 취업난 속</b> 배달음식 시장이
-                급성장하면서 <b>도로 위 사고 위험에 노출</b>
-              </S.RiderSizeBackgroundMessage>
-              <S.RiderSizeBackgroundMessage>
-                ◦ 실제로 정체 교통사고 건수와 사망자 수는 꾸준히 감소하나
-                <b>오토바이 사고에 따른 인명피해는 오히려 증가.</b>
-              </S.RiderSizeBackgroundMessage>
-              <S.RiderSizeBackgroundMessage>
-                ◦ 일부 대형 배달업체를 제외하고는
-                <b>사고 위험에 무방비로 노출될 수밖에 없는 젊은 라이더들...</b>
-              </S.RiderSizeBackgroundMessage>
-            </div>
-          </S.RiderSizeBackgroundMessageBox>
+          <S.RiderSizeBackgroundCenter>
+            <S.RiderSizeBackgroundImage src="http://www.star-pickers.com/html/img/insights_vector.png" />
+            <S.RiderSizeBackgroundMessageBox>
+              <div
+                data-aos="fade-up"
+                data-aos-offset="350"
+                data-aos-duration="1000"
+              >
+                <S.RiderSizeBackgroundMessage>
+                  <b>◦ 경기불황과 극심한 취업난 속</b> 배달음식 시장이
+                  급성장하면서 <b>도로 위 사고 위험에 노출</b>
+                </S.RiderSizeBackgroundMessage>
+                <S.RiderSizeBackgroundMessage>
+                  ◦ 실제로 정체 교통사고 건수와 사망자 수는 꾸준히 감소하나
+                  <b>오토바이 사고에 따른 인명피해는 오히려 증가.</b>
+                </S.RiderSizeBackgroundMessage>
+                <S.RiderSizeBackgroundMessage>
+                  ◦ 일부 대형 배달업체를 제외하고는
+                  <b>
+                    사고 위험에 무방비로 노출될 수밖에 없는 젊은 라이더들...
+                  </b>
+                </S.RiderSizeBackgroundMessage>
+              </div>
+            </S.RiderSizeBackgroundMessageBox>
+          </S.RiderSizeBackgroundCenter>
         </S.RiderSizeBackground>
         <div data-aos="fade-up" data-aos-offset="400" data-aos-duration="1000">
           <S.GrapeMessageBox>
@@ -85,7 +89,7 @@ const RiderLog = () => {
         </div>
         <S.GrapeBackgroungImage>
           <div
-            data-aos="fade-left"
+            data-aos="fade-up"
             data-aos-offset="400"
             data-aos-duration="1000"
           >
@@ -228,11 +232,7 @@ const RiderLog = () => {
         </S.IconBox>
       </S.Center>
       <S.LogBackground>
-        <div
-          data-aos="fade-left"
-          data-aos-offset="400"
-          data-aos-duration="1000"
-        >
+        <div data-aos="fade-up" data-aos-offset="400" data-aos-duration="1000">
           <S.LogImage src="http://www.star-pickers.com/html/img/insights_graph_04.png" />
         </div>
       </S.LogBackground>
@@ -258,11 +258,7 @@ const RiderLog = () => {
         </S.MapTitle>
       </S.Center>
       <S.MapBackground>
-        <div
-          data-aos="fade-left"
-          data-aos-offset="400"
-          data-aos-duration="1000"
-        >
+        <div data-aos="fade-up" data-aos-offset="400" data-aos-duration="1000">
           <S.MapImage src="http://www.star-pickers.com/html/img/insights_img_02.png" />
         </div>
       </S.MapBackground>
@@ -329,6 +325,7 @@ const S = {
     width: 49%;
   `,
   RiderSizeBackground: styled.div`
+    ${variables.flex("column", "center", "center")}
     position: relative;
     width: 100%;
     height: 550px;
@@ -336,16 +333,20 @@ const S = {
     margin: 40px 0;
     background-image: linear-gradient(90deg, #f27e11 0%, #f2ac4d 100%);
   `,
-  RiderSizeBackgroundImage: styled.img`
+  RiderSizeBackgroundCenter: styled.div`
+    ${variables.flex("row", "space-between", "center")}
     position: absolute;
-    left: 1000px;
-    width: 600px;
+    width: 1300px;
+    height: 100%;
+  `,
+  RiderSizeBackgroundImage: styled.img`
+    position: relative;
+    width: 500px;
   `,
   RiderSizeBackgroundMessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
-    position: absolute;
+    position: relative;
     width: 700px;
-    left: 200px;
   `,
   RiderSizeBackgroundMessage: styled.div`
     color: white;
@@ -383,7 +384,7 @@ const S = {
     position: absolute;
     width: 600px;
     top: 30px;
-    left: 60%;
+    left: 50%;
   `,
   ProtectMessageBox: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_bg_03.png");
@@ -395,11 +396,17 @@ const S = {
 
   ProtectMessage: styled.div`
     position: absolute;
-    width: 800px;
+    width: 40%;
     font-size: 50px;
     color: white;
     top: 120px;
     left: 55%;
+
+    @media (max-width: 1440px) {
+      font-size: 30px;
+      left: 75%;
+      width: 20%;
+    }
   `,
   Center: styled.div`
     ${variables.flex("column", "center", "center")}
@@ -535,6 +542,10 @@ const S = {
   MapTitle: styled.div`
     font-size: 70px;
     font-weight: 500;
+
+    @media (max-width: 1440px) {
+      font-size: 50px;
+    }
   `,
   MapBackground: styled.div`
     position: relative;
