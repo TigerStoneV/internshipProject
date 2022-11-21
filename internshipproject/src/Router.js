@@ -7,6 +7,7 @@ import Team from "./pages/Introduce/Team/Team";
 import Tech from "./pages/Introduce/Tech/Tech";
 import SignIn from "./pages/Join/SignIn";
 import Main from "./pages/Main/Main";
+import MainPage from "./pages/Main/MainPage";
 import News from "./pages/News/News";
 import NewsPage from "./pages/News/NewsPage";
 import Notice from "./pages/Notice/Notice";
@@ -16,7 +17,8 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/riderlog" element={<RiderLog />} />
         <Route path="/company" element={<Company />} />
         <Route path="/team" element={<Team />} />

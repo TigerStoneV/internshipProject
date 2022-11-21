@@ -150,10 +150,17 @@ const S = {
   Message: styled.div`
     font-size: 15px;
     font-weight: 400;
+    @media (max-width: 1440px) {
+      font-size: 13px;
+    }
   `,
   MessagePoint: styled.div`
     font-size: 15px;
     font-weight: 300;
     color: gray;
+
+    @media (max-width: 1440px) {
+      font-size: 13px;
+    }
   `,
 };
