@@ -1,5 +1,4 @@
-import React from "react";
-import GoogleLogin from "react-google-login";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
@@ -14,6 +13,17 @@ interface Props {
   text: Text;
 }
 
+interface Info {
+  email: string;
+  name: string;
+  password: number;
+  checkPassword: number;
+  phone_number: number;
+}
+interface Login {
+  email: string;
+  password: number;
+}
 //카카오 로그인
 const APIKEY = `15924408e3187627642a25f1aeed7c09`;
 const REDIRECT_URI = `http://localhost:3000/join`;
@@ -21,12 +31,83 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 
 const User = ({ text }: Props) => {
   const { title, linkText, url } = text;
+  const [info, setInfo] = useState<Info>({
+    email: "",
+    name: "",
+    password: 0,
+    checkPassword: 0,
+    phone_number: 0,
+  });
+  const [login, setLogin] = useState<Login>({
+    email: "",
+    password: 0,
+  });
   const location = useNavigate();
 
   //카카오 로그인
   const handleLoginKakao = () => {
     window.location.href = KAKAO_AUTH_URL;
     location("/");
+  };
+
+  //회원가입,로그인
+  const handleInputValue = (e: any) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  const connect = () => {
+    if (
+      info.email.includes("@") &&
+      typeof info.name === "string" &&
+      info.phone_number > 0
+    ) {
+      //   fetch(`${API.join}/signup`, {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify(info),
+      //   });
+      location("/");
+      goTop();
+      alert("회원가입 되었습니다.");
+      console.log(info);
+    }
+    if (login.email.includes("@")) {
+      // fetch(`${API.join}/signin`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(login),
+      // })
+      //   .then(response => {
+      //     if (response.ok === true) {
+      //       return response.json();
+      //     }
+      //     throw new Error('통신실패!');
+      //   })
+      //   .then(data => {
+      //     if (data.data) {
+      //       localStorage.setItem('token', data.data);
+      //       navigate('/', { replace: true });
+      //     } else {
+      //       alert('아이디 혹은 비밀번호를 확인 해 주세요');
+      //     }
+      //   });
+      location("/");
+      goTop();
+      alert("로그인 되었습니다");
+      console.log(login);
+    }
+  };
+
+  const goTop = () => {
+    if (!window.scrollY) return;
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -36,21 +117,48 @@ const User = ({ text }: Props) => {
         <S.Title>{title}</S.Title>
         <S.Center>
           {title === "회원가입" && (
-            <S.InputTop>
-              <S.Input type="text" placeholder="이름" />
-              <S.CenterRow>
-                <S.Phone type="text" placeholder="전화번호" />
-                <S.Check>전송</S.Check>
-              </S.CenterRow>
-              <S.CenterRow>
-                <S.PhoneNumber type="text" placeholder="숫자 4개 입력하세요" />
-                <S.CheckNumber>확인</S.CheckNumber>
-              </S.CenterRow>
-            </S.InputTop>
+            <form>
+              <S.InputTop>
+                <S.Input
+                  type="text"
+                  name="name"
+                  placeholder="이름"
+                  onChange={handleInputValue}
+                />
+                <S.CenterRow>
+                  <S.Phone
+                    name="phone_number"
+                    type="number"
+                    placeholder="전화번호"
+                    onChange={handleInputValue}
+                  />
+                  <S.Check>전송</S.Check>
+                </S.CenterRow>
+                <S.CenterRow>
+                  <S.PhoneNumber
+                    name="checkPassword"
+                    type="text"
+                    placeholder="숫자 4개 입력하세요"
+                    onChange={handleInputValue}
+                  />
+                  <S.CheckNumber>확인</S.CheckNumber>
+                </S.CenterRow>
+              </S.InputTop>
+            </form>
           )}
-          <S.Input type="email" placeholder="이메일" />
-          <S.Input type="password" placeholder="비밀번호" />
-          <S.Button>{title}</S.Button>
+          <S.Input
+            name="email"
+            type="email"
+            placeholder="이메일"
+            onChange={handleInputValue}
+          />
+          <S.Input
+            name="password"
+            type="password"
+            placeholder="비밀번호"
+            onChange={handleInputValue}
+          />
+          <S.Button onClick={connect}>{title}</S.Button>
         </S.Center>
         <Link to={url} className="link">
           {linkText}

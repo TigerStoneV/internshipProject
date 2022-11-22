@@ -135,7 +135,7 @@ const RiderLog = () => {
             data-aos-offset="400"
             data-aos-duration="1000"
           >
-            <p>라이더로그는?</p>
+            <h1>라이더로그는?</h1>
           </div>
         </S.GrapeMessageSize>
         <S.SolutionMessageBox>
