@@ -43,20 +43,11 @@ const NavbarBlock = () => {
                 <S.Link to="/riderlog" onClick={goTop}>
                   RIDER LOG
                 </S.Link>
-                <S.Link to="/company" onClick={goTop}>
-                  COMPANY
+                <S.Link to="/companytech" onClick={goTop}>
+                  COMPANY / TECH
                 </S.Link>
-                <S.Link to="/team" onClick={goTop}>
-                  TEAM
-                </S.Link>
-                <S.Link to="/tech" onClick={goTop}>
-                  TECH
-                </S.Link>
-                <S.Link to="/news" onClick={goTop}>
-                  NEWS
-                </S.Link>
-                <S.Link to="/notice" onClick={goTop}>
-                  NOTICE
+                <S.Link to="/newsnotice" onClick={goTop}>
+                  NEWS / NOTICE
                 </S.Link>
                 <S.Link to="/contact" onClick={goTop}>
                   CONTACT
@@ -80,6 +71,7 @@ const S = {
     ${variables.flex()}
     width: 100%;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     width: 74%;
@@ -118,6 +110,7 @@ const S = {
     width: 160px;
     height: 41px;
   `,
+
   Modal: styled.div`
     width: 1000px;
   `,

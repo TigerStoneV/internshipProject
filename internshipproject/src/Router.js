@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import NavbarStar from "./components/Nav/Nav";
+import CompanyTech from "./pages/CompanyTech";
 import Company from "./pages/Introduce/Company/Company";
 import Contact from "./pages/Introduce/Contact/Contact";
 import Team from "./pages/Introduce/Team/Team";
@@ -10,6 +11,7 @@ import Main from "./pages/Main/Main";
 import MainPage from "./pages/Main/MainPage";
 import News from "./pages/News/News";
 import NewsPage from "./pages/News/NewsPage";
+import NewsNotice from "./pages/NewsNotice";
 import Notice from "./pages/Notice/Notice";
 import RiderLog from "./pages/RiderLog/RiderLog";
 
@@ -20,9 +22,11 @@ const Router = () => {
         <Route path="/main" element={<Main />} />
         <Route path="/" element={<MainPage />} />
         <Route path="/riderlog" element={<RiderLog />} />
+        <Route path="/companytech" element={<CompanyTech />} />
         <Route path="/company" element={<Company />} />
         <Route path="/team" element={<Team />} />
         <Route path="/tech" element={<Tech />} />
+        <Route path="/newsnotice" element={<NewsNotice />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:id" element={<NewsPage />} />
         <Route path="/notice" element={<Notice />} />

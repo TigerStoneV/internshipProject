@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
+import Table from "react-bootstrap/Table";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../../styles/variables";
-import Table from "react-bootstrap/Table";
-import NavbarBlock from "../../../components/Nav/NavBlock";
 const Tech = () => {
   useEffect(() => {
     AOS.init();
@@ -19,23 +18,11 @@ const Tech = () => {
 
   return (
     <>
-      <S.TechMainImage>
-        <NavbarBlock />
-        <S.TechMainImageMessage>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="200"
-            data-aos-duration="1000"
-          >
-            세계 최초의 하드웨어 기반 인슈어테크 (INSURE-TECH) 플랫폼
-          </div>
-        </S.TechMainImageMessage>
-      </S.TechMainImage>
       <S.Center>
         <S.TechBanner>
           <div
             data-aos="fade-up"
-            data-aos-offset="300"
+            data-aos-offset="200"
             data-aos-duration="1000"
             data-aos-delay="200"
           >
@@ -47,7 +34,7 @@ const Tech = () => {
         {ITEM_BOX.map((data) => (
           <div
             data-aos="fade-up"
-            data-aos-offset="300"
+            data-aos-offset="200"
             data-aos-duration="1000"
           >
             <div
@@ -82,7 +69,7 @@ const Tech = () => {
       </S.IconCenter>
 
       <S.TableCenter>
-        <div data-aos="fade-up" data-aos-offset="300" data-aos-duration="1000">
+        <div data-aos="fade-up" data-aos-offset="200" data-aos-duration="1000">
           <S.TableMessage>
             ❖ 적용범위 : 이륜차, 자전거, 킥보드, 세그웨이 등 신규 소형 모빌리티
           </S.TableMessage>
@@ -283,6 +270,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual04.png");
   `,
+
   TechMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -293,52 +281,62 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     margin: 30px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "")}
     margin: 100px 180px 0 180px;
   `,
+
   TableCenter: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: auto;
     width: 100%;
     text-align: center;
   `,
+
   IconCenter: styled.div`
     ${variables.flex()}
     flex-wrap:wrap;
-    margin: 80px;
   `,
+
   TechBanner: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   TechIconBox: styled.div`
     ${variables.flex("column", "space-evenly", "center")}
     height: 350px;
   `,
+
   TechIconTextBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width:230px;
   `,
+
   Image: styled.img<String>`
     width: 100px;
     height: 100px;
   `,
+
   IconText: styled.div`
     font-size: 20px;
     color: white;
     margin-top: 5px;
   `,
+
   IconRoundText: styled.div`
     font-size: 15px;
     width: 80%;
     margin-top: 5px;
     text-align: center;
   `,
+
   IconOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: 0 0;
@@ -346,6 +344,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconTwo: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -74px 0;
@@ -353,6 +352,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconThree: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -148px 0;
@@ -360,6 +360,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconFour: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -222px 0;
@@ -367,6 +368,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconFive: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -296px 0;
@@ -374,6 +376,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconSix: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -369px 0;
@@ -381,6 +384,7 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   IconSeven: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/tech_basic_icon.png");
     background-position: -444px 0;
@@ -388,16 +392,19 @@ const S = {
     height: 80px;
     margin-bottom: 10px;
   `,
+
   TableMessage: styled.div`
     font-size: 35px;
     font-weight: 400;
   `,
+
   TableMessagePoint: styled.div`
     font-size: 20px;
     font-weight: 400;
     color: gray;
     margin-bottom: 20px;
   `,
+
   IconBox: styled.div`
     ${variables.flex("column", "center", "center")}
     border : 3px solid orange;
@@ -406,10 +413,12 @@ const S = {
     height: 180px;
     margin: 10px;
   `,
+
   IconBoxMessage: styled.div`
     font-size: 30px;
     font-weight: 400;
   `,
+
   IconBoxMessagePoint: styled.div`
     font-size: 20px;
     font-weight: 400;
@@ -417,6 +426,7 @@ const S = {
     margin-bottom: 20px;
     margin: 5px 0 10px 15px;
   `,
+
   PhotoBox: styled.div`
     position: relative;
     background: #f7f7f7;
@@ -424,15 +434,18 @@ const S = {
     text-align: center;
     margin-top: 30px;
   `,
+
   Photo: styled.img`
     width: 70%;
     height: 500px;
   `,
+
   BottomBox: styled.div`
     ${variables.flex()};
     width: 100%;
     margin-bottom: 100px;
   `,
+
   BottomImage: styled.img`
     width: 40%;
     height: 400px;

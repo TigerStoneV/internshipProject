@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
+import NavbarBlock from "../../components/Nav/NavBlock";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
-import NavbarBlock from "../../components/Nav/NavBlock";
 
 const RiderLog = () => {
   useEffect(() => {
@@ -28,7 +28,7 @@ const RiderLog = () => {
           <S.Problem>PROBLEM</S.Problem>
         </div>
         <div data-aos="fade-up" data-aos-offset="300" data-aos-duration="1000">
-          <S.Center>
+          <S.LogoCenter>
             <S.ProblemMessage>
               통계청 발표 배달업계 시장 성장률
             </S.ProblemMessage>
@@ -45,7 +45,7 @@ const RiderLog = () => {
                 </S.ProblemMessageDetailPointGray>
               </S.ProblemMessageDetail>
             </S.ProblemMessageDetailBox>
-          </S.Center>
+          </S.LogoCenter>
         </div>
 
         <S.RiderSizeBox>
@@ -274,9 +274,10 @@ const S = {
   MainImage: styled.div`
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 300px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual01.png");
   `,
+
   MainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -287,6 +288,7 @@ const S = {
     font-weight: 300;
     letter-spacing: -2px;
   `,
+
   ProblemMessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 100%;
@@ -297,35 +299,43 @@ const S = {
     font-weight: bold;
     padding: 80px 0 70px;
   `,
+
   ProblemMessage: styled.div`
     font-size: 35px;
     font-weight: 500;
   `,
+
   ProblemMessageDetailBox: styled.div`
     ${variables.flex()};
     width: 1200px;
   `,
+
   ProblemMessageDetail: styled.div`
     ${variables.flex()};
     font-size: 18px;
   `,
+
   ProblemMessageDetailPoint: styled.div`
     color: orange;
     margin: 0 5px 0 5px;
   `,
+
   ProblemMessageDetailPointGray: styled.div`
     color: gray;
     margin: 0 5px 0 5px;
   `,
+
   RiderSizeBox: styled.div`
     ${variables.flex()};
     max-width: 1424px;
     width: 100%;
     margin: 30px;
   `,
+
   RiderSizeData: styled.img`
     width: 49%;
   `,
+
   RiderSizeBackground: styled.div`
     ${variables.flex("column", "center", "center")}
     position: relative;
@@ -335,59 +345,71 @@ const S = {
     margin: 40px 0;
     background-image: linear-gradient(90deg, #f27e11 0%, #f2ac4d 100%);
   `,
+
   RiderSizeBackgroundCenter: styled.div`
     ${variables.flex("row", "space-between", "center")}
     position: absolute;
     width: 1300px;
     height: 100%;
   `,
+
   RiderSizeBackgroundImage: styled.img`
     position: relative;
     width: 500px;
   `,
+
   RiderSizeBackgroundMessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
     position: relative;
     width: 700px;
   `,
+
   RiderSizeBackgroundMessage: styled.div`
     color: white;
     font-size: 30px;
     font-weight: 300;
     margin-top: 10px;
   `,
+
   GrapeMessageBox: styled.div`
     ${variables.flex()}
     flex-wrap: wrap;
     width: 1200px;
     margin: 30px;
   `,
+
   GrapeMessage: styled.div`
     font-size: 40px;
   `,
+
   GrapeMessageSize: styled.div`
     font-size: 70px;
   `,
+
   GraGrapeMessage: styled.div`
     font-size: 30px;
   `,
+
   GrapeMessagePoint: styled.div`
     font-size: 40px;
     margin-left: 10px;
     color: orange;
   `,
+
   GrapeBackgroungImage: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/insights_bg_01.png");
     width: 100%;
     height: 600px;
   `,
+
   GrapeImage: styled.img`
     position: absolute;
     width: 600px;
     top: 30px;
     left: 50%;
   `,
+
   ProtectMessageBox: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_bg_03.png");
     position: relative;
@@ -410,55 +432,70 @@ const S = {
       width: 20%;
     }
   `,
+
+  LogoCenter: styled.div`
+    ${variables.flex("column", "center", "center")}
+  `,
+
   Center: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: 80px;
   `,
+
   IconBox: styled.div`
     ${variables.flex("row", "space-evenly", "center")};
     width: 80%;
   `,
+
   ProtectOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_03.png");
     background-position: 0 0;
     width: 155px;
     height: 179px;
   `,
+
   ProtectTwo: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_03.png");
     background-position: -155px 0;
     width: 155px;
     height: 179px;
   `,
+
   ProtectThree: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_03.png");
     background-position: -310px 0;
     width: 155px;
     height: 179px;
   `,
+
   ProtectFour: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_03.png");
     background-position: -465px 0;
     width: 155px;
     height: 179px;
   `,
+
   ProtectMiniMessage: styled.div`
     width: 155px;
     text-align: center;
   `,
+
   SolutionBox: styled.div`
     ${variables.flex("column", "center", "center")}
   `,
+
   SolutionMessageBox: styled.div`
     ${variables.flex()}
     flex-wrap:wrap;
     width: 1400px;
     font-size: 20px;
   `,
+
   SolutionMessagePoint: styled.div`
     font-size: 60px;
     color: orange;
   `,
+
   SolutionBackground: styled.div`
     position: relative;
     background-color: #f7f7f7;
@@ -466,6 +503,7 @@ const S = {
     height: 700px;
     margin: 50px 0 50px;
   `,
+
   SolutionImage: styled.img`
     position: absolute;
     width: 1200px;
@@ -473,6 +511,7 @@ const S = {
     left: 50%;
     transform: translate(-50%, -50%);
   `,
+
   Table: styled.table`
     position: absolute;
     width: 1200px;
@@ -481,24 +520,28 @@ const S = {
     transform: translate(-50%, -50%);
     text-align: center;
   `,
+
   SolutionOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/insights_icons_01.png");
     background-position: 0 0;
     width: 106px;
     height: 115px;
   `,
+
   SolutionTwo: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/insights_icons_01.png");
     background-position: -106px 0;
     width: 106px;
     height: 115px;
   `,
+
   SolutionThree: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/insights_icons_01.png");
     background-position: -213px 0;
     width: 106px;
     height: 115px;
   `,
+
   SolutionIconBox: styled.div`
     ${variables.flex("column", "space-evenly", "center")}
     width: 200px;
@@ -508,39 +551,46 @@ const S = {
     position: relative;
     text-align: center;
   `,
+
   SolutionMessageDetail: styled.div`
     ${variables.flex()};
     width: 255px;
     font-size: 18px;
     margin-top: 20px;
   `,
+
   LogBackground: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/insights_bg_02.png");
     width: 100%;
     height: 500px;
   `,
+
   LogImage: styled.img`
     position: absolute;
     width: 600px;
     top: 50px;
     left: 55%;
   `,
+
   RecordTitle: styled.div`
     font-size: 70px;
     font-weight: 500;
   `,
+
   RecordDetailTitle: styled.div`
     width: 470px;
     font-size: 20px;
     margin: 10px;
     text-align: center;
   `,
+
   RecordImage: styled.img`
     width: 90%;
     height: 400px;
     margin: 50px;
   `,
+
   MapTitle: styled.div`
     font-size: 70px;
     font-weight: 500;
@@ -549,6 +599,7 @@ const S = {
       font-size: 50px;
     }
   `,
+
   MapBackground: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/insights_map.png");
@@ -556,6 +607,7 @@ const S = {
     height: 600px;
     margin: 50px 0 50px;
   `,
+
   MapImage: styled.img`
     position: absolute;
     width: 500px;

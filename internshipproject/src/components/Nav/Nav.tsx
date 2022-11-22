@@ -114,6 +114,7 @@ const S = {
     width: 160px;
     height: 41px;
   `,
+
   Modal: styled.div`
     width: 1000px;
   `,

@@ -3,7 +3,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../../styles/variables";
-import NavbarBlock from "../../../components/Nav/NavBlock";
 
 const Company = () => {
   useEffect(() => {
@@ -11,18 +10,6 @@ const Company = () => {
   });
   return (
     <>
-      <S.CompanyMainImage>
-        <NavbarBlock />
-        <S.CompnayMainImageMessage>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="200"
-            data-aos-duration="1000"
-          >
-            꿈을 따는 청춘들의 열정 <b>"별따러가자"</b>
-          </div>
-        </S.CompnayMainImageMessage>
-      </S.CompanyMainImage>
       <S.Center>
         <S.Vision>
           <div
@@ -122,6 +109,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   CompnayMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -132,25 +120,30 @@ const S = {
     font-weight: 300;
     letter-spacing: -2px;
   `,
+
   VisionMessageBox: styled.div`
     position: absolute;
     top: 20%;
     left: 60%;
   `,
+
   Center: styled.div`
     ${variables.flex()}
-    margin: 80px;
+    margin: 30px;
   `,
+
   Vision: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   VisionMainImage: styled.div`
     position: relative;
     width: 100%;
     height: 300px;
     background-image: url("http://www.star-pickers.com/html/img/vision_bg_01.png");
   `,
+
   VisionMainImageMessage: styled.div`
     color: #fff;
     font-size: 40px;
@@ -158,12 +151,14 @@ const S = {
     width: 100%;
     font-weight: 400;
     letter-spacing: -2px;
+
     @media (max-width: 1440px) {
       width: 66%;
       font-size: 30px;
       transform: translate(200px);
     }
   `,
+
   IconOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_01.png");
     background-position: 0 0;
@@ -171,6 +166,7 @@ const S = {
     height: 80px;
     margin-bottom: 20px;
   `,
+
   IconTwo: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_01.png");
     background-position: -99px 0;
@@ -178,6 +174,7 @@ const S = {
     height: 80px;
     margin-bottom: 20px;
   `,
+
   IconThree: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_01.png");
     background-position: -198px 0;
@@ -185,6 +182,7 @@ const S = {
     height: 80px;
     margin-bottom: 20px;
   `,
+
   IconFour: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_01.png");
     background-position: -297px 0;
@@ -192,6 +190,7 @@ const S = {
     height: 80px;
     margin-bottom: 20px;
   `,
+
   IconBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 270px;
@@ -201,10 +200,12 @@ const S = {
     text-align: center;
     margin: 30px;
   `,
+
   IconText: styled.div`
     width: 170px;
     margin-top: 20px;
   `,
+
   RiderMainImage: styled.div`
     position: relative;
     width: 100%;
@@ -212,6 +213,7 @@ const S = {
     background-image: url("http://www.star-pickers.com/html/img/vision_bg_02.png");
     margin: 30px 0 50px;
   `,
+
   RiderMainImageMessage: styled.div`
     color: #fff;
     font-size: 40px;
@@ -220,11 +222,13 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   RiderMessageBox: styled.div`
     position: absolute;
     top: 30%;
     left: 10%;
   `,
+
   RiderIconOne: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_02.png");
     background-position: 0 0;
@@ -232,6 +236,7 @@ const S = {
     height: 140px;
     margin: 0 20px 0 20px;
   `,
+
   RiderIconTwo: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_02.png");
     background-position: -140px 0;
@@ -239,6 +244,7 @@ const S = {
     height: 140px;
     margin: 0 20px 0 20px;
   `,
+
   RiderIconThree: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/vision_icons_02.png");
     background-position: -280px 0;
@@ -246,12 +252,14 @@ const S = {
     height: 140px;
     margin: 0 20px 0 20px;
   `,
+
   RiderIconBox: styled.div`
     ${variables.flex()}
     width: 400px;
     text-align: center;
     margin: 50px;
   `,
+
   RodemapImage: styled.img`
     width: 100%;
     height: 700px;
