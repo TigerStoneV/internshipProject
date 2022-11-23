@@ -15,7 +15,13 @@ const Tech = () => {
     url: string;
     color: string;
   }
-
+  useEffect(() => {
+    fetch("http://10.177.248.109:3000/post?type=notice")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.data);
+      });
+  }, []);
   return (
     <>
       <S.Center>
@@ -284,7 +290,7 @@ const S = {
 
   Center: styled.div`
     ${variables.flex()}
-    margin: 30px;
+    margin: 30px 0 30px;
   `,
 
   CenterColumn: styled.div`

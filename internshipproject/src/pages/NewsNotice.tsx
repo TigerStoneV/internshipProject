@@ -10,7 +10,7 @@ import styled from "styled-components";
 import NavbarBlock from "../components/Nav/NavBlock";
 
 function NewsNotice() {
-  const [key, setKey] = useState<string>("home");
+  const [key, setKey] = useState<string>("News");
 
   return (
     <>
@@ -27,7 +27,7 @@ function NewsNotice() {
         </S.NoticeMainImageMessage>
       </S.NoticeMainImage>
       <Tabs
-        defaultActiveKey="profile"
+        defaultActiveKey="News"
         id="fill-tab-example"
         className="mb-3"
         fill
@@ -38,10 +38,10 @@ function NewsNotice() {
           fontSize: "30px",
         }}
       >
-        <Tab eventKey="home" title="News">
+        <Tab eventKey="News" title="News">
           <News />
         </Tab>
-        <Tab eventKey="profile" title="Notice">
+        <Tab eventKey="Notice" title="Notice">
           <Notice />
         </Tab>
       </Tabs>

@@ -12,7 +12,7 @@ import Company from "./Introduce/Company/Company";
 import Tech from "./Introduce/Tech/Tech";
 
 function CompanyTech() {
-  const [key, setKey] = useState("home");
+  const [key, setKey] = useState("Company");
 
   return (
     <>
@@ -29,7 +29,7 @@ function CompanyTech() {
         </S.NoticeMainImageMessage>
       </S.NoticeMainImage>
       <Tabs
-        defaultActiveKey="profile"
+        defaultActiveKey="Tech"
         id="fill-tab-example"
         className="mb-3"
         fill
@@ -40,10 +40,10 @@ function CompanyTech() {
           fontSize: "30px",
         }}
       >
-        <Tab eventKey="home" title="Company">
+        <Tab eventKey="Company" title="Company">
           <Company />
         </Tab>
-        <Tab eventKey="profile" title="Tech">
+        <Tab eventKey="Tech" title="Tech">
           <Tech />
         </Tab>
       </Tabs>

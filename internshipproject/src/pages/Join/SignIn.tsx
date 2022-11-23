@@ -38,7 +38,7 @@ const SignIn = () => {
   //카카오 로그인
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
-  console.log(code);
+
   return (
     <>
       <S.JoinMainImage>
@@ -100,17 +100,20 @@ const S = {
     position: relative;
     width: 100%;
     height: 300px;
-    background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
+    background-image: url("/images/hand.jpg");
+    background-position: 0px -480px;
+    background-size: 100%;
+    object-fit: cover;
   `,
 
   JoinMainImageMessage: styled.div`
     position: absolute;
-    color: #fff;
+    color: #fffcf6;
     font-size: 50px;
     text-align: center;
     top: 50%;
     width: 100%;
-    font-weight: 200;
+    font-weight: 300;
     letter-spacing: -2px;
   `,
 
