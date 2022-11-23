@@ -120,7 +120,7 @@ CREATE TABLE `news` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `image_url` varchar(500) NOT NULL DEFAULT 'https://star-picker.s3.ap-northeast-2.amazonaws.com/star-picker.png',
+  `image_url` varchar(500) DEFAULT 'https://star-picker.s3.ap-northeast-2.amazonaws.com//1669185681974_star-picker.png',
   `view_count` bigint NOT NULL DEFAULT '0',
   `admin_id` int NOT NULL,
   `branch_id` int NOT NULL,
@@ -131,7 +131,7 @@ CREATE TABLE `news` (
   KEY `branch_id` (`branch_id`),
   CONSTRAINT `news_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`),
   CONSTRAINT `news_ibfk_2` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +154,7 @@ CREATE TABLE `notices` (
   KEY `branch_id` (`branch_id`),
   CONSTRAINT `notices_ibfk_1` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`),
   CONSTRAINT `notices_ibfk_2` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,5 +276,6 @@ INSERT INTO `schema_migrations` (version) VALUES
   ('20221117083151'),
   ('20221117084123'),
   ('20221118020609'),
-  ('20221118020734');
+  ('20221118020734'),
+  ('20221123064454');
 UNLOCK TABLES;
