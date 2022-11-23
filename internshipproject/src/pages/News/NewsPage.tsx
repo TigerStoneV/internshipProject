@@ -4,23 +4,25 @@ import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../styles/variables";
 import { useNavigate } from "react-router-dom";
+import NavbarBlock from "../../components/Nav/NavBlock";
 
 export interface News {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  img: string;
-  date: number;
-  view: number;
+  view_count: string;
+  image_url: string;
+  created_at: string;
 }
 const DATA = [
   {
     id: 1,
-    title: "별따러가자 홈페이지가 오픈되었습니다.",
-    content: "content1",
-    date: 2022,
-    view: 10,
-    img: "http://www.star-pickers.com/html/img/no-image.png",
+    title: "수리안내",
+    content: "엘리베이터를 수리하니 걸어다니세요 살도뺄겸",
+    view_count: "0",
+    image_url:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
+    created_at: "2022-11-18T08:23:33.000Z",
   },
 ];
 
@@ -29,7 +31,7 @@ const NewsPage = () => {
   const location = useNavigate();
 
   const goMain = () => {
-    location("/news");
+    location("/newsnotice");
   };
 
   useEffect(() => {
@@ -46,13 +48,14 @@ const NewsPage = () => {
   return (
     <>
       <S.NewsMainImage>
+        <NavbarBlock />
         <S.NewsMainImageMessage>
           <div
             data-aos="fade-up"
             data-aos-offset="200"
             data-aos-duration="1000"
           >
-            별따러가자 공지사항
+            별따러가자 소식
           </div>
         </S.NewsMainImageMessage>
       </S.NewsMainImage>
@@ -64,7 +67,7 @@ const NewsPage = () => {
             data-aos-duration="1000"
             data-aos-delay="300"
           >
-            Notice
+            NEWS
           </div>
         </S.News>
       </S.Center>
@@ -72,7 +75,10 @@ const NewsPage = () => {
         <S.NewsBox>
           <S.NewsListBox>
             <S.Title>{DATA[0].title}</S.Title>
-            <S.NewsPageList></S.NewsPageList>
+            <S.NewsPageList>
+              <S.image src={DATA[0].image_url} />
+              <S.Message>{DATA[0].content}</S.Message>
+            </S.NewsPageList>
             <S.Center>
               <S.GoList onClick={goMain}>목록</S.GoList>
             </S.Center>
@@ -89,7 +95,7 @@ const S = {
   NewsMainImage: styled.div`
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 300px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
 
@@ -106,12 +112,12 @@ const S = {
 
   Center: styled.div`
     ${variables.flex()}
-    margin: 80px;
+    margin: 40px;
   `,
 
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
-    margin: 80px;
+    margin: 30px;
   `,
 
   News: styled.div`
@@ -128,7 +134,6 @@ const S = {
   NewsListBox: styled.div`
     width: 80%;
     height: 100%;
-    margin-top: 30px;
     border-top: 2px solid black;
   `,
 
@@ -137,7 +142,7 @@ const S = {
     width: 100%;
     height: 100%;
     border-bottom: 1px solid #d0d0d0;
-    padding: 100px 0 100px;
+    padding: 30px 0 30px;
   `,
 
   Title: styled.div`
@@ -155,5 +160,16 @@ const S = {
     padding:20px 50px;
     width: 150px;
     border: 1px solid black;
+  `,
+
+  image: styled.img`
+    width: 320px;
+    height: 304px;
+    border-radius: 5px;
+    margin-right: 30px;
+  `,
+
+  Message: styled.div`
+    font-size: 20px;
   `,
 };

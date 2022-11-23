@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { Link, useSearchParams } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 export interface News {
-  id: number;
+  id: string;
   title: string;
   content: string;
-  img: string;
-  date: number;
-  view: number;
+  view_count: string;
+  image_url: string;
+  created_at: string;
 }
 interface Search {
   searchParams: Params;
@@ -21,6 +23,10 @@ interface Params {
 }
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
+  const [show, setShow] = useState<boolean>(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // const [searchParams, setSearchPhams] = useSearchParams();
   // const limit = searchParams.get("limit");
   // const offset = searchParams.get("offset");
@@ -56,31 +62,57 @@ const News = () => {
   return (
     <>
       <S.CenterColumn>
-        <S.NewsListBox>
-          {newsData.map((data) => (
-            <div key={data.id}>
-              <S.NewsList>
-                <S.Number>{data.id}</S.Number>
+        {newsData.map((data) => (
+          <div key={data.id}>
+            <S.NewsList>
+              <S.Box>
                 <S.Link to={`/news/${data.id}`}>
-                  <S.image src={data.img} />
-                </S.Link>
-                <S.MessageBox>
-                  <S.Link to={`/news/${data.id}`}>
+                  <S.image src={data.image_url} />
+                  <S.MessageBox>
                     <S.Title>{data.title}</S.Title>
-                  </S.Link>
-                  <S.MessageBottom>
-                    <S.Content>{data.view}</S.Content>
-                    <S.Content>{data.date}</S.Content>
-                  </S.MessageBottom>
-                </S.MessageBox>
-              </S.NewsList>
-            </div>
-          ))}
-        </S.NewsListBox>
-        <S.Center>
-          <Pagination>{items}</Pagination>
-        </S.Center>
+                    <S.MessageBottom>
+                      <S.Content>{data.created_at.slice(0, 10)}</S.Content>
+                      <S.Content>{data.view_count}</S.Content>
+                    </S.MessageBottom>
+                  </S.MessageBox>
+                </S.Link>
+              </S.Box>
+            </S.NewsList>
+          </div>
+        ))}
       </S.CenterColumn>
+      <S.BottomBox>
+        <S.BoxSize></S.BoxSize>
+        <S.BoxSize>
+          <S.ViewMore>ViewMore(Scroll)</S.ViewMore>
+        </S.BoxSize>
+        <S.BoxSize>
+          <S.Write onClick={handleShow}>글쓰기</S.Write>
+          <Modal
+            size="lg"
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <S.ModalTitle>Create New</S.ModalTitle>
+            </Modal.Header>
+            <S.InputTitle placeholder="제목을 입력하세요." />
+            <S.Input type="text" placeholder="내용을 입력하세요." />
+            <S.InputImage
+              placeholder="write your image"
+              type="file"
+              accept="image/*"
+            />
+            <Modal.Footer>
+              <Button variant="primary" onClick={handleClose}>
+                등록
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </S.BoxSize>
+      </S.BottomBox>
     </>
   );
 };
@@ -110,8 +142,20 @@ const S = {
     ${variables.flex()}
   `,
 
-  CenterColumn: styled.div`
+  Box: styled.div`
     ${variables.flex("column", "center", "center")}
+    width: 80%;
+    transition: 0.8s;
+
+    &:hover {
+      border: 1px solid #212121;
+    }
+  `,
+
+  CenterColumn: styled.div`
+    ${variables.flex("row", "center", "flex-start")}
+    flex-wrap: wrap;
+    height: 100%;
   `,
 
   News: styled.div`
@@ -126,23 +170,20 @@ const S = {
   `,
 
   NewsListBox: styled.div`
-    width: 80%;
-    height: 100%;
-    margin-top: 30px;
-    border-top: 2px solid black;
+    height: 350px;
   `,
 
   NewsList: styled.div`
-    ${variables.flex()}
-    width: 100%;
-    height: 100%;
-    border-bottom: 1px solid #d0d0d0;
+    ${variables.flex("column", "center", "center")}
+    width: 380px;
+    height: 400px;
+    margin-bottom: 20px;
+    cursor: pointer;
   `,
 
   MessageBox: styled.div`
     ${variables.flex("column", "space-between", "center")}
     width:70%;
-    height: 130px;
   `,
 
   Number: styled.div`
@@ -154,29 +195,87 @@ const S = {
   `,
 
   Title: styled.div`
-    text-align: center;
-    font-size: 30px;
-    width: 100%;
-    height: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #1a1a1a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+    margin-top: 10px;
   `,
 
   Content: styled.div`
-    width: 50px;
-    height: 20px;
-    font-size: 20px;
+    font-size: 15px;
+    margin: 10px;
+    color: gray;
   `,
 
   image: styled.img`
-    width: 100%;
-    height: 100%;
+    width: 320px;
+    height: 304px;
+    border-radius: 5px;
   `,
 
   MessageBottom: styled.div`
-    ${variables.flex("row", "center", "center")}
+    ${variables.flex()}
   `,
 
   Link: styled(Link)`
+    ${variables.flex("column", "center", "center")}
     text-decoration: none;
     color: black;
+  `,
+
+  BottomBox: styled.div`
+    ${variables.flex("row", "space-evenly", "center")}
+    margin : 20px 0 20px;
+  `,
+
+  Write: styled.button`
+    width: 80px;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: white;
+  `,
+
+  ViewMore: styled.div`
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+  `,
+
+  BoxSize: styled.div`
+    ${variables.flex()}
+    width: 33%;
+  `,
+
+  Input: styled.input`
+    height: 450px;
+    width: 100%;
+    border: 1px solid lightgray;
+  `,
+
+  InputImage: styled.input`
+    ${variables.flex()}
+    height: 50px;
+    border: none;
+    margin-top: 10px;
+  `,
+
+  InputTitle: styled.input`
+    height: 50px;
+    margin: 20px 0 20px;
+    border: none;
+  `,
+
+  ModalTitle: styled.div`
+    font-size: 15px;
+    color: gray;
   `,
 };
