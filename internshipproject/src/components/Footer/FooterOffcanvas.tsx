@@ -67,6 +67,7 @@ const S = {
     margin: 5px 10px;
     color: rgb(250, 250, 250);
   `,
+
   FooterExitBtn: styled.div`
     position: absolute;
     right: 5%;

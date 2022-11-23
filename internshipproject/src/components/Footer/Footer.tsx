@@ -1,7 +1,7 @@
 import React from "react";
+import FooterOffCanvas from "./FooterOffcanvas";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
-import FooterOffCanvas from "./FooterOffcanvas";
 
 const Footer = () => {
   return (
@@ -52,6 +52,7 @@ const S = {
     width: 1400px;
     height: 100%;
   `,
+
   FooterLogoBox: styled.div`
     ${variables.flex()}
     width: 30%;
@@ -62,6 +63,7 @@ const S = {
     height: 55px;
     margin: 0 40px 0 20px;
   `,
+
   FooterMessageBox: styled.div`
     width: 700px;
   `,
@@ -70,6 +72,7 @@ const S = {
     color: rgb(250, 250, 250);
     font-size: 12px;
   `,
+
   ButtonBox: styled.div`
     ${variables.flex()}
     width:200px;

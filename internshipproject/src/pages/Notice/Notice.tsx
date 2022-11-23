@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { Pagination } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../styles/variables";
-import { Link, useSearchParams } from "react-router-dom";
-import { Pagination } from "react-bootstrap";
-import NavbarBlock from "../../components/Nav/NavBlock";
 export interface Notice {
   id: number;
   title: string;
@@ -51,30 +50,6 @@ const Notice = () => {
 
   return (
     <>
-      <S.NoticeMainImage>
-        <NavbarBlock />
-        <S.NoticeMainImageMessage>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="200"
-            data-aos-duration="1000"
-          >
-            별따러가자 공지사항
-          </div>
-        </S.NoticeMainImageMessage>
-      </S.NoticeMainImage>
-      <S.Center>
-        <S.Notice>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="300"
-            data-aos-duration="1000"
-            data-aos-delay="300"
-          >
-            Notice
-          </div>
-        </S.Notice>
-      </S.Center>
       <S.CenterColumn>
         <S.NoticeListBox>
           {noticeData.map((data) => (
@@ -114,6 +89,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   NoticeMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -124,40 +100,46 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
-    margin: 80px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
-    margin: 80px;
   `,
+
   Notice: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   NewsBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 100%;
     height: 100%;
   `,
+
   NoticeListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
     border-top: 2px solid black;
   `,
+
   NoticeList: styled.div`
     ${variables.flex()}
     width: 100%;
     height: 100%;
     border-bottom: 1px solid #d0d0d0;
   `,
+
   MessageBox: styled.div`
     ${variables.flex("column", "space-between", "center")}
     width:70%;
     height: 130px;
   `,
+
   Number: styled.div`
     text-align: center;
     height: 100%;
@@ -165,24 +147,29 @@ const S = {
     font-size: 30px;
     color: gray;
   `,
+
   Title: styled.div`
     text-align: center;
     font-size: 30px;
     width: 100%;
     height: 50px;
   `,
+
   Content: styled.div`
     width: 50px;
     height: 20px;
     font-size: 20px;
   `,
+
   image: styled.img`
     width: 100%;
     height: 100%;
   `,
+
   MessageBottom: styled.div`
     ${variables.flex("row", "center", "center")}
   `,
+
   Link: styled(Link)`
     text-decoration: none;
     color: black;

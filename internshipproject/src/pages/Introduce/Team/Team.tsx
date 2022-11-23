@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
+import NavbarBlock from "../../../components/Nav/NavBlock";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import { Carousel } from "react-bootstrap";
 import variables from "../../../styles/variables";
-import NavbarBlock from "../../../components/Nav/NavBlock";
 
 const Team = () => {
   useEffect(() => {
@@ -268,6 +268,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   TeamMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -278,24 +279,29 @@ const S = {
     font-weight: 300;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     margin: 80px;
   `,
+
   Team: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   CarouselBox: styled.div`
     ${variables.flex()}
     width:100%;
     height: 400px;
   `,
+
   CarouselImage: styled.img`
     width: 50%;
     object-fit: cover;
     transform: translate(1px);
   `,
+
   CarouselMessageBox: styled.div`
     position: absolute;
     ${variables.flex("column", "center", "center")}
@@ -304,17 +310,20 @@ const S = {
     left: 50%;
     transform: translate(-50%, -50%);
   `,
+
   CarouselMessage: styled.div`
     font-size: 40px;
     text-align: center;
     color: rgb(250, 250, 250);
   `,
+
   CarouselBackground: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/team_gradient_bg.png");
     width: 50%;
     height: 98%;
   `,
+
   TeamAllBox: styled.div`
     ${variables.flex()}
     flex-wrap:wrap;
@@ -331,33 +340,41 @@ const S = {
     background-color: #f6f6f6;
     border: 1px solid #e3e3e3;
   `,
+
   TeamPhoto: styled.img`
     width: 100%;
     height: 300px;
   `,
+
   TeamInfo: styled.div`
     width: 80%;
     height: 300px;
     margin-top: 10px;
   `,
+
   Middle: styled.div`
     font-size: 20px;
     margin-top: 5px;
+
     @media (max-width: 1440px) {
       font-size: 15px;
     }
   `,
+
   Small: styled.div`
     font-size: 15px;
     color: gray;
     transform: translate(20px);
     margin-top: 5px;
+
     @media (max-width: 1440px) {
       font-size: 10px;
     }
   `,
+
   Name: styled.div`
     font-size: 35px;
+
     @media (max-width: 1440px) {
       font-size: 25px;
     }

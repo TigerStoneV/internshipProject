@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Section, SectionsContainer } from "react-fullpage";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 import { Carousel } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import CountUp from "react-countup";
 import Footer from "../../components/Footer/Footer";
@@ -32,6 +31,7 @@ const MainPage = () => {
       behavior: "smooth",
     });
   };
+
   return (
     <>
       <S.All>
@@ -44,8 +44,20 @@ const MainPage = () => {
             </S.VideoAllBox>
             <S.MessageBox>
               <S.Message>
-                <S.MessagePoint>기술로 안전에 기여하다.</S.MessagePoint>
-                <S.Message>RiderLog</S.Message>
+                <div
+                  data-aos="fade-up"
+                  data-aos-offset="400"
+                  data-aos-duration="1100"
+                >
+                  <S.MessagePoint>기술로 안전에 기여하다.</S.MessagePoint>
+                </div>
+                <div
+                  data-aos="fade-up"
+                  data-aos-offset="300"
+                  data-aos-duration="1800"
+                >
+                  <S.Message>RiderLog</S.Message>
+                </div>
               </S.Message>
             </S.MessageBox>
           </Section>
@@ -205,9 +217,9 @@ const MainPage = () => {
               <S.MenuListBoxTech>
                 <S.IconCenter>
                   <S.IconBox>
-                    <S.Link to="/tech" onClick={goTop}>
+                    <S.Link to="/companytech" onClick={goTop}>
                       <S.Icon src="/images/cpu.png" />
-                      <S.IconText>Tech/Company</S.IconText>
+                      <S.IconText>Company/Tech</S.IconText>
                     </S.Link>
                   </S.IconBox>
                 </S.IconCenter>
@@ -215,7 +227,7 @@ const MainPage = () => {
               <S.MenuListBoxNews>
                 <S.IconCenter>
                   <S.IconBox>
-                    <S.Link to="/news" onClick={goTop}>
+                    <S.Link to="/newsnotice" onClick={goTop}>
                       <S.Icon src="/images/newspaper.png" />
                       <S.IconText>News/Notice</S.IconText>
                     </S.Link>
@@ -284,15 +296,18 @@ const S = {
   All: styled.div`
     background-color: black;
   `,
+
   HiddenBox: styled.div`
     height: 200px;
   `,
+
   VideoAllBox: styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
   `,
+
   VideoBox: styled.video`
     min-width: 100%;
     min-height: 100%;
@@ -304,6 +319,7 @@ const S = {
     left: 50%;
     transform: translate(-50%, -50%);
   `,
+
   MessageBox: styled.div`
     top: -1480px;
     left: 0;
@@ -322,6 +338,7 @@ const S = {
     font-size: 70px;
     z-index: 999;
   `,
+
   Message: styled.div`
     width: 100%;
     margin: 0 auto;
@@ -330,6 +347,7 @@ const S = {
     font-size: 110px;
     z-index: 999;
   `,
+
   FirstVideo: styled.source``,
   Link: styled(Link)`
     ${variables.flex("column", "center", "center")}
@@ -337,6 +355,7 @@ const S = {
     width: 100%;
     height: 100%;
   `,
+
   Image: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/section01_bg02.png");
@@ -347,6 +366,7 @@ const S = {
   Des: styled.div`
     margin-left: 200px;
   `,
+
   MiddleMessage: styled.div`
     margin: 0 auto;
     padding: 0 30px;
@@ -354,6 +374,7 @@ const S = {
     font-size: 50px;
     z-index: 999;
   `,
+
   Box: styled.div`
     height: 500px;
   `,
@@ -362,16 +383,19 @@ const S = {
     ${variables.flex("column", "center", "")}
     height:100%;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     height:100%;
     width: 100%;
   `,
+
   IconCenter: styled.div`
     ${variables.flex()}
     height:63%;
     width: 100%;
   `,
+
   MiddleDesMessage: styled.div`
     margin: 0 auto;
     padding: 0 30px;
@@ -380,6 +404,7 @@ const S = {
     z-index: 999;
     margin-bottom: 30px;
   `,
+
   MiddleGrapeMessage: styled.div`
     margin: 0 auto;
     padding: 0 30px;
@@ -388,6 +413,7 @@ const S = {
     z-index: 999;
     text-align: center;
   `,
+
   MiddleGrapeCount: styled.div`
     margin-top: 50px;
     padding: 0 30px;
@@ -396,16 +422,19 @@ const S = {
     z-index: 999;
     text-align: center;
   `,
+
   GrapeBox: styled.div`
     ${variables.flex("row")}
     width: 800px;
     height: 150px;
   `,
+
   GrapeBoxLine: styled.div`
     border-left: 1px solid white;
     border-right: 1px solid white;
     width: 180px;
   `,
+
   RiderImage: styled.div`
     background-image: url("http://www.star-pickers.com/html/img/section01_img01.png");
     width: 483px;
@@ -414,21 +443,25 @@ const S = {
     background-position: -5146px 0px;
     object-fit: cover;
   `,
+
   CarouselMessage: styled.div`
     color: white;
     font-size: 25px;
     z-index: 999;
   `,
+
   CarouselMessagePoint: styled.div`
     color: #ffee00;
     font-size: 20px;
     z-index: 999;
   `,
+
   TeamInfo: styled.div`
     height: 200px;
     z-index: 999;
     transform: translate(-400px, -100px);
   `,
+
   Middle: styled.div`
     font-size: 25px;
     margin-top: 5px;
@@ -438,6 +471,7 @@ const S = {
       font-size: 20px;
     }
   `,
+
   Small: styled.div`
     font-size: 25px;
     color: #ffffff;
@@ -447,6 +481,7 @@ const S = {
       font-size: 20px;
     }
   `,
+
   Name: styled.div`
     font-size: 50px;
     z-index: 999;
@@ -456,11 +491,13 @@ const S = {
       font-size: 40px;
     }
   `,
+
   MenuBox: styled.div`
     ${variables.flex()}
     width: 100%;
     height: 100%;
   `,
+
   MenuListBoxNews: styled.div`
     height: 100%;
     width: 100%;
@@ -486,6 +523,7 @@ const S = {
       opacity: 1;
     }
   `,
+
   MenuListBoxRiderlog: styled.div`
     height: 100%;
     width: 100%;
@@ -498,6 +536,7 @@ const S = {
       opacity: 1;
     }
   `,
+
   MenuListBoxContact: styled.div`
     height: 100%;
     width: 100%;
@@ -510,6 +549,7 @@ const S = {
       opacity: 1;
     }
   `,
+
   MenuListBoxJoin: styled.div`
     height: 100%;
     width: 100%;
@@ -522,6 +562,7 @@ const S = {
       opacity: 1;
     }
   `,
+
   IconBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 160px;
@@ -533,14 +574,17 @@ const S = {
       transform: scale(1.4);
     }
   `,
+
   Icon: styled.img`
     width: 80%;
     height: 80%;
   `,
+
   IconText: styled.div`
     color: white;
     font-size: 25px;
   `,
+
   ImageRiderLogTab: styled.div`
     position: relative;
     background-image: url("/images/riderlogback.jpg");
@@ -557,6 +601,7 @@ const S = {
     font-size: 55px;
     z-index: 999;
   `,
+
   RiderMessage: styled.div`
     width: 100%;
     margin: 0 auto;
@@ -580,6 +625,7 @@ const S = {
     ${variables.flex("column", "center", "center")}
     height:70%;
   `,
+
   RiderLogo: styled.img`
     width: 180px;
     height: 50px;
@@ -589,11 +635,13 @@ const S = {
     font-size: 30px;
     color: #fff;
   `,
+
   RiderMessageDes: styled.div`
     font-size: 15px;
     color: #fff;
     margin: 20px 0 20px;
   `,
+
   RiderColorBox: styled.div`
     ${variables.flex()}
     width: 300px;

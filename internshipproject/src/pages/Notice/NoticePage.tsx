@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../styles/variables";
-import { useNavigate } from "react-router-dom";
 
 export interface Notice {
   id: number;
@@ -92,6 +92,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   NoticeMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -102,14 +103,17 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     margin: 80px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: 80px;
   `,
+
   Notice: styled.div`
     font-size: 50px;
     font-weight: 600;
@@ -120,12 +124,14 @@ const S = {
     width: 100%;
     height: 100%;
   `,
+
   NoticeListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
     border-top: 2px solid black;
   `,
+
   NoticePageList: styled.div`
     ${variables.flex()}
     width: 100%;
@@ -133,6 +139,7 @@ const S = {
     border-bottom: 1px solid #d0d0d0;
     padding: 100px 0 100px;
   `,
+
   Title: styled.div`
     font-size: 40px;
     padding: 30px 40px;
@@ -142,6 +149,7 @@ const S = {
     position: relative;
     width: 100%;
   `,
+
   GoList: styled.div`
     ${variables.flex("column", "center", "center")}
 

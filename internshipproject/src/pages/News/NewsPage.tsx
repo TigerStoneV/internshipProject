@@ -92,6 +92,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   NewsMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -102,14 +103,17 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
     margin: 80px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: 80px;
   `,
+
   News: styled.div`
     font-size: 50px;
     font-weight: 600;
@@ -120,12 +124,14 @@ const S = {
     width: 100%;
     height: 100%;
   `,
+
   NewsListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
     border-top: 2px solid black;
   `,
+
   NewsPageList: styled.div`
     ${variables.flex()}
     width: 100%;
@@ -133,6 +139,7 @@ const S = {
     border-bottom: 1px solid #d0d0d0;
     padding: 100px 0 100px;
   `,
+
   Title: styled.div`
     font-size: 40px;
     padding: 30px 40px;
@@ -142,9 +149,9 @@ const S = {
     position: relative;
     width: 100%;
   `,
+
   GoList: styled.div`
     ${variables.flex("column", "center", "center")}
-
     padding:20px 50px;
     width: 150px;
     border: 1px solid black;

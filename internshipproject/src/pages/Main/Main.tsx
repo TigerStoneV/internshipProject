@@ -174,9 +174,11 @@ const S = {
   MainAll: styled.div`
     ${variables.flex("column", "center", "center")};
   `,
+
   MainCenter: styled.div`
     width: 1200px;
   `,
+
   Center: styled.div`
     ${variables.flex("column", "center", "center")};
     margin: 100px;
@@ -188,12 +190,14 @@ const S = {
     width: 100%;
     height: 200vh;
   `,
+
   MainBackgroundTwo: styled.div`
     position: relative;
     background-image: url("http://www.star-pickers.com/html/img/section02_bg01.png");
     width: 100%;
     height: 250vh;
   `,
+
   MainText: styled.div`
     ${variables.flex("column", "center", "center")}
     position: absolute;
@@ -202,10 +206,12 @@ const S = {
     height: 100%;
     width: 800px;
   `,
+
   MainBackgroundText: styled.div`
     font-size: 50px;
     color: rgb(250, 250, 250);
   `,
+
   MainBackgroundTextRiderLog: styled.div`
     font-size: 80px;
     color: #ffee00;
@@ -235,20 +241,24 @@ const S = {
     height: 100vh;
     background-color: rgb(250, 250, 250);
   `,
+
   MessageCenter: styled.div`
     position: absolute;
     ${variables.flex("column", "center", "center")}
     width:100%;
   `,
+
   MessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
     height:100vh;
   `,
+
   Message: styled.div`
     transform: translate(0, -40px);
     font-size: 60px;
     color: rgb(250, 250, 250);
   `,
+
   TopEfftect: styled.img`
     position: fixed;
     top: -500px;
@@ -257,6 +267,7 @@ const S = {
     height: 400px;
     z-index: 999px;
   `,
+
   MainPhone: styled.img`
     position: absolute;
     z-index: 100;
@@ -275,14 +286,17 @@ const S = {
       }
     }
   `,
+
   MainBackgroundTextFirst: styled.div`
     font-size: 80px;
     color: rgb(250, 250, 250);
     width: 700px;
   `,
+
   MainTop: styled.div`
     position: relative;
   `,
+
   MainBackgroundTextStar: styled.div`
     font-size: 50px;
     width: 1000px;
@@ -291,12 +305,14 @@ const S = {
     width: 900px;
     margin-bottom: 0;
   `,
+
   MainBackgroundTextEffect: styled.div`
     font-size: 40px;
     width: 1000px;
     color: rgb(250, 250, 250);
     margin: 30px 0 30px;
   `,
+
   MainTextTwo: styled.div`
     ${variables.flex("column", "center", "center")}
     position: absolute;
@@ -304,6 +320,7 @@ const S = {
     height: 100%;
     width: 800px;
   `,
+
   BottomMessageBox: styled.div`
     ${variables.flex("column", "center", "center")}
     position:absolute;
@@ -313,11 +330,13 @@ const S = {
     width: 1200px;
     transform: translate(-50%);
   `,
+
   CarouselMessage: styled.div`
     color: white;
     font-size: 50px;
     z-index: 999;
   `,
+
   CarouselMessagePoint: styled.div`
     color: #ffee00;
     font-size: 40px;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { Pagination } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../styles/variables";
-import { Link, useSearchParams } from "react-router-dom";
-import { Pagination } from "react-bootstrap";
-import NavbarBlock from "../../components/Nav/NavBlock";
 export interface News {
   id: number;
   title: string;
@@ -16,11 +15,9 @@ export interface News {
 }
 interface Search {
   searchParams: Params;
-  setSearchPhams: any;
 }
 interface Params {
   get: string;
-  set: any;
 }
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
@@ -29,9 +26,9 @@ const News = () => {
   // const offset = searchParams.get("offset");
 
   // const goPage = (pageNumber: number): void => {
-  //   searchParams.set("limit":string, 10);
-  //   searchParams.set("offset", (pageNumber - 1) * 10);
-  //   setSearchPhams(searchParams);
+  // searchParams.set("limit", String(10));
+  // searchParams.set("offset", (pageNumber - 1) * 10);
+  // setSearchPhams(searchParams);
   // };
 
   let active = 2;
@@ -58,30 +55,6 @@ const News = () => {
 
   return (
     <>
-      <S.NewsMainImage>
-        <NavbarBlock />
-        <S.NewsMainImageMessage>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="200"
-            data-aos-duration="1000"
-          >
-            언론에 소개 된 별따러가자와 라이더 로그
-          </div>
-        </S.NewsMainImageMessage>
-      </S.NewsMainImage>
-      <S.Center>
-        <S.News>
-          <div
-            data-aos="fade-up"
-            data-aos-offset="300"
-            data-aos-duration="1000"
-            data-aos-delay="300"
-          >
-            News
-          </div>
-        </S.News>
-      </S.Center>
       <S.CenterColumn>
         <S.NewsListBox>
           {newsData.map((data) => (
@@ -121,6 +94,7 @@ const S = {
     height: 400px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   NewsMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -131,40 +105,46 @@ const S = {
     font-weight: 400;
     letter-spacing: -2px;
   `,
+
   Center: styled.div`
     ${variables.flex()}
-    margin: 80px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
-    margin: 80px;
   `,
+
   News: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   NewsBox: styled.div`
     ${variables.flex("column", "center", "center")}
     width: 100%;
     height: 100%;
   `,
+
   NewsListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
     border-top: 2px solid black;
   `,
+
   NewsList: styled.div`
     ${variables.flex()}
     width: 100%;
     height: 100%;
     border-bottom: 1px solid #d0d0d0;
   `,
+
   MessageBox: styled.div`
     ${variables.flex("column", "space-between", "center")}
     width:70%;
     height: 130px;
   `,
+
   Number: styled.div`
     text-align: center;
     height: 100%;
@@ -172,24 +152,29 @@ const S = {
     font-size: 30px;
     color: gray;
   `,
+
   Title: styled.div`
     text-align: center;
     font-size: 30px;
     width: 100%;
     height: 50px;
   `,
+
   Content: styled.div`
     width: 50px;
     height: 20px;
     font-size: 20px;
   `,
+
   image: styled.img`
     width: 100%;
     height: 100%;
   `,
+
   MessageBottom: styled.div`
     ${variables.flex("row", "center", "center")}
   `,
+
   Link: styled(Link)`
     text-decoration: none;
     color: black;

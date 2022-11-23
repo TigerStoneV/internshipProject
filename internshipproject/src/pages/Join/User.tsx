@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
@@ -51,7 +51,7 @@ const User = ({ text }: Props) => {
   };
 
   //회원가입,로그인
-  const handleInputValue = (e: any) => {
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
@@ -185,23 +185,28 @@ const S = {
     ${variables.flex("column", "center", "center")}
     height:400px;
   `,
+
   CenterRow: styled.div`
     ${variables.flex("row", "center", "center")}
     width:400px;
   `,
+
   CenterIconRow: styled.div`
     ${variables.flex("row", "center", "")}
     width:450px;
     margin-top: 20px;
   `,
+
   CenterInput: styled.div`
     ${variables.flex("column", "space-evenly", "center")}
     height:500px;
     width: 700px;
   `,
+
   InputTop: styled.div`
     margin-top: 30px;
   `,
+
   Input: styled.input`
     width: 400px;
     height: 45px;
@@ -211,6 +216,7 @@ const S = {
     border-radius: 6px;
     background-color: rgb(245, 245, 245);
   `,
+
   Phone: styled.input`
     width: 300px;
     height: 45px;
@@ -220,6 +226,7 @@ const S = {
     border-radius: 6px;
     background-color: rgb(245, 245, 245);
   `,
+
   Check: styled.button`
     width: 85px;
     height: 45px;
@@ -230,6 +237,7 @@ const S = {
     background-color: orange;
     color: rgb(255, 255, 255);
   `,
+
   PhoneNumber: styled.input`
     width: 250px;
     height: 45px;
@@ -239,6 +247,7 @@ const S = {
     border-radius: 6px;
     background-color: rgb(245, 245, 245);
   `,
+
   CheckNumber: styled.button`
     width: 135px;
     height: 45px;
@@ -249,6 +258,7 @@ const S = {
     background-color: orange;
     color: rgb(255, 255, 255);
   `,
+
   Button: styled.button`
     width: 400px;
     margin: 16px 0 20px;
@@ -259,23 +269,28 @@ const S = {
     color: rgb(255, 255, 255);
     cursor: pointer;
   `,
+
   Logo: styled.img`
     width: 130px;
     height: 50px;
     margin-bottom: 40px;
   `,
+
   Title: styled.div`
     font-size: 30px;
   `,
+
   Or: styled.div`
     width: 400px;
     margin-top: 20px;
     border-top: 2px solid lightgray;
   `,
+
   Icon: styled.img`
     width: 30px;
     margin-right: 10px;
   `,
+
   AuthButtonKakao: styled.button`
     width: 50%;
     height: 40px;
@@ -291,6 +306,7 @@ const S = {
       color: white;
     }
   `,
+
   AuthButtonGoogle: styled.button`
     width: 150px;
     height: 40px;

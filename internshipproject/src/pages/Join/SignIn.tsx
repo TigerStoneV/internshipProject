@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import AOS from "aos";
+import { useLocation, useSearchParams } from "react-router-dom";
 import User from "./User";
-import "aos/dist/aos.css";
-import styled from "styled-components/macro";
-import variables from "../../styles/variables";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import NavbarBlock from "../../components/Nav/NavBlock";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import styled from "styled-components/macro";
+import variables from "../../styles/variables";
 
 const LOGIN_TEXT = {
   title: "로그인",
@@ -99,9 +99,10 @@ const S = {
   JoinMainImage: styled.div`
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 300px;
     background-image: url("http://www.star-pickers.com/html/img/sub_visual02.png");
   `,
+
   JoinMainImageMessage: styled.div`
     position: absolute;
     color: #fff;
@@ -109,20 +110,23 @@ const S = {
     text-align: center;
     top: 50%;
     width: 100%;
-    font-weight: 400;
+    font-weight: 200;
     letter-spacing: -2px;
   `,
+
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
-    margin-top: 80px;
+    margin-top: 30px;
   `,
+
   JoinBanner: styled.div`
     font-size: 50px;
     font-weight: 600;
   `,
+
   LoginBox: styled.div`
     ${variables.flex("column", "center", "center")}
-    height: 600px;
+    height: 500px;
     width: 100%;
   `,
 
@@ -130,22 +134,26 @@ const S = {
     ${variables.flex("column", "center", "center")}
     margin: 20px;
   `,
+
   CenterHeight: styled.div`
     ${variables.flex("column", "center", "center")}
     margin: 20px;
     height: 600px;
   `,
+
   JoinBox: styled.div`
     border: 1px solid lightgray;
     border-radius: 30px;
     width: 100%;
     height: 400px;
   `,
+
   JoinCenter: styled.div`
     ${variables.flex("row", "space-evenly", "center")}
     width: 1000px;
     height: 100%;
   `,
+
   JoinClickBox: styled.div`
     ${variables.flex()}
     width: 300px;
@@ -161,6 +169,7 @@ const S = {
       color: white;
     }
   `,
+
   Modal: styled.div`
     width: 1000px;
   `,
