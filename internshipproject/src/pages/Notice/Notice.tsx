@@ -33,9 +33,7 @@ const Notice = () => {
     }
     fetchData();
 
-    fetch("http://10.177.255.117/ping", {
-      method: "GET",
-    })
+    fetch("http://172.20.10.5:3000/ping")
       .then((res) => res.json())
       .then((res) => {
         console.log(res.data);
@@ -47,7 +45,7 @@ const Notice = () => {
       <S.CenterColumn>
         <S.NoticeListBox>
           {noticeData.map((data) => (
-            <Accordion defaultActiveKey="0">
+            <Accordion defaultActiveKey="0" key={data.id}>
               <Accordion.Item eventKey={data.id}>
                 <Accordion.Header>{data.title}</Accordion.Header>
                 <Accordion.Body>

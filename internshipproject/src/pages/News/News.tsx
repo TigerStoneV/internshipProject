@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link, useSearchParams } from "react-router-dom";
-import { Pagination } from "react-bootstrap";
-import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
@@ -24,6 +22,7 @@ interface Params {
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
   const [show, setShow] = useState<boolean>(false);
+  const [showMoreOffsetCount, setShowMoreOffsetCount] = useState<number>(6);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -37,19 +36,10 @@ const News = () => {
   // setSearchPhams(searchParams);
   // };
 
-  let active = 2;
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
+  function showMoreButtonApiRequest() {
+    setShowMoreOffsetCount(showMoreOffsetCount + 6);
   }
-  useEffect(() => {
-    AOS.init();
-  });
-
+  // ?offset=0&limit=${showMoreOffsetCount}
   useEffect(() => {
     async function fetchData() {
       const respons = await fetch("Data/NewsData.json");
@@ -57,6 +47,12 @@ const News = () => {
       setNewsData(result);
     }
     fetchData();
+
+    fetch("http://172.20.10.5:3000/ping")
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.data);
+      });
   }, []);
 
   return (
@@ -84,7 +80,9 @@ const News = () => {
       <S.BottomBox>
         <S.BoxSize></S.BoxSize>
         <S.BoxSize>
-          <S.ViewMore>ViewMore(Scroll)</S.ViewMore>
+          <S.ViewMore onClick={showMoreButtonApiRequest}>
+            ViewMore(Click)
+          </S.ViewMore>
         </S.BoxSize>
         <S.BoxSize>
           <S.Write onClick={handleShow}>글쓰기</S.Write>
@@ -248,6 +246,12 @@ const S = {
     padding: 10px;
     border-radius: 10px;
     margin-top: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   `,
 
   BoxSize: styled.div`

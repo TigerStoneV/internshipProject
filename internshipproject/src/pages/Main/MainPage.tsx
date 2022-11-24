@@ -589,7 +589,7 @@ const S = {
     position: relative;
     background-image: url("/images/riderlogback.jpg");
     width: 100%;
-    height: 85%;
+    height: 88%;
     background-size: cover;
   `,
 

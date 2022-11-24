@@ -15,13 +15,7 @@ const Tech = () => {
     url: string;
     color: string;
   }
-  useEffect(() => {
-    fetch("http://10.177.248.109:3000/post?type=notice")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
+
   return (
     <>
       <S.Center>
@@ -39,6 +33,7 @@ const Tech = () => {
       <S.IconCenter>
         {ITEM_BOX.map((data) => (
           <div
+            key={data.id}
             data-aos="fade-up"
             data-aos-offset="200"
             data-aos-duration="1000"
@@ -52,7 +47,7 @@ const Tech = () => {
                 borderRadius: "13px",
               }}
             >
-              <S.TechIconBox key={data.id}>
+              <S.TechIconBox>
                 <S.TechIconTextBox>
                   <S.IconText>{data.title}</S.IconText>
                   <S.IconText>{data.detail}</S.IconText>

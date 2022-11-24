@@ -8,18 +8,44 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
+import UserClient from "./UserClient";
+import UserAdmin from "./UserAdmin";
 
 const LOGIN_TEXT = {
-  title: "로그인",
+  title: "개인 로그인",
   linkText: "계정이 없으신가요? 회원가입",
   url: "/signup",
 };
 
 const SIGNUP_TEXT = {
-  title: "회원가입",
+  title: "개인 회원가입",
   linkText: "이미 가입하셨나요? 로그인",
   url: "/join",
 };
+
+const LOGIN_TEXT_CLIENT = {
+  title: "기업 로그인",
+  linkText: "계정이 없으신가요? 회원가입",
+  url: "/signup",
+};
+
+const SIGNUP_TEXT_CLIENT = {
+  title: "기업 회원가입",
+  linkText: "이미 가입하셨나요? 로그인",
+  url: "/join",
+};
+const LOGIN_TEXT_ADMIN = {
+  title: "관리자 로그인",
+  linkText: "계정이 없으신가요? 회원가입",
+  url: "/signup",
+};
+
+const SIGNUP_TEXT_ADMIN = {
+  title: "관리자 회원가입",
+  linkText: "이미 가입하셨나요? 로그인",
+  url: "/join",
+};
+
 const SignIn = () => {
   useEffect(() => {
     AOS.init();
@@ -29,11 +55,19 @@ const SignIn = () => {
   const location = useLocation();
   const currentURL = location.pathname;
   const isSelecLogin = currentURL === "/join" && true;
+  const isSelecLoginClient = currentURL === "/join" && true;
+  const isSelecLoginAdmin = currentURL === "/join" && true;
 
   const [show, setShow] = useState<boolean>(false);
+  const [showClient, setShowClient] = useState<boolean>(false);
+  const [showAdmin, setShowAdmin] = useState<boolean>(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseClient = () => setShowClient(false);
+  const handleShowClient = () => setShowClient(true);
+  const handleCloseAdmin = () => setShowAdmin(false);
+  const handleShowAdmin = () => setShowAdmin(true);
 
   //카카오 로그인
   const [searchParams, setSearchParams] = useSearchParams();
@@ -70,7 +104,8 @@ const SignIn = () => {
           <S.JoinBox>
             <S.JoinCenter>
               <S.JoinClickBox onClick={handleShow}>개인용</S.JoinClickBox>
-              <S.JoinClickBox>기업용</S.JoinClickBox>
+              <S.JoinClickBox onClick={handleShowClient}>기업용</S.JoinClickBox>
+              <S.JoinClickBox onClick={handleShowAdmin}>관리자</S.JoinClickBox>
             </S.JoinCenter>
           </S.JoinBox>
           <Modal
@@ -85,6 +120,44 @@ const SignIn = () => {
             </S.CenterHeight>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={showClient}
+            onHide={handleCloseClient}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton></Modal.Header>
+            <S.CenterHeight>
+              <UserClient
+                text={
+                  isSelecLoginClient ? LOGIN_TEXT_CLIENT : SIGNUP_TEXT_CLIENT
+                }
+              />
+            </S.CenterHeight>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseClient}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          <Modal
+            show={showAdmin}
+            onHide={handleCloseAdmin}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton></Modal.Header>
+            <S.CenterHeight>
+              <UserAdmin
+                text={isSelecLoginAdmin ? LOGIN_TEXT_ADMIN : SIGNUP_TEXT_ADMIN}
+              />
+            </S.CenterHeight>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseAdmin}>
                 Close
               </Button>
             </Modal.Footer>
