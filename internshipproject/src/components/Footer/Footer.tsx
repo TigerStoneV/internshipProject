@@ -43,7 +43,7 @@ const S = {
   FooterBox: styled.div`
     ${variables.flex()}
     width: 100%;
-    height: 120px;
+    height: 100px;
     background-color: #212121;
   `,
 
