@@ -6,12 +6,12 @@ import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 export interface News {
-  id: string;
+  id: number;
   title: string;
   content: string;
-  view_count: string;
-  image_url: string;
-  created_at: string;
+  viewCount: string;
+  imageUrl: string;
+  createdAt: string;
 }
 interface Search {
   searchParams: Params;
@@ -19,27 +19,39 @@ interface Search {
 interface Params {
   get: string;
 }
+
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
+  const [title, setTitle] = useState<string>();
+  const [content, setContent] = useState<string>();
+  const [image, setImage] = useState<File[]>();
   const [show, setShow] = useState<boolean>(false);
   const [showMoreOffsetCount, setShowMoreOffsetCount] = useState<number>(6);
+  const [token, setToken] = useState<string>("undefined");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const [searchParams, setSearchPhams] = useSearchParams();
-  // const limit = searchParams.get("limit");
-  // const offset = searchParams.get("offset");
 
-  // const goPage = (pageNumber: number): void => {
-  // searchParams.set("limit", String(10));
-  // searchParams.set("offset", (pageNumber - 1) * 10);
-  // setSearchPhams(searchParams);
-  // };
+  //이미지 저장
 
+  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files!);
+    setImage(files);
+  };
+  //제목 입력
+  const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+  //내용 입력
+  const handleInputContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
+  //페이지네이션
   function showMoreButtonApiRequest() {
     setShowMoreOffsetCount(showMoreOffsetCount + 6);
   }
-  // ?offset=0&limit=${showMoreOffsetCount}
+
+  //통신
   useEffect(() => {
     async function fetchData() {
       const respons = await fetch("Data/NewsData.json");
@@ -48,12 +60,34 @@ const News = () => {
     }
     fetchData();
 
-    fetch("http://172.20.10.5:3000/ping")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.data);
-      });
-  }, []);
+    // fetch(
+    //   `http://172.20.10.2:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
+    // )
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     setNewsData(res.data);
+    //   });
+  }, [showMoreOffsetCount]);
+
+  // 글쓰기
+
+  const Post = () => {
+    const formData = new FormData();
+    if (typeof title === "string") formData.append("title", title);
+    if (typeof content === "string") formData.append("content", content);
+    if (typeof image === "string") formData.append("image", image);
+    formData.append("adminId", "1");
+    formData.append("branchId", "1");
+
+    fetch(`http://172.20.10.2:3000/post/news`, {
+      method: "post",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+      },
+      body: formData,
+    });
+    handleClose();
+  };
 
   return (
     <>
@@ -63,12 +97,12 @@ const News = () => {
             <S.NewsList>
               <S.Box>
                 <S.Link to={`/news/${data.id}`}>
-                  <S.image src={data.image_url} />
+                  <S.image src={data.imageUrl} />
                   <S.MessageBox>
                     <S.Title>{data.title}</S.Title>
                     <S.MessageBottom>
-                      <S.Content>{data.created_at.slice(0, 10)}</S.Content>
-                      <S.Content>{data.view_count}</S.Content>
+                      <S.Content>{data.createdAt.slice(0, 10)}</S.Content>
+                      <S.Content>{data.viewCount}</S.Content>
                     </S.MessageBottom>
                   </S.MessageBox>
                 </S.Link>
@@ -85,7 +119,7 @@ const News = () => {
           </S.ViewMore>
         </S.BoxSize>
         <S.BoxSize>
-          <S.Write onClick={handleShow}>글쓰기</S.Write>
+          {token && <S.Write onClick={handleShow}>글쓰기</S.Write>}
           <Modal
             size="lg"
             show={show}
@@ -96,15 +130,23 @@ const News = () => {
             <Modal.Header closeButton>
               <S.ModalTitle>Create New</S.ModalTitle>
             </Modal.Header>
-            <S.InputTitle placeholder="제목을 입력하세요." />
-            <S.Input type="text" placeholder="내용을 입력하세요." />
+            <S.InputTitle
+              placeholder="제목을 입력하세요."
+              onChange={handleInputTitle}
+            />
+            <S.Input
+              type="text"
+              placeholder="내용을 입력하세요."
+              onChange={handleInputContent}
+            />
             <S.InputImage
               placeholder="write your image"
               type="file"
               accept="image/*"
+              onChange={onImageChange}
             />
             <Modal.Footer>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="primary" onClick={Post}>
                 등록
               </Button>
             </Modal.Footer>

@@ -24,8 +24,8 @@ interface Info {
   branchPassword: number;
 }
 interface Login {
-  companyEmail: string;
-  companyPassword: number;
+  adminEmail: string;
+  adminPassword: string;
 }
 const UserAdmin = ({ text }: Props) => {
   const { title, linkText, url } = text;
@@ -40,8 +40,8 @@ const UserAdmin = ({ text }: Props) => {
     branchPassword: 0,
   });
   const [login, setLogin] = useState<Login>({
-    companyEmail: "",
-    companyPassword: 0,
+    adminEmail: "",
+    adminPassword: "",
   });
   const location = useNavigate();
   const [disable, setDisable] = useState<boolean>(true);
@@ -64,23 +64,6 @@ const UserAdmin = ({ text }: Props) => {
     }
   }, [info]);
 
-  //인증번호 발송
-  const postNumber = () => {
-    //fetch.then()
-  };
-
-  //타이머
-  const [count, setCount] = useState<boolean>(false);
-  // 번호 인증
-  const checkNumber = () => {
-    // fetch.then(setCount(true))
-    setBlock(true);
-  };
-
-  //인증 비활성화
-  const [block, setBlock] = useState<boolean>(false);
-  const blockBox = () => {};
-
   //회원가입,로그인
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -88,18 +71,8 @@ const UserAdmin = ({ text }: Props) => {
   };
 
   const connect = () => {
-    if (info.branchEmail.includes("@") && typeof info.userName === "string") {
-      //   fetch(`${API.join}/signup`, {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(info),
-      //   });
-      location("/join");
-      goTop();
-      alert("회원가입 되었습니다.");
-    }
-    if (login.companyEmail.includes("@")) {
-      // fetch(`${API.join}/signin`, {
+    if (login.adminEmail.includes("@") && login.adminPassword.length > 3) {
+      // fetch(`http://192.168.182.177:3000/user/branchSignin`, {
       //   method: 'POST',
       //   headers: {
       //     'Content-Type': 'application/json',
@@ -123,7 +96,6 @@ const UserAdmin = ({ text }: Props) => {
       location("/");
       goTop();
       alert("로그인 되었습니다");
-      console.log(login);
     }
   };
 
@@ -135,6 +107,8 @@ const UserAdmin = ({ text }: Props) => {
       behavior: "smooth",
     });
   };
+
+  //추후 admin 추가 회원가입 가능 시 대비 레이아웃
   return (
     <S.Center>
       <S.CenterInput>
@@ -162,11 +136,8 @@ const UserAdmin = ({ text }: Props) => {
                   maxLength={11}
                   placeholder="관리자 휴대폰번호"
                   onChange={handleInputValue}
-                  disabled={block}
                 />
-                <S.Check disabled={disable} onClick={postNumber}>
-                  전송
-                </S.Check>
+                <S.Check disabled={disable}>전송</S.Check>
               </S.CenterRow>
               <S.CenterRow>
                 <S.PhoneNumber
@@ -175,26 +146,21 @@ const UserAdmin = ({ text }: Props) => {
                   maxLength={4}
                   placeholder="숫자 4개 입력하세요"
                   onChange={handleInputValue}
-                  disabled={block}
                 />
                 <S.CheckTime>
                   <S.Timer>
-                    {count && (
-                      <CountdownCircleTimer
-                        isPlaying
-                        duration={180}
-                        colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
-                        colorsTime={[7, 5, 2, 0]}
-                        size={30}
-                      >
-                        {({ remainingTime }) => remainingTime}
-                      </CountdownCircleTimer>
-                    )}
+                    <CountdownCircleTimer
+                      isPlaying
+                      duration={180}
+                      colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+                      colorsTime={[7, 5, 2, 0]}
+                      size={30}
+                    >
+                      {({ remainingTime }) => remainingTime}
+                    </CountdownCircleTimer>
                   </S.Timer>
                 </S.CheckTime>
-                <S.CheckNumber disabled={disableCheck} onClick={checkNumber}>
-                  확인
-                </S.CheckNumber>
+                <S.CheckNumber disabled={disableCheck}>확인</S.CheckNumber>
               </S.CenterRow>
               <S.CenterRow>
                 <S.CompanyName
@@ -226,9 +192,9 @@ const UserAdmin = ({ text }: Props) => {
           />
           <S.Button onClick={connect}>{title}</S.Button>
         </S.Center>
-        <Link to={url} className="link">
+        {/* <Link to={url} className="link">
           {linkText}
-        </Link>
+        </Link> */}
       </S.CenterInput>
     </S.Center>
   );

@@ -3,32 +3,23 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components";
 import variables from "../../styles/variables";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import NavbarBlock from "../../components/Nav/NavBlock";
-
-export interface News {
-  id: string;
+interface News {
+  id: number;
   title: string;
   content: string;
-  view_count: string;
-  image_url: string;
-  created_at: string;
+  viewCount: string;
+  imageUrl: string;
+  adminName: string;
 }
-const DATA = [
-  {
-    id: 1,
-    title: "수리안내",
-    content: "엘리베이터를 수리하니 걸어다니세요 살도뺄겸",
-    view_count: "0",
-    image_url:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80",
-    created_at: "2022-11-18T08:23:33.000Z",
-  },
-];
 
 const NewsPage = () => {
-  const [newsPageData, setNewsPageData] = useState<News[]>([]);
+  const [newsPageData, setNewsPageData] = useState<News | null>(null);
   const location = useNavigate();
+  const [searchParams, setSearchPhams] = useSearchParams();
+  const params = useParams();
+  const id = params.id;
 
   const goMain = () => {
     location("/newsnotice");
@@ -38,13 +29,21 @@ const NewsPage = () => {
     AOS.init();
   });
   // useEffect(() => {
-  //   async function fetchPageData() {
+  //   async function fetchData() {
   //     const respons = await fetch("Data/NewsData.json");
   //     const result = await respons.json();
   //     console.log(result);
   //   }
-  //   fetchPageData();
+  //   fetchData();
   // }, []);
+  useEffect(() => {
+    fetch(`http://172.20.10.2:3000/post/news/${id}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setNewsPageData(res.data[0]);
+      });
+  }, []);
+
   return (
     <>
       <S.NewsMainImage>
@@ -74,14 +73,18 @@ const NewsPage = () => {
       <S.CenterColumn>
         <S.NewsBox>
           <S.NewsListBox>
-            <S.Title>{DATA[0].title}</S.Title>
-            <S.NewsPageList>
-              <S.image src={DATA[0].image_url} />
-              <S.Message>{DATA[0].content}</S.Message>
-            </S.NewsPageList>
-            <S.Center>
-              <S.GoList onClick={goMain}>목록</S.GoList>
-            </S.Center>
+            {newsPageData && (
+              <>
+                <S.Title>{newsPageData.title}</S.Title>
+                <S.NewsPageList>
+                  <S.image src={newsPageData.imageUrl} />
+                  <S.Message>{newsPageData.content}</S.Message>
+                </S.NewsPageList>
+                <S.Center>
+                  <S.GoList onClick={goMain}>목록</S.GoList>
+                </S.Center>
+              </>
+            )}
           </S.NewsListBox>
         </S.NewsBox>
       </S.CenterColumn>
