@@ -1,33 +1,37 @@
 const postService = require('../services/postService');
 const { catchAsync } = require('../utils/error');
-const { getPost } = require('../getPost');
 
-const getPostByPostName = async ( req, res ) => {
+const getNewsAll = async ( req, res ) => {
+    const { offset, limit } = req.query;
     
-    const { type, offset, limit } = req.query;
-
-    if( !type || !offset || !limit ){
+    if( !offset || !limit ){
         const error = new Error('KEY ERROR');
-        error.statusCode = 400;
         throw error;
     }
-        
-        const posts = await postService.getPostByPostName(
-            getPost(type),
-            +offset,
-            +limit
-        );
 
-        res.status(200).json({ data : posts });
+    const posts = await postService.getNewsAll( +offset, +limit );
+
+    res.status(200).json({ data : posts });
 }
 
-const registerPostByAdminId = catchAsync( async (req, res) => {
+const getNoticeAll = async ( req, res ) => {
+    const { offset, limit } = req.query;
 
-    const { type } = req.query;
+    if( !offset || !limit ){
+        const error = new Error('KEY ERROR');
+        throw error;
+    }
+
+    const posts = await postService.getNoticeAll( +offset, +limit );
+
+    res.status(200).json({ data : posts });
+}
+
+
+const postNewsByAdminId = catchAsync( async (req, res) => {
+
     const { adminId, title, content, branchId } = req.body;
-    let image = ''
-    
-    if(req.file)image = req.file.location;
+    const image = req.file?.location;
 
     if ( !adminId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
@@ -35,43 +39,85 @@ const registerPostByAdminId = catchAsync( async (req, res) => {
         throw error;
     }
 
-    await postService.registerPostByAdminId( getPost(type), title, content, +adminId, +branchId, image );
+    await postService.postNewsByAdminId( title, content, +adminId, +branchId, image );
 
     res.status(201).json({ message : 'SUCCESS' });
 });
 
-const updatePost = catchAsync( async (req, res) => {
-    const { postId } = req.params;
-    const { type } = req.query;
-    const { title, content } = req.body;
+const postNoticeByAdminId = catchAsync( async (req, res) => {
+    const { adminId, title, content, branchId } = req.body;
 
-    await postService.updatePost( +postId, getPost(type), title, content );
+    if ( !adminId || !title || !content || !branchId ) {
+        const error = new Error('KEY ERROR');
+        error.statusCode = 400;
+        throw error;
+    }
+
+    await postService.postNoticeByAdminId( title, content, +adminId, +branchId );
+
+    res.status(201).json({ message : 'SUCCESS' });
+})
+
+
+const updateNews = catchAsync( async (req, res) => {
+    const { newsId } = req.params;
+    const { title, content } = req.body;
+    console.log(newsId)
+    await postService.updateNews( +newsId, title, content );
     
-    res.status(200).json({ mesage : 'update complete '});
+    res.status(200).json({ message : 'update complete '});
 });
 
-const deletePost = catchAsync( async (req, res) => {
-    const { type } = req.query;
-    const { postId } = req.params;
+const updateNotice = catchAsync( async (req, res) => {
+    const { noticeId } = req.params;
+    const { title, content } = req.body;
+
+    await postService.updateNotice( +noticeId, title, content );
     
-    await postService.deletePost( getPost(type), +postId );
+    res.status(200).json({ message : 'update complete '});
+});
+
+const deleteNews = catchAsync( async (req, res) => {
+    const { newsId } = req.params;
+    
+    await postService.deleteNews( +newsId );
     
     res.status(200).json({ message : 'delete complete' });
 });
 
-const getPostByPostId = catchAsync( async (req, res) => {
-    const { postId } = req.params;
-    const { type } = req.query;
+const deleteNotice = catchAsync( async (req, res) => {
+    const { noticeId } = req.params;
     
-    const detail = await postService.getPostByPostId( getPost(type), postId);
+    await postService.deleteNotice( +noticeId );
+    
+    res.status(200).json({ message : 'delete complete' });
+});
+
+const getNewsByNewsId = catchAsync( async (req, res) => {
+    const { postId } = req.params;
+    
+    const detail = await postService.getNewsByNewsId( postId );
+
+   return res.status(200).json({ data : detail });
+});
+
+const getNoticeByNoticeId = catchAsync( async (req, res) => {
+    const { postId } = req.params;
+    
+    const detail = await postService.getNoticeByNoticeId( postId );
 
    return res.status(200).json({ data : detail });
 });
 
 module.exports = { 
-    registerPostByAdminId,
-    updatePost,
-    deletePost,
-    getPostByPostId,
-    getPostByPostName
+    postNewsByAdminId,
+    postNoticeByAdminId,
+    updateNews,
+    updateNotice,
+    deleteNews,
+    deleteNotice,
+    getNewsByNewsId,
+    getNoticeByNoticeId,
+    getNewsAll,
+    getNoticeAll
 }
