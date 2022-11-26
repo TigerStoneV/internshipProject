@@ -1,54 +1,61 @@
 const appDataSource = require('./dataSource');
 
-const getPostByPostName = async ( type, offset, limit ) => {
-    let newsImageUrl = '';
-
-    if(type == 'news') newsImageUrl = 'image_url,'; 
-
+const getNewsAll = async ( offset, limit ) => {
     try {  
         return await appDataSource.query(`
             SELECT
+                id,
                 title,
                 content,
-                view_count,
-                ${newsImageUrl}
-                created_at
-            FROM ${type} 
+                view_count AS viewCount,
+                image_url AS imageUrl,
+                created_at AS createdAt
+            FROM news 
             LIMIT ?,?
         `, [offset, limit]
         )
-
     }
     catch (err) {
         const error = new Error(err.message);
         error.statusCode = 500;
         throw error;
     }
-
 }
 
-const registerPostByAdminId = async ( type, title, content, adminId, branchId, image ) => {
-    
-    let newsImageUrl = '';
-    let values = '';
-    let valueArray = [ title, content, adminId, branchId ]
-
-    if(image){ 
-        newsImageUrl = 'image_url,';
-        values = '?,'
-        valueArray = [ title, content, image, adminId, branchId ];
-    }
-
+const getNoticeAll = async ( offset, limit ) => {
     try {
-        await appDataSource.query(`
-            INSERT INTO ${type}(
+        return await appDataSource.query(`
+            SELECT
+                id,
                 title,
                 content,
-                ${newsImageUrl}
+                view_count AS viewCount,
+                created_at AS createdAt
+            FROM notices
+            LIMIT ?,?
+        `, [offset, limit]
+        )
+    }
+    catch (err) {
+        const error = new Error(err.message);
+        error.statusCode = 500;
+        throw error;
+    }
+}
+
+const postNewsByAdminId = async ( title, content, adminId, branchId, image ) => {
+    
+    if(image) image = `'${image}'`;
+    try {
+        await appDataSource.query(`
+            INSERT INTO news(
+                title,
+                content,
+                image_url,
                 admin_id,
                 branch_id
-            )VALUES ( ?, ?,${values} ?, ? )`,
-            valueArray );
+            )VALUES ( ?, ?, ${image ? image : 'DEFAULT' }, ?, ? )`,
+            [ title, content, adminId, branchId ]);
     }
     catch (err) {
         const error = new Error(err.message);
@@ -58,32 +65,64 @@ const registerPostByAdminId = async ( type, title, content, adminId, branchId, i
     
 }
 
-const deletePost = async ( type, postId ) => {
+const postNoticeByAdminId = async ( title, content, adminId, branchId ) => {
+    try {
+        await appDataSource.query(`
+            INSERT INTO notices(
+                title,
+                content,
+                admin_id,
+                branch_id
+            )VALUES ( ?, ?, ?, ? )`,
+            [ title, content, adminId, branchId ]);
+    }
+    catch (err) {
+        const error = new Error(err.message);
+        error.statusCode = 500;
+        throw error;
+    }
+    
+}
+
+const deleteNews = async ( newsId ) => {
     try{
-    await appDataSource.query(
-        `DELETE FROM 
-            ${type} 
-        WHERE ${type}.id = ?`,[ postId ]
-    )
+        await appDataSource.query(
+            `DELETE FROM 
+                news
+            WHERE news.id = ?`,[ newsId ]
+        )
     }
     catch (err) {
         const error = new Error(err.message);
         error.statusCode = 500;
         throw error;
     }
-
 }
 
-const updatePost = async ( postId, type, title, content ) => {
-    
+const deleteNotice = async ( noticeId ) => {
+    try{
+        await appDataSource.query(
+            `DELETE FROM 
+                notices
+            WHERE notices.id = ?`,[ noticeId ]
+        )
+    }
+    catch (err) {
+        const error = new Error(err.message);
+        error.statusCode = 500;
+        throw error;
+    }
+}
+
+const updateNews = async ( newsId, title, content ) => {
     try{
     await appDataSource.query(`
-        UPDATE ${type}
+        UPDATE news
             SET 
                 title = ?,
                 content = ?
-            WHERE id = ?
-    ` , [ title, content, postId ])
+            WHERE id = ? 
+    ` , [ title, content, newsId ])
     }
     catch (err) {
         const error = new Error(err.message);
@@ -92,20 +131,62 @@ const updatePost = async ( postId, type, title, content ) => {
     }
 }
 
-const getPostByPostId = async ( type, postId ) => {
+const updateNotice = async ( noticeId, title, content ) => {
+    try{
+    await appDataSource.query(`
+        UPDATE notices
+            SET 
+                title = ?,
+                content = ?
+            WHERE id = ? 
+    ` , [ title, content, noticeId ])
+    }
+    catch (err) {
+        const error = new Error(err.message);
+        error.statusCode = 500;
+        throw error;
+    }
+}
+
+const getNewsByNewsId = async ( newsId ) => {
     try {
         const detail = appDataSource.query(`
             SELECT
-                ${type}.id,
+                n.id,
                 title,
                 content,
-                view_count,
-                u.name
-            FROM ${type}
-            INNER JOIN admins a ON a.id = ${type}.admin_id
+                view_count AS viewCount,
+                image_url AS imageUrl,
+                u.name AS adminName
+            FROM news n
+            INNER JOIN admins a ON a.id = n.admin_id
             INNER JOIN users u ON u.id = a.user_id
-            WHERE ${type}.id = ? 
-        `,[ postId ])
+            WHERE n.id = ? 
+        `,[ newsId ])
+
+        return detail;
+    }
+    catch (err) {
+        const error = new Error(err.message);
+        error.statusCode = 500;
+        throw error;
+    }
+}
+
+const getNoticeByNoticeId = async ( noticeId ) => {
+    try {
+        const detail = appDataSource.query(`
+            SELECT
+                n.id,
+                title,
+                content,
+                view_count AS viewCount,
+                u.name AS adminName
+            FROM notices n
+            INNER JOIN admins a ON a.id = n.admin_id
+            INNER JOIN users u ON u.id = a.user_id
+            WHERE n.id = ? 
+        `,[ noticeId ])
 
         return detail;
     }
@@ -118,10 +199,16 @@ const getPostByPostId = async ( type, postId ) => {
 
 
 
+
 module.exports = {
-    registerPostByAdminId,
-    deletePost,
-    updatePost,
-    getPostByPostId,
-    getPostByPostName
+    postNoticeByAdminId,
+    postNewsByAdminId,
+    deleteNews,
+    deleteNotice,
+    updateNews,
+    updateNotice,
+    getNewsByNewsId,
+    getNoticeByNoticeId,
+    getNoticeAll,
+    getNewsAll
 }
