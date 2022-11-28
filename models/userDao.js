@@ -83,6 +83,22 @@ const getUserByEmail = async(userEmail) => {
         [userEmail]
     );
     return result[0]
+}
+
+const getUserById = async(userId) => {
+
+    const result = await appDataSource.query(`
+        SELECT
+            id as userId,
+            phone_number as userPhoneNumber,
+            email as userEmail,
+            client_id as clientId,
+            client_admin as clientAdmin
+        FROM users
+        WHERE id=?;`,
+        [userId]
+    );
+    return result[0]
 }   
 
 // -- UP -- 회원가입: 전화번호 인증 구현 -- UP --
@@ -450,6 +466,7 @@ module.exports = {
     deleteUser,
     getUserByPhoneNumber,
     getUserByEmail,
+    getUserById,
     getClientByRegistrationNumber,
     getClientByEmail,
     getClientByName,

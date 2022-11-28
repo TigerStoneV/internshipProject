@@ -306,6 +306,19 @@ const riderNormalSignup = async(companyRegistrationNumber, userName, userEmail, 
     return await userDao.riderNormalSignup(companyRegistrationNumber, userName, userEmail, hashedUserPassword, userPhoneNumber);
 };
 
+const createJWTAccessToken = async(userEmail) => {
+    const user = await userDao.getUserByEmail(userEmail);
+
+    const { ALGORITHM, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
+
+    const jwtAccessToken = jwt.sign({'userId':user.userId}, JWT_SECRET, {
+        algorithm: ALGORITHM,
+        expiresIn: JWT_EXPIRES_IN
+    });
+
+    return jwtAccessToken;
+}
+
 const riderNormalSignin = async(userEmail, userPassword) => {
 
     // 정규표현식
@@ -331,13 +344,7 @@ const riderNormalSignin = async(userEmail, userPassword) => {
         throw error
     }
 
-    const { ALGORITHM, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
-    const jwtAccessToken = jwt.sign({'userId':user.userId}, JWT_SECRET, {
-        algorithm: ALGORITHM,
-        expiresIn: JWT_EXPIRES_IN
-    });
-
-    return jwtAccessToken;
+    return await jwtAccessToken(userEmail);
 }
 // -- UP -- 회원가입: user/rider -- UP --
 // --------------------------------------
@@ -354,5 +361,6 @@ module.exports = {
     kakaoUserInfo,
     riderKakaoSignup,
     riderNormalSignup,
+    createJWTAccessToken,
     riderNormalSignin
 }
