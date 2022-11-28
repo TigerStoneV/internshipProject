@@ -100,7 +100,7 @@ const contrastVerificationCode = async(userPhoneNumber, userKeyInCode) => {
     if(verification) {return '전화번호 인증 완료되었습니다'};
     if(!verification) {
         await deleteUser(userPhoneNumber);
-        return '인증번호가 일치하지 않습니다. 인증번호 재발급 x후 재시도해주세요'
+        return '인증번호가 일치하지 않습니다. 인증번호 재발급 후 재시도해주세요'
     };
 };
 

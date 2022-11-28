@@ -89,17 +89,18 @@ const getUserById = async(userId) => {
 
     const result = await appDataSource.query(`
         SELECT
-            id as userId,
-            phone_number as userPhoneNumber,
-            email as userEmail,
-            client_id as clientId,
-            client_admin as clientAdmin
-        FROM users
+            u.id as userId,
+            u.phone_number as userPhoneNumber,
+            u.email as userEmail,
+            u.client_id as clientId,
+            u.client_admin as clientAdmin
+        FROM users u
+        INNER JOIN admins a ON u.id=a.user_id
         WHERE id=?;`,
         [userId]
     );
     return result[0]
-}   
+}
 
 // -- UP -- 회원가입: 전화번호 인증 구현 -- UP --
 // --------------------------------------
