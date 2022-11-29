@@ -57,7 +57,9 @@ const NavbarBlock = () => {
                 </S.Link>
               </S.Nav>
             </S.Container>
-            <S.RiderLogo src="http://www.star-pickers.com/html/img/link_riderlog_pc.png" />
+            <S.Link to="/riderpageclient">
+              <S.RiderLogo src="http://www.star-pickers.com/html/img/link_riderlog_pc.png" />
+            </S.Link>
           </S.Center>
         </S.NavCenter>
       </Navbar>

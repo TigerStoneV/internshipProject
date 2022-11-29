@@ -27,7 +27,7 @@ interface Member {
   name: string;
 }
 
-const RiderPage = () => {
+const RiderPageClient = () => {
   const [selected, setSelected] = useState<string>("별");
   const [one, setOne] = useState<number>(0);
   const [two, setTwo] = useState<number>(0);
@@ -69,7 +69,18 @@ const RiderPage = () => {
     <S.BackGround>
       <NavbarBlock />
       <S.Center>
-        <S.Center>"{}" 님의 기록입니다.</S.Center>
+        <S.Select
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            setSelected(e.target.value)
+          }
+        >
+          {/* <option value="select" hidden>
+            라이더 선택
+          </option> */}
+          {member.map((data) => (
+            <option value={data.name}>{data.name}</option>
+          ))}
+        </S.Select>
         <S.Box>
           <S.ContentBox>
             <Radar data={data} />
@@ -84,7 +95,7 @@ const RiderPage = () => {
   );
 };
 
-export default RiderPage;
+export default RiderPageClient;
 
 const S = {
   BackGround: styled.div`

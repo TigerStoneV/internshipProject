@@ -273,11 +273,13 @@ const MainPage = () => {
                 </S.RiderCenter>
                 <S.RiderColorBox>
                   <S.PointBox>
-                    <S.RiderMessageTitle>라이더로그</S.RiderMessageTitle>
-                    <S.RiderMessageDes>
-                      라이더로그를 통하여 안전에 기여하세요.
-                    </S.RiderMessageDes>
-                    <S.RiderLogo src="http://www.star-pickers.com/html/img/link_riderlog_pc.png" />
+                    <S.Link to="/riderpageclient">
+                      <S.RiderMessageTitle>라이더로그</S.RiderMessageTitle>
+                      <S.RiderMessageDes>
+                        라이더로그를 통하여 안전에 기여하세요.
+                      </S.RiderMessageDes>
+                      <S.RiderLogo src="http://www.star-pickers.com/html/img/link_riderlog_pc.png" />
+                    </S.Link>
                   </S.PointBox>
                 </S.RiderColorBox>
               </S.Center>

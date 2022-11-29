@@ -5,6 +5,9 @@ import { Link, useSearchParams } from "react-router-dom";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
+import { useDispatch, useSelector } from "react-redux";
+import { Uploader } from "uploader";
+import { UploadDropzone } from "react-uploader";
 export interface News {
   id: number;
   title: string;
@@ -20,24 +23,30 @@ interface Params {
   get: string;
 }
 
+interface AdminId {
+  getAdminId: string;
+}
+
 const News = () => {
   const [newsData, setNewsData] = useState<News[]>([]);
   const [title, setTitle] = useState<string>();
   const [content, setContent] = useState<string>();
-  const [image, setImage] = useState<File[]>();
+  const [image, setImage] = useState<string>();
   const [show, setShow] = useState<boolean>(false);
   const [showMoreOffsetCount, setShowMoreOffsetCount] = useState<number>(6);
-  const [token, setToken] = useState<string>("undefined");
+
+  //admin 권한 부여
+  const admin = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   //이미지 저장
+  const uploader = Uploader({
+    apiKey: "free",
+  });
 
-  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files!);
-    setImage(files);
-  };
   //제목 입력
   const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -72,20 +81,39 @@ const News = () => {
   // 글쓰기
 
   const Post = () => {
-    const formData = new FormData();
-    if (typeof title === "string") formData.append("title", title);
-    if (typeof content === "string") formData.append("content", content);
-    if (typeof image === "string") formData.append("image", image);
-    formData.append("adminId", "1");
-    formData.append("branchId", "1");
+    // const formData = new FormData();
+    // if (typeof title === "string") formData.append("title", title);
+    // if (typeof content === "string") formData.append("content", content);
+    // formData.append("adminId", "1");
+    // formData.append("branchId", "1");
 
+    // fetch(`http://172.20.10.2:3000/post/news`, {
+    //   method: "post",
+    //   headers: {
+    //     // "Content-Type": "multipart/form-data",
+    //   },
+    //   body: formData,
+    // });
     fetch(`http://172.20.10.2:3000/post/news`, {
       method: "post",
       headers: {
-        // "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json; charset=utf-8",
       },
-      body: formData,
-    });
+      body: JSON.stringify({
+        //     adminId: admin,
+        title,
+        content,
+        imageUrl: image,
+        adminId: 1,
+        branchId: 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          alert("저장 완료");
+        }
+      });
     handleClose();
   };
 
@@ -119,7 +147,23 @@ const News = () => {
           </S.ViewMore>
         </S.BoxSize>
         <S.BoxSize>
-          {token && <S.Write onClick={handleShow}>글쓰기</S.Write>}
+          {admin === true && <S.Write onClick={handleShow}>글쓰기</S.Write>}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch({ type: "권한", adminId: true });
+            }}
+          >
+            true
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch({ type: "취소", adminId: false });
+            }}
+          >
+            false
+          </button>
           <Modal
             size="lg"
             show={show}
@@ -139,11 +183,17 @@ const News = () => {
               placeholder="내용을 입력하세요."
               onChange={handleInputContent}
             />
-            <S.InputImage
+            {/* <S.InputImage
               placeholder="write your image"
               type="file"
               accept="image/*"
               onChange={onImageChange}
+            /> */}
+            <UploadDropzone
+              uploader={uploader}
+              onUpdate={(files) => console.log(files[0].fileUrl)}
+              width="100%"
+              height="230px"
             />
             <Modal.Footer>
               <Button variant="primary" onClick={Post}>
@@ -302,8 +352,8 @@ const S = {
   `,
 
   Input: styled.input`
-    height: 450px;
-    width: 100%;
+    height: 350px;
+    margin: 7px 10px 7px;
     border: 1px solid lightgray;
   `,
 
@@ -311,12 +361,12 @@ const S = {
     ${variables.flex()}
     height: 50px;
     border: none;
-    margin-top: 10px;
+    margin-top: 7px;
   `,
 
   InputTitle: styled.input`
     height: 50px;
-    margin: 20px 0 20px;
+    margin: 7px 10px 7px;
     border: none;
   `,
 

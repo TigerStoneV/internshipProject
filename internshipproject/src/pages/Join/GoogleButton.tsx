@@ -5,28 +5,36 @@ import { useState } from "react";
 
 const GoogleLoginButton = () => {
   const [googleCode, setGoogleCode] = useState("google");
+
+  //구글 로그인
   const gooleLogin = (e: string | undefined) => {
     if (typeof e === "string") setGoogleCode(e);
+    fetch(`http://192.168.182.177:3000/user/riderGoogleRegister`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        authorizationCode: googleCode,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw new Error("통신실패!");
+      })
+      .then((data) => {
+        if (data) {
+          localStorage.setItem("token", data.accessToken);
+          alert(data.message);
+        } else {
+          alert("아이디 혹은 비밀번호를 확인 해 주세요");
+        }
+      });
   };
   //구글 로그인
   // useEffect(() => {
-  //   fetch(`http://192.168.182.177:3000/user/branchSignin`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       code: googleCode,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (typeof res.data === "object") {
-  //         alert("가입정보가 유효하지 않아, 회원가입 페이지로 이동합니다.");
-  //       } else {
-  //         localStorage.setItem("accessToken", res.userInfo.accessToken);
-  //       }
-  //     });
   // }, []);
   return (
     <GoogleOAuthProvider clientId="368022233833-2g5opl45js7reo1pl0lmejc0l6qi86od.apps.googleusercontent.com">
