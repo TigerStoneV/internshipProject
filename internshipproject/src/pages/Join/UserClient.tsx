@@ -18,63 +18,121 @@ interface Info {
   userEmail: string;
   companyName: string;
   companyRegistrationNumber: number;
-  userPhoneNumber: number;
-  userKeyInCode: number;
+  userPhoneNumber: string;
+  userKeyInCode: string;
   companyEmail: string;
-  companyPassword: number;
+  companyPassword: string;
 }
 interface Login {
   companyEmail: string;
-  companyPassword: number;
+  companyPassword: string;
 }
 const UserClient = ({ text }: Props) => {
   const { title, linkText, url } = text;
   const [info, setInfo] = useState<Info>({
     userName: "",
     userEmail: "",
+    userPhoneNumber: "",
     companyName: "",
-    companyRegistrationNumber: 0,
-    userPhoneNumber: 0,
-    userKeyInCode: 0,
+    userKeyInCode: "",
     companyEmail: "",
-    companyPassword: 0,
+    companyRegistrationNumber: 0,
+    companyPassword: "",
   });
   const [login, setLogin] = useState<Login>({
     companyEmail: "",
-    companyPassword: 0,
+    companyPassword: "",
   });
   const location = useNavigate();
   const [disable, setDisable] = useState<boolean>(true);
   const [disableCheck, setDisableCheck] = useState<boolean>(true);
+  const [disableSignUp, setDisableSignUp] = useState<boolean>(false);
+  //타이머
+  const [count, setCount] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
   //유효성
   useEffect(() => {
     if (
       info.userName.length > 1 &&
       info.userEmail.length > 5 &&
-      info.userPhoneNumber > 10
+      info.userPhoneNumber.length > 10
     ) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-    if (disable === false && info.userKeyInCode > 3) {
+    if (disable === false && info.userKeyInCode.length > 3) {
       setDisableCheck(false);
     } else {
       setDisableCheck(true);
     }
+    if (
+      disableCheck === false &&
+      disable === false &&
+      info.companyPassword.length > 1 &&
+      info.companyRegistrationNumber > -1 &&
+      info.companyEmail.length > -1
+    ) {
+      setDisableSignUp(false);
+    } else {
+      setDisableSignUp(true);
+    }
   }, [info]);
-
   //인증번호 발송
   const postNumber = () => {
-    //fetch.then()
+    fetch(`http://192.168.182.177:3000/user/sendSMS`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userEmail: info.userEmail,
+        userName: info.userName,
+        userPhoneNumber: info.userPhoneNumber,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw new Error("통신실패!");
+      })
+      .then((data) => {
+        if (data.SMS) {
+          alert(data.SMS);
+          setCount(true);
+          setIsPlaying(true);
+        } else {
+          alert("번호를 다시 입력하세요!");
+        }
+      });
   };
 
-  //타이머
-  const [count, setCount] = useState<boolean>(false);
-  // 번호 인증
-  const checkNumber = () => {
-    // fetch.then(setCount(true))
-    setBlock(true);
+  //인증번호 확인
+  const postNumberCheck = () => {
+    fetch(`http://192.168.182.177:3000/user/contrastCode`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userPhoneNumber: info.userPhoneNumber,
+        userKeyInCode: info.userKeyInCode,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw alert("번호를 다시 전송해주세요!");
+      })
+      .then((data) => {
+        if (data) {
+          alert(data.verification);
+          setCount(false);
+        } else {
+          alert("번호를 다시 입력하세요!");
+        }
+      });
   };
 
   //인증 비활성화
@@ -89,11 +147,13 @@ const UserClient = ({ text }: Props) => {
 
   const connect = () => {
     if (
-      info.companyEmail.includes("@") &&
-      typeof info.userName === "string" &&
-      info.companyRegistrationNumber > 0
+      disable === false &&
+      disableCheck === false &&
+      info.companyName.length > -1 &&
+      info.companyPassword.length > 3 &&
+      info.companyRegistrationNumber > -1
     ) {
-      //   fetch(`${API.join}/signup`, {
+      //   fetch(`http://192.168.182.177:3000/user/clientSignup`, {
       //     method: 'POST',
       //     headers: { 'Content-Type': 'application/json' },
       //     body: JSON.stringify(info),
@@ -102,8 +162,8 @@ const UserClient = ({ text }: Props) => {
       goTop();
       alert("회원가입 되었습니다.");
     }
-    if (login.companyEmail.includes("@")) {
-      // fetch(`${API.join}/signin`, {
+    if (login.companyEmail.includes("@") && login.companyPassword.length > 3) {
+      // fetch(`http://192.168.182.177:3000/user/clientSignin`, {
       //   method: 'POST',
       //   headers: {
       //     'Content-Type': 'application/json',
@@ -127,7 +187,6 @@ const UserClient = ({ text }: Props) => {
       location("/");
       goTop();
       alert("로그인 되었습니다");
-      console.log(login);
     }
   };
 
@@ -185,7 +244,7 @@ const UserClient = ({ text }: Props) => {
                   <S.Timer>
                     {count && (
                       <CountdownCircleTimer
-                        isPlaying
+                        isPlaying={isPlaying}
                         duration={180}
                         colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
                         colorsTime={[7, 5, 2, 0]}
@@ -196,7 +255,10 @@ const UserClient = ({ text }: Props) => {
                     )}
                   </S.Timer>
                 </S.CheckTime>
-                <S.CheckNumber disabled={disableCheck} onClick={checkNumber}>
+                <S.CheckNumber
+                  disabled={disableCheck}
+                  onClick={postNumberCheck}
+                >
                   확인
                 </S.CheckNumber>
               </S.CenterRow>
@@ -228,7 +290,13 @@ const UserClient = ({ text }: Props) => {
             placeholder="회사계정 비밀번호"
             onChange={handleInputValue}
           />
-          <S.Button onClick={connect}>{title}</S.Button>
+          {title === "기업 회원가입" ? (
+            <S.Button onClick={connect} disabled={disableSignUp}>
+              {title}
+            </S.Button>
+          ) : (
+            <S.Button onClick={connect}>{title}</S.Button>
+          )}
         </S.Center>
         <Link to={url} className="link">
           {linkText}
@@ -243,7 +311,7 @@ export default UserClient;
 const S = {
   Center: styled.div`
     ${variables.flex("column", "center", "center")}
-    height:450px;
+    height:500px;
     margin-bottom: 10px;
   `,
 
@@ -373,7 +441,8 @@ const S = {
     padding: 14px;
     border: none;
     border-radius: 6px;
-    background-color: orange;
+    background-color: ${(props) =>
+      props.disabled === true ? "lightgray" : "orange"};
     color: rgb(255, 255, 255);
     cursor: pointer;
   `,

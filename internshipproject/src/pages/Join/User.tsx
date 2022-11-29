@@ -14,17 +14,19 @@ interface Props {
 }
 
 interface Info {
-  email: string;
-  name: string;
-  password: number;
-  checkPassword: number;
-  phone_number: number;
-  userKeyInCode: number;
+  userEmail: string;
+  userName: string;
+  password: string;
+  checkPassword: string;
+  userPhoneNumber: string;
+  userKeyInCode: string;
+  companyRegistrationNumber: number;
 }
 interface Login {
   email: string;
-  password: number;
+  password: string;
 }
+
 //카카오 로그인
 const APIKEY = `15924408e3187627642a25f1aeed7c09`;
 const REDIRECT_URI = `http://localhost:3000/join`;
@@ -33,57 +35,116 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 const User = ({ text }: Props) => {
   const { title, linkText, url } = text;
   const [info, setInfo] = useState<Info>({
-    email: "",
-    name: "",
-    password: 0,
-    checkPassword: 0,
-    phone_number: 0,
-    userKeyInCode: 0,
+    userEmail: "",
+    userName: "",
+    userPhoneNumber: "",
+    password: "",
+    checkPassword: "",
+    userKeyInCode: "",
+    companyRegistrationNumber: 0,
   });
+
   const [login, setLogin] = useState<Login>({
     email: "",
-    password: 0,
+    password: "",
   });
   const location = useNavigate();
   const [disable, setDisable] = useState<boolean>(true);
   const [disableCheck, setDisableCheck] = useState<boolean>(true);
+  const [disableSignUp, setDisableSignUp] = useState<boolean>(true);
+  //타이머
+  const [count, setCount] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
   //유효성
   useEffect(() => {
     if (
-      info.name.length > 1 &&
-      info.email.length > 5 &&
-      info.phone_number > 10
+      info.userName.length > 1 &&
+      info.userEmail.length > 5 &&
+      info.userPhoneNumber.length > 10
     ) {
       setDisable(false);
     } else {
       setDisable(true);
     }
-    if (disable === false && info.checkPassword > 3) {
+    if (disable === false && info.userKeyInCode.length > 3) {
       setDisableCheck(false);
     } else {
       setDisableCheck(true);
     }
+    if (
+      disableCheck === false &&
+      disable === false &&
+      info.password.length > 1 &&
+      info.companyRegistrationNumber > -1
+    ) {
+      setDisableSignUp(false);
+    } else {
+      setDisableSignUp(true);
+    }
   }, [info]);
+
   //인증번호 발송
   const postNumber = () => {
-    //fetch.then()
+    fetch(`http://192.168.182.177:3000/user/sendSMS`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userEmail: info.userEmail,
+        userName: info.userName,
+        userPhoneNumber: info.userPhoneNumber,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw new Error("통신실패!");
+      })
+      .then((data) => {
+        if (data.SMS) {
+          alert(data.SMS);
+          setCount(true);
+          setIsPlaying(true);
+        } else {
+          alert("번호를 다시 입력하세요!");
+        }
+      });
+  };
+  //인증번호 확인
+  const postNumberCheck = () => {
+    fetch(`http://192.168.182.177:3000/user/contrastCode`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userPhoneNumber: info.userPhoneNumber,
+        userKeyInCode: info.userKeyInCode,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw alert("번호를 다시 전송해주세요!");
+      })
+      .then((data) => {
+        if (data) {
+          alert(data.verification);
+        } else {
+          alert("번호를 다시 입력하세요!");
+        }
+      });
   };
 
-  //타이머
-  const [count, setCount] = useState<boolean>(false);
-
-  // 번호 인증
-  const checkNumber = () => {
-    // fetch.then(setCount(true))
-    setBlock(true);
-  };
   //인증 비활성화
   const [block, setBlock] = useState<boolean>(false);
   const blockBox = () => {};
+
   //카카오 로그인
   const handleLoginKakao = () => {
     window.location.href = KAKAO_AUTH_URL;
-    location("/");
   };
 
   //회원가입,로그인
@@ -94,11 +155,12 @@ const User = ({ text }: Props) => {
 
   const connect = () => {
     if (
-      info.email.includes("@") &&
-      typeof info.name === "string" &&
-      info.phone_number > 0
+      disable === false &&
+      disableCheck === false &&
+      info.password.length > 3 &&
+      info.companyRegistrationNumber > -1
     ) {
-      //   fetch(`${API.join}/signup`, {
+      //   fetch(`http://192.168.182.177:3000/user/riderNormalSignup`, {
       //     method: 'POST',
       //     headers: { 'Content-Type': 'application/json' },
       //     body: JSON.stringify(info),
@@ -106,10 +168,9 @@ const User = ({ text }: Props) => {
       location("/join");
       goTop();
       alert("회원가입 되었습니다.");
-      console.log(info);
     }
-    if (login.email.includes("@")) {
-      // fetch(`${API.join}/signin`, {
+    if (login.email.includes("@") && login.password.length > 3) {
+      // fetch(`http://192.168.182.177:3000/user/riderNormalSignin`, {
       //   method: 'POST',
       //   headers: {
       //     'Content-Type': 'application/json',
@@ -133,7 +194,6 @@ const User = ({ text }: Props) => {
       location("/");
       goTop();
       alert("로그인 되었습니다");
-      console.log(login);
     }
   };
 
@@ -148,7 +208,6 @@ const User = ({ text }: Props) => {
 
   return (
     <S.Center>
-      <S.Logo src="http://www.star-pickers.com/html/img/logo_gray.png" />
       <S.CenterInput>
         <S.Title>{title}</S.Title>
         <S.Center>
@@ -156,39 +215,38 @@ const User = ({ text }: Props) => {
             <S.InputTop>
               <S.Input
                 type="text"
-                name="name"
+                name="userName"
                 maxLength={4}
                 placeholder="이름"
                 onChange={handleInputValue}
               />
               <S.CenterRow>
                 <S.Phone
-                  name="phone_number"
+                  name="userPhoneNumber"
                   type="text"
                   maxLength={11}
                   placeholder="전화번호"
                   onChange={handleInputValue}
                   disabled={block}
                 />
-                <S.Check disabled={disable} onClick={postNumber}>
+                <S.Check onClick={postNumber} disabled={disable}>
                   전송
                 </S.Check>
               </S.CenterRow>
               <S.CenterRow>
                 <S.PhoneNumber
-                  name="checkPassword"
+                  name="userKeyInCode"
                   type="text"
                   maxLength={4}
                   placeholder="숫자 4개 입력하세요"
                   onChange={handleInputValue}
                   disabled={block}
                 />
-
                 <S.CheckTime>
                   <S.Timer>
                     {count && (
                       <CountdownCircleTimer
-                        isPlaying
+                        isPlaying={isPlaying}
                         duration={180}
                         colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
                         colorsTime={[7, 5, 2, 0]}
@@ -199,14 +257,24 @@ const User = ({ text }: Props) => {
                     )}
                   </S.Timer>
                 </S.CheckTime>
-                <S.CheckNumber disabled={disableCheck} onClick={checkNumber}>
+                <S.CheckNumber
+                  onClick={postNumberCheck}
+                  disabled={disableCheck}
+                >
                   확인
                 </S.CheckNumber>
               </S.CenterRow>
+              <S.Input
+                type="text"
+                name="companyRegistrationNumber"
+                maxLength={10}
+                placeholder="회사 등록번호"
+                onChange={handleInputValue}
+              />
             </S.InputTop>
           )}
           <S.Input
-            name="email"
+            name="userEmail"
             type="email"
             placeholder="이메일"
             onChange={handleInputValue}
@@ -217,7 +285,13 @@ const User = ({ text }: Props) => {
             placeholder="비밀번호"
             onChange={handleInputValue}
           />
-          <S.Button onClick={connect}>{title}</S.Button>
+          {title === "개인 회원가입" ? (
+            <S.Button onClick={connect} disabled={disableSignUp}>
+              {title}
+            </S.Button>
+          ) : (
+            <S.Button onClick={connect}>{title}</S.Button>
+          )}
         </S.Center>
         <Link to={url} className="link">
           {linkText}
@@ -242,7 +316,7 @@ export default User;
 const S = {
   Center: styled.div`
     ${variables.flex("column", "center", "center")}
-    height:400px;
+    height:500px;
   `,
 
   CenterRow: styled.div`
@@ -343,7 +417,8 @@ const S = {
     padding: 14px;
     border: none;
     border-radius: 6px;
-    background-color: orange;
+    background-color: ${(props) =>
+      props.disabled === true ? "lightgray" : "orange"};
     color: rgb(255, 255, 255);
     cursor: pointer;
   `,

@@ -8,23 +8,37 @@ import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 export interface Notice {
-  id: string;
+  id: number;
   title: string;
   content: string;
-  view_count: string;
-  created_at: string;
+  viewCount: string;
+  createdAt: string;
+}
+
+interface PostNotice {
+  adminId: number;
+  title: string;
+  content: string;
+  branchId: number;
 }
 
 const Notice = () => {
   const [noticeData, setNoticeData] = useState<Notice[]>([]);
+  const [postData, setPostData] = useState<PostNotice[]>([]);
+  const [title, setTitle] = useState<string>();
+  const [content, setContent] = useState<string>();
   const [show, setShow] = useState<boolean>(false);
+  const [token, setToken] = useState<string>("undefined");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // AOS 애니메이션
   useEffect(() => {
     AOS.init();
   });
 
+  //통신
   useEffect(() => {
     async function fetchData() {
       const respons = await fetch("Data/NoticeData.json");
@@ -33,12 +47,42 @@ const Notice = () => {
     }
     fetchData();
 
-    fetch("http://172.20.10.5:3000/ping")
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.data);
-      });
+    // fetch("http://172.20.10.2:3000/post/notice?offset=0&limit=10")
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     setNoticeData(res.data);
+    //   });
   }, []);
+
+  //글쓰기
+  const writeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+  const writeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
+
+  const Post = () => {
+    // fetch(`http://172.20.10.2:3000/post/notice`, {
+    //   method: "post",
+    //   headers: {
+    //     "Content-Type": "application/json; charset=utf-8",
+    //   },
+    //   body: JSON.stringify({
+    //     adminId: 1,
+    //     title: title,
+    //     content: content,
+    //     branchId: 1,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     if (res.success) {
+    //       alert("저장 완료");
+    //     }
+    //   });
+    // handleClose();
+  };
 
   return (
     <>
@@ -46,15 +90,15 @@ const Notice = () => {
         <S.NoticeListBox>
           {noticeData.map((data) => (
             <Accordion defaultActiveKey="0" key={data.id}>
-              <Accordion.Item eventKey={data.id}>
+              <Accordion.Item eventKey={data.title}>
                 <Accordion.Header>{data.title}</Accordion.Header>
                 <Accordion.Body>
                   <S.Center>
                     <S.ContentBox>
                       <S.Content>{data.content}</S.Content>
-                      <S.Date>{data.created_at.slice(0, 10)}</S.Date>
+                      <S.Date>{data.createdAt.slice(0, 10)}</S.Date>
                     </S.ContentBox>
-                    <S.View>{data.view_count}</S.View>
+                    <S.View>{data.viewCount}</S.View>
                   </S.Center>
                 </Accordion.Body>
               </Accordion.Item>
@@ -62,7 +106,7 @@ const Notice = () => {
           ))}
           <S.BottomBox>
             <S.BoxSize>
-              <S.Write onClick={handleShow}>글쓰기</S.Write>
+              {token && <S.Write onClick={handleShow}>글쓰기</S.Write>}
               <Modal
                 size="lg"
                 show={show}
@@ -73,10 +117,17 @@ const Notice = () => {
                 <Modal.Header closeButton>
                   <S.ModalTitle>Create New</S.ModalTitle>
                 </Modal.Header>
-                <S.InputTitle placeholder="제목을 입력하세요." />
-                <S.Input type="text" placeholder="내용을 입력하세요." />
+                <S.InputTitle
+                  placeholder="제목을 입력하세요."
+                  onChange={writeTitle}
+                />
+                <S.Input
+                  type="text"
+                  placeholder="내용을 입력하세요."
+                  onChange={writeContent}
+                />
                 <Modal.Footer>
-                  <Button variant="primary" onClick={handleClose}>
+                  <Button variant="primary" onClick={Post}>
                     등록
                   </Button>
                 </Modal.Footer>

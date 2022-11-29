@@ -40,12 +40,6 @@ const LOGIN_TEXT_ADMIN = {
   url: "/signup",
 };
 
-const SIGNUP_TEXT_ADMIN = {
-  title: "관리자 회원가입",
-  linkText: "이미 가입하셨나요? 로그인",
-  url: "/join",
-};
-
 const SignIn = () => {
   useEffect(() => {
     AOS.init();
@@ -72,6 +66,26 @@ const SignIn = () => {
   //카카오 로그인
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
+
+  // useEffect(() => {
+  //   fetch(`http://192.168.182.177:3000/user/branchSignin`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       code: code,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       if (typeof res.data === "object") {
+  //         alert("가입정보가 유효하지 않아, 회원가입 페이지로 이동합니다.");
+  //       } else {
+  //         localStorage.setItem("accessToken", res.userInfo.accessToken);
+  //       }
+  //     });
+  // }, []);
 
   return (
     <>
@@ -114,7 +128,10 @@ const SignIn = () => {
             backdrop="static"
             keyboard={false}
           >
-            <Modal.Header closeButton></Modal.Header>
+            <Modal.Header
+              closeButton
+              //  onClick={CloseClick}
+            ></Modal.Header>
             <S.CenterHeight>
               <User text={isSelecLogin ? LOGIN_TEXT : SIGNUP_TEXT} />
             </S.CenterHeight>
@@ -153,7 +170,7 @@ const SignIn = () => {
             <Modal.Header closeButton></Modal.Header>
             <S.CenterHeight>
               <UserAdmin
-                text={isSelecLoginAdmin ? LOGIN_TEXT_ADMIN : SIGNUP_TEXT_ADMIN}
+                text={isSelecLoginAdmin ? LOGIN_TEXT_ADMIN : LOGIN_TEXT_ADMIN}
               />
             </S.CenterHeight>
             <Modal.Footer>

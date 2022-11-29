@@ -13,6 +13,7 @@ import NewsPage from "./pages/News/NewsPage";
 import NewsNotice from "./pages/NewsNotice";
 import Notice from "./pages/Notice/Notice";
 import RiderLog from "./pages/RiderLog/RiderLog";
+import RiderPage from "./pages/RiderPage/RiderPage";
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/join" element={<SignIn />} />
         <Route path="/login" element={<SignIn />} />
         <Route path="/signup" element={<SignIn />} />
+        <Route path="/riderpage" element={<RiderPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>
