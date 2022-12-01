@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
+import { useDispatch, useSelector } from "react-redux";
 
 interface Text {
   title: string;
@@ -13,92 +14,23 @@ interface Props {
   text: Text;
 }
 
-interface Info {
-  userName: string;
-  userEmail: string;
-  branchAddress: string;
-  branchName: string;
-  userPhoneNumber: number;
-  userKeyInCode: number;
-  branchEmail: string;
-  branchPassword: number;
-}
 interface Login {
-  adminEmail: string;
-  adminPassword: string;
+  branchEmail: string;
+  branchPassword: string;
 }
 const UserAdmin = ({ text }: Props) => {
   const { title, linkText, url } = text;
-  const [info, setInfo] = useState<Info>({
-    userName: "",
-    userEmail: "",
-    branchAddress: "",
-    branchName: "",
-    userPhoneNumber: 0,
-    userKeyInCode: 0,
-    branchEmail: "",
-    branchPassword: 0,
-  });
+  const dispatch = useDispatch();
+
   const [login, setLogin] = useState<Login>({
-    adminEmail: "",
-    adminPassword: "",
+    branchEmail: "",
+    branchPassword: "",
   });
   const location = useNavigate();
   const [disable, setDisable] = useState<boolean>(true);
   const [disableCheck, setDisableCheck] = useState<boolean>(true);
-  //유효성
-  useEffect(() => {
-    if (
-      info.userName.length > 1 &&
-      info.userEmail.length > 5 &&
-      info.userPhoneNumber > 10
-    ) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-    if (disable === false && info.userKeyInCode > 3) {
-      setDisableCheck(false);
-    } else {
-      setDisableCheck(true);
-    }
-  }, [info]);
 
-  //회원가입,로그인
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-
-  const connect = () => {
-    if (login.adminEmail.includes("@") && login.adminPassword.length > 3) {
-      // fetch(`http://192.168.182.177:3000/user/branchSignin`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(login),
-      // })
-      //   .then(response => {
-      //     if (response.ok === true) {
-      //       return response.json();
-      //     }
-      //     throw new Error('통신실패!');
-      //   })
-      //   .then(data => {
-      //     if (data.data) {
-      //       localStorage.setItem('token', data.data);
-      //       navigate('/', { replace: true });
-      //     } else {
-      //       alert('아이디 혹은 비밀번호를 확인 해 주세요');
-      //     }
-      //   });
-      location("/");
-      goTop();
-      alert("로그인 되었습니다");
-    }
-  };
-
+  //화면이동
   const goTop = () => {
     if (!window.scrollY) return;
 
@@ -106,6 +38,38 @@ const UserAdmin = ({ text }: Props) => {
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  //회원가입,로그인
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  const connect = () => {
+    if (login.branchEmail.includes("@")) {
+      fetch(`http://192.168.182.177:3000/user/adminSignin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      })
+        .then((response) => {
+          if (response.ok === true) {
+            return response.json();
+          }
+          throw alert("아이디와 비밀번호를 확인해주세요.");
+        })
+        .then((data: any) => {
+          if (data) {
+            localStorage.setItem("token", data.accessToken);
+            dispatch({ type: "권한", adminId: true });
+            alert(data.message);
+            location("/");
+            goTop();
+          }
+        });
+    }
   };
 
   //추후 admin 추가 회원가입 가능 시 대비 레이아웃
@@ -185,7 +149,7 @@ const UserAdmin = ({ text }: Props) => {
             onChange={handleInputValue}
           />
           <S.Input
-            name="branchEmail"
+            name="branchPassword"
             type="password"
             placeholder="관리자 비밀번호"
             onChange={handleInputValue}

@@ -16,8 +16,7 @@ interface Props {
 interface Info {
   userEmail: string;
   userName: string;
-  password: string;
-  checkPassword: string;
+  userPassword: string;
   userPhoneNumber: string;
   userKeyInCode: string;
   companyRegistrationNumber: number;
@@ -38,8 +37,7 @@ const User = ({ text }: Props) => {
     userEmail: "",
     userName: "",
     userPhoneNumber: "",
-    password: "",
-    checkPassword: "",
+    userPassword: "",
     userKeyInCode: "",
     companyRegistrationNumber: 0,
   });
@@ -54,7 +52,33 @@ const User = ({ text }: Props) => {
   const [disableSignUp, setDisableSignUp] = useState<boolean>(true);
   //타이머
   const [count, setCount] = useState<boolean>(false);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  //인증번호 시간초과
+
+  //인증 비활성화
+  const [block, setBlock] = useState<boolean>(false);
+  const blockBox = () => {};
+
+  //카카오 로그인
+  const handleLoginKakao = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
+  //회원가입,로그인
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  //화면이동
+  const goTop = () => {
+    if (!window.scrollY) return;
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   //유효성
   useEffect(() => {
@@ -75,7 +99,7 @@ const User = ({ text }: Props) => {
     if (
       disableCheck === false &&
       disable === false &&
-      info.password.length > 1 &&
+      info.userPassword.length > 1 &&
       info.companyRegistrationNumber > -1
     ) {
       setDisableSignUp(false);
@@ -84,6 +108,28 @@ const User = ({ text }: Props) => {
     }
   }, [info]);
 
+  //인븡번호 타이머
+  // const timer = setTimeout(() => {
+  //   fetch("http://192.168.182.177:3000/user", {
+  //     method: "DELETE",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       userPhoneNumber: info.userPhoneNumber,
+  //     }),
+  //   })
+  //     .then((response) => {
+  //       if (response.ok === true) {
+  //         return response.json();
+  //       }
+  //       throw new Error("통신실패!");
+  //     })
+  //     .then((data) => alert(data.message));
+  // }, 30000);
+  // if (disableCheck === false) {
+  //   clearTimeout(timer);
+  // }
   //인증번호 발송
   const postNumber = () => {
     fetch(`http://192.168.182.177:3000/user/sendSMS`, {
@@ -105,7 +151,27 @@ const User = ({ text }: Props) => {
         if (data.SMS) {
           alert(data.SMS);
           setCount(true);
-          setIsPlaying(true);
+          const timer = setTimeout(() => {
+            fetch("http://192.168.182.177:3000/user", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userPhoneNumber: info.userPhoneNumber,
+              }),
+            })
+              .then((response) => {
+                if (response.ok === true) {
+                  return response.json();
+                }
+                throw new Error("통신실패!");
+              })
+              .then((data) => alert(data.message));
+          }, 180000);
+          if (disableCheck === false) {
+            clearTimeout(timer);
+          }
         } else {
           alert("번호를 다시 입력하세요!");
         }
@@ -138,72 +204,61 @@ const User = ({ text }: Props) => {
       });
   };
 
-  //인증 비활성화
-  const [block, setBlock] = useState<boolean>(false);
-  const blockBox = () => {};
-
-  //카카오 로그인
-  const handleLoginKakao = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
-
-  //회원가입,로그인
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-
   const connect = () => {
     if (
+      title === "개인 회원가입" &&
       disable === false &&
       disableCheck === false &&
-      info.password.length > 3 &&
+      info.userPassword.length > 3 &&
       info.companyRegistrationNumber > -1
     ) {
-      //   fetch(`http://192.168.182.177:3000/user/riderNormalSignup`, {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(info),
-      //   });
-      location("/join");
-      goTop();
-      alert("회원가입 되었습니다.");
+      fetch(`http://192.168.182.177:3000/user/riderNormalSignup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(info),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw res;
+          }
+        })
+        .catch((error) => {
+          error.text().then((msg: any) => alert(msg));
+        })
+        .then((data) => {
+          location("/join");
+          goTop();
+        });
     }
-    if (login.email.includes("@") && login.password.length > 3) {
-      // fetch(`http://192.168.182.177:3000/user/riderNormalSignin`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(login),
-      // })
-      //   .then(response => {
-      //     if (response.ok === true) {
-      //       return response.json();
-      //     }
-      //     throw new Error('통신실패!');
-      //   })
-      //   .then(data => {
-      //     if (data.data) {
-      //       localStorage.setItem('token', data.data);
-      //       navigate('/', { replace: true });
-      //     } else {
-      //       alert('아이디 혹은 비밀번호를 확인 해 주세요');
-      //     }
-      //   });
-      location("/");
-      goTop();
-      alert("로그인 되었습니다");
+    if (
+      title !== "개인 회원가입" &&
+      info.userEmail.includes("@") &&
+      info.userPassword.length > 3
+    ) {
+      fetch(`http://192.168.182.177:3000/user/riderNormalSignin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      })
+        .then((response) => {
+          if (response.ok === true) {
+            return response.json();
+          }
+          throw new Error("통신실패!");
+        })
+        .then((data) => {
+          if (data) {
+            localStorage.setItem("token", data.accessToken);
+            alert(data.message);
+            location("/");
+            goTop();
+          } else {
+            alert("아이디 혹은 비밀번호를 확인 해 주세요");
+          }
+        });
     }
-  };
-
-  const goTop = () => {
-    if (!window.scrollY) return;
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
 
   return (
@@ -246,7 +301,7 @@ const User = ({ text }: Props) => {
                   <S.Timer>
                     {count && (
                       <CountdownCircleTimer
-                        isPlaying={isPlaying}
+                        isPlaying
                         duration={180}
                         colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
                         colorsTime={[7, 5, 2, 0]}
@@ -280,9 +335,9 @@ const User = ({ text }: Props) => {
             onChange={handleInputValue}
           />
           <S.Input
-            name="password"
+            name="userPassword"
             type="password"
-            placeholder="비밀번호"
+            placeholder="비밀번호 (대문자,소문자,특수문자,숫자를 포함한 8자리수)"
             onChange={handleInputValue}
           />
           {title === "개인 회원가입" ? (

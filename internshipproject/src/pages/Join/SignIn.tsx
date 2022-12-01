@@ -63,30 +63,55 @@ const SignIn = () => {
   const handleCloseAdmin = () => setShowAdmin(false);
   const handleShowAdmin = () => setShowAdmin(true);
 
-  //카카오 로그인
-  const [searchParams, setSearchParams] = useSearchParams();
-  const code = searchParams.get("code");
-
-  // useEffect(() => {
-  //   fetch(`http://192.168.182.177:3000/user/branchSignin`, {
-  //     method: "POST",
+  // x표시 클릭시 delete fetch
+  // const exit = () => {
+  //   fetch("http://192.168.182.177:3000/user", {
+  //     method: "DELETE",
   //     headers: {
   //       "Content-Type": "application/json",
   //     },
   //     body: JSON.stringify({
-  //       code: code,
+  //       userPhoneNumber: info.userPhoneNumber,
   //     }),
   //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (typeof res.data === "object") {
-  //         alert("가입정보가 유효하지 않아, 회원가입 페이지로 이동합니다.");
-  //       } else {
-  //         localStorage.setItem("accessToken", res.userInfo.accessToken);
+  //     .then((response) => {
+  //       if (response.ok === true) {
+  //         return response.json();
   //       }
-  //     });
-  // }, []);
+  //       throw new Error("통신실패!");
+  //     })
+  //     .then((data) => alert(data.message));
+  // };
 
+  //카카오 로그인
+  const [searchParams, setSearchParams] = useSearchParams();
+  const code = searchParams.get("code");
+
+  if (typeof code === "string") {
+    fetch(`http://192.168.182.177:3000/user/riderKakaoRegister`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        authorizationCode: code,
+      }),
+    })
+      .then((response) => {
+        if (response.ok === true) {
+          return response.json();
+        }
+        throw new Error("통신실패!");
+      })
+      .then((data) => {
+        if (data) {
+          localStorage.setItem("token", data.accessToken);
+          alert(data.message);
+        } else {
+          alert("아이디 혹은 비밀번호를 확인 해 주세요");
+        }
+      });
+  }
   return (
     <>
       <S.JoinMainImage>

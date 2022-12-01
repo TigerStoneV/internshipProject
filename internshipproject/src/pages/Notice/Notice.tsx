@@ -7,6 +7,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
+import { useDispatch, useSelector } from "react-redux";
+
 export interface Notice {
   id: number;
   title: string;
@@ -29,6 +31,10 @@ const Notice = () => {
   const [content, setContent] = useState<string>();
   const [show, setShow] = useState<boolean>(false);
   const [token, setToken] = useState<string>("undefined");
+
+  //admin 권한 부여
+  const admin = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -69,6 +75,7 @@ const Notice = () => {
     //     "Content-Type": "application/json; charset=utf-8",
     //   },
     //   body: JSON.stringify({
+    //     adminId: admin,
     //     adminId: 1,
     //     title: title,
     //     content: content,
@@ -106,7 +113,7 @@ const Notice = () => {
           ))}
           <S.BottomBox>
             <S.BoxSize>
-              {token && <S.Write onClick={handleShow}>글쓰기</S.Write>}
+              {admin === true && <S.Write onClick={handleShow}>글쓰기</S.Write>}
               <Modal
                 size="lg"
                 show={show}
@@ -295,13 +302,13 @@ const S = {
 
   Input: styled.input`
     height: 450px;
-    width: 100%;
+    margin: 7px 10px 7px;
     border: 1px solid lightgray;
   `,
 
   InputTitle: styled.input`
     height: 50px;
-    margin: 20px 0 20px;
+    margin: 7px 10px 7px;
     border: none;
   `,
 

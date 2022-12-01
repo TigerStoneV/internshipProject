@@ -51,6 +51,26 @@ const UserClient = ({ text }: Props) => {
   const [count, setCount] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
+  //인증 비활성화
+  const [block, setBlock] = useState<boolean>(false);
+  const blockBox = () => {};
+
+  //회원가입,로그인
+  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
+
+  //화면 이동
+  const goTop = () => {
+    if (!window.scrollY) return;
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   //유효성
   useEffect(() => {
     if (
@@ -100,7 +120,27 @@ const UserClient = ({ text }: Props) => {
         if (data.SMS) {
           alert(data.SMS);
           setCount(true);
-          setIsPlaying(true);
+          const timer = setTimeout(() => {
+            fetch("http://192.168.182.177:3000/user", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userPhoneNumber: info.userPhoneNumber,
+              }),
+            })
+              .then((response) => {
+                if (response.ok === true) {
+                  return response.json();
+                }
+                throw new Error("통신실패!");
+              })
+              .then((data) => alert(data.message));
+          }, 180000);
+          if (disableCheck === false) {
+            clearTimeout(timer);
+          }
         } else {
           alert("번호를 다시 입력하세요!");
         }
@@ -134,69 +174,64 @@ const UserClient = ({ text }: Props) => {
         }
       });
   };
-
-  //인증 비활성화
-  const [block, setBlock] = useState<boolean>(false);
-  const blockBox = () => {};
-
-  //회원가입,로그인
-  const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-
   const connect = () => {
     if (
+      title === "기업 회원가입" &&
       disable === false &&
       disableCheck === false &&
       info.companyName.length > -1 &&
       info.companyPassword.length > 3 &&
       info.companyRegistrationNumber > -1
     ) {
-      //   fetch(`http://192.168.182.177:3000/user/clientSignup`, {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(info),
-      //   });
-      location("/join");
-      goTop();
-      alert("회원가입 되었습니다.");
+      fetch(`http://192.168.182.177:3000/user/clientSignup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(info),
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw res;
+          }
+        })
+        .catch((error) => {
+          error.text().then((msg: any) => alert(msg));
+        })
+        .then((data) => {
+          location("/join");
+          goTop();
+          alert("회원가입이 완료되었습니다.");
+        });
     }
-    if (login.companyEmail.includes("@") && login.companyPassword.length > 3) {
-      // fetch(`http://192.168.182.177:3000/user/clientSignin`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(login),
-      // })
-      //   .then(response => {
-      //     if (response.ok === true) {
-      //       return response.json();
-      //     }
-      //     throw new Error('통신실패!');
-      //   })
-      //   .then(data => {
-      //     if (data.data) {
-      //       localStorage.setItem('token', data.data);
-      //       navigate('/', { replace: true });
-      //     } else {
-      //       alert('아이디 혹은 비밀번호를 확인 해 주세요');
-      //     }
-      //   });
-      location("/");
-      goTop();
-      alert("로그인 되었습니다");
+
+    if (
+      title !== "기업 회원가입" &&
+      info.userEmail.includes("@") &&
+      info.companyPassword.length > 3
+    ) {
+      fetch(`http://192.168.182.177:3000/user/clientSignin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login),
+      })
+        .then((response) => {
+          if (response.ok === true) {
+            return response.json();
+          }
+          throw console.log(response);
+        })
+        .then((data) => {
+          if (data) {
+            localStorage.setItem("token", data.accessToken);
+            alert(data.message);
+            location("/");
+            goTop();
+          } else {
+            alert("아이디 혹은 비밀번호를 확인 해 주세요");
+          }
+        });
     }
-  };
-
-  const goTop = () => {
-    if (!window.scrollY) return;
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   };
   return (
     <S.Center>
