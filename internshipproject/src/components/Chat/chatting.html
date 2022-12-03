@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="socket.io/socket.io.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./chatting.css" />
+    <title>실시간 채팅</title>
+  </head>
+  <body>
+    <div id="chat-area">
+      <div id="message-area">
+        <div id="display-message-area">
+          <ul id="messages"></ul>
+        </div>
+
+        <div id="message-form-area">
+          <form id="message-form">
+            <input
+              id="message"
+              type="text"
+              placeholder="Type your message..."
+              autocomplete="off"
+            />
+            <input id="message-submit" type="submit" value="Send" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    const socket = io();
+
+    $username = $("#user-name").val();
+    $("#chat-area").show();
+    socket.emit("has connected", $username);
+
+    $("#message-form").submit(function (event) {
+      event.preventDefault();
+      socket.emit("new message", {
+        username: $username,
+        message: $("#message").val(),
+      });
+
+      $("#message").val(""); // Clear text area
+    });
+
+    socket.on("new message", function (data) {
+      $("#messages").append(
+        "<li><i><b>" + data.username + "</b>: " + data.message + "</i></li>"
+      );
+    });
+  </script>
+</html>

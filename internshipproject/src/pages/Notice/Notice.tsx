@@ -46,18 +46,18 @@ const Notice = () => {
 
   //통신
   useEffect(() => {
-    async function fetchData() {
-      const respons = await fetch("Data/NoticeData.json");
-      const result = await respons.json();
-      setNoticeData(result);
-    }
-    fetchData();
+    //   async function fetchData() {
+    //     const respons = await fetch("Data/NoticeData.json");
+    //     const result = await respons.json();
+    //     setNoticeData(result);
+    //   }
+    //   fetchData();
 
-    // fetch("http://172.20.10.2:3000/post/notice?offset=0&limit=10")
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     setNoticeData(res.data);
-    //   });
+    fetch("http://172.20.10.2:3000/post/notice?offset=0&limit=10")
+      .then((res) => res.json())
+      .then((res) => {
+        setNoticeData(res.data);
+      });
   }, []);
 
   //글쓰기
@@ -69,26 +69,25 @@ const Notice = () => {
   };
 
   const Post = () => {
-    // fetch(`http://172.20.10.2:3000/post/notice`, {
-    //   method: "post",
-    //   headers: {
-    //     "Content-Type": "application/json; charset=utf-8",
-    //   },
-    //   body: JSON.stringify({
-    //     adminId: admin,
-    //     adminId: 1,
-    //     title: title,
-    //     content: content,
-    //     branchId: 1,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     if (res.success) {
-    //       alert("저장 완료");
-    //     }
-    //   });
-    // handleClose();
+    fetch(`http://172.20.10.2:3000/post/notice`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({
+        adminId: admin,
+        title: title,
+        content: content,
+        branchId: 1,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          alert("저장 완료");
+        }
+      });
+    handleClose();
   };
 
   return (

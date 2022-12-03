@@ -163,6 +163,7 @@ const S = {
     padding:20px 50px;
     width: 150px;
     border: 1px solid black;
+    cursor: pointer;
   `,
 
   image: styled.img`

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import User from "./User";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -56,6 +56,8 @@ const SignIn = () => {
   const [showClient, setShowClient] = useState<boolean>(false);
   const [showAdmin, setShowAdmin] = useState<boolean>(false);
 
+  const [token, setToken] = useState<string>("");
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleCloseClient = () => setShowClient(false);
@@ -87,7 +89,7 @@ const SignIn = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
 
-  if (typeof code === "string") {
+  useEffect(() => {
     fetch(`http://192.168.182.177:3000/user/riderKakaoRegister`, {
       method: "POST",
       headers: {
@@ -108,10 +110,23 @@ const SignIn = () => {
           localStorage.setItem("token", data.accessToken);
           alert(data.message);
         } else {
-          alert("아이디 혹은 비밀번호를 확인 해 주세요");
+          alert("카카오 계정을 확인해주세요.");
         }
       });
-  }
+  }, []);
+
+  //로그아웃
+  const navigate = useNavigate();
+
+  const logout = () => {
+    if (localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      navigate("/");
+      alert("로그아웃 되셨습니다.");
+    } else {
+      alert("로그인 먼저 해주세요.");
+    }
+  };
   return (
     <>
       <S.JoinMainImage>
@@ -146,6 +161,9 @@ const SignIn = () => {
               <S.JoinClickBox onClick={handleShowClient}>기업용</S.JoinClickBox>
               <S.JoinClickBox onClick={handleShowAdmin}>관리자</S.JoinClickBox>
             </S.JoinCenter>
+            <S.Center>
+              <S.logoutClickBox onClick={logout}>로그아웃</S.logoutClickBox>
+            </S.Center>
           </S.JoinBox>
           <Modal
             show={show}
@@ -244,7 +262,7 @@ const S = {
 
   LoginBox: styled.div`
     ${variables.flex("column", "center", "center")}
-    height: 500px;
+    height: 550px;
     width: 100%;
   `,
 
@@ -290,5 +308,22 @@ const S = {
 
   Modal: styled.div`
     width: 1000px;
+  `,
+
+  logoutClickBox: styled.div`
+    ${variables.flex()}
+    width: 200px;
+    height: 30px;
+    background-color: rgb(245, 245, 245);
+    border-radius: 30px;
+    font-size: 20px;
+    transition: 0.4s;
+    margin-bottom: 60px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: red;
+      color: white;
+    }
   `,
 };
