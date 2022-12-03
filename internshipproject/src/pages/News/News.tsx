@@ -62,20 +62,20 @@ const News = () => {
 
   //통신
   useEffect(() => {
-    async function fetchData() {
-      const respons = await fetch("Data/NewsData.json");
-      const result = await respons.json();
-      setNewsData(result);
-    }
-    fetchData();
+    //   async function fetchData() {
+    //     const respons = await fetch("Data/NewsData.json");
+    //     const result = await respons.json();
+    //     setNewsData(result);
+    //   }
+    //   fetchData();
 
-    // fetch(
-    //   `http://172.20.10.2:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
-    // )
-    //   .then((res) => res.json())
-    //   .then((res) => {
-    //     setNewsData(res.data);
-    //   });
+    fetch(
+      `http://172.20.10.2:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        setNewsData(res.data);
+      });
   }, [showMoreOffsetCount]);
 
   // 글쓰기
@@ -116,7 +116,7 @@ const News = () => {
       });
     handleClose();
   };
-
+  console.log(image);
   return (
     <>
       <S.CenterColumn>
@@ -191,7 +191,7 @@ const News = () => {
             /> */}
             <UploadDropzone
               uploader={uploader}
-              onUpdate={(files) => console.log(files[0].fileUrl)}
+              onUpdate={(files) => setImage(files[0].fileUrl)}
               width="100%"
               height="230px"
             />

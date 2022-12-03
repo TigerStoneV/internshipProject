@@ -9,6 +9,7 @@ const RiderLog = () => {
   useEffect(() => {
     AOS.init();
   });
+
   return (
     <>
       <S.MainImage>

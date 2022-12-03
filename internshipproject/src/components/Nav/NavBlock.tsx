@@ -27,7 +27,7 @@ const NavbarBlock = () => {
         variant="light"
         style={{
           display: "absolute",
-          zIndex: "999",
+          zIndex: "500",
         }}
       >
         <S.NavCenter>

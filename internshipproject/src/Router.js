@@ -1,4 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ChatBot from "./components/Chat/ChatBot";
+import Chatservice from "./components/Chat/Chatservice";
+import ChatModal from "./components/Chat/Modal/Chatmodal";
 import Footer from "./components/Footer/Footer";
 import CompanyTech from "./pages/CompanyTech";
 import Company from "./pages/Introduce/Company/Company";
@@ -19,6 +22,7 @@ import RiderPageClient from "./pages/RiderPage/RiderPageClient";
 const Router = () => {
   return (
     <BrowserRouter>
+      <ChatModal />
       <Routes>
         <Route path="/main" element={<Main />} />
         <Route path="/" element={<MainPage />} />
@@ -37,6 +41,8 @@ const Router = () => {
         <Route path="/signup" element={<SignIn />} />
         <Route path="/riderpage" element={<RiderPage />} />
         <Route path="/riderpageClient" element={<RiderPageClient />} />
+        <Route path="/chatbot" element={<ChatBot />} />
+        <Route path="/chat" element={<Chatservice />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -297,6 +297,7 @@ export default MainPage;
 const S = {
   All: styled.div`
     background-color: black;
+    z-index: 999;
   `,
 
   HiddenBox: styled.div`
