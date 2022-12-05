@@ -65,9 +65,9 @@ const getQuestionAll = async ( offset, limit ) => {
     }
 }
 
-const postNewsByAdminId = async ( title, content, adminId, branchId, image ) => {
+const postNewsByAdminId = async ( title, content, adminId, branchId, imageUrl ) => {
+    if(imageUrl) imageUrl = `'${imageUrl}'`;
     
-    if(image) image = `'${image}'`;
     try {
         await appDataSource.query(`
             INSERT INTO news(
@@ -76,7 +76,7 @@ const postNewsByAdminId = async ( title, content, adminId, branchId, image ) => 
                 image_url,
                 admin_id,
                 branch_id
-            )VALUES ( ?, ?, ${image ? image : 'DEFAULT' }, ?, ? )`,
+            )VALUES ( ?, ?, ${imageUrl ? imageUrl : 'DEFAULT' }, ?, ? )`,
             [ title, content, adminId, branchId ]);
     }
     catch (err) {

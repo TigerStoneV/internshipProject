@@ -6,7 +6,7 @@ const postController = require('../controllers/postController');
 postRouter.get('/news', postController.getNewsAll);
 postRouter.get('/notice', postController.getNoticeAll);
 postRouter.get('/question', postController.getQuestionAll)
-postRouter.post('/news', imageUploader.single('image'), postController.postNewsByAdminId);
+postRouter.post('/news', postController.postNewsByAdminId);
 postRouter.post('/notice', postController.postNoticeByAdminId);
 postRouter.post('/question', postController.postQuestionByUserId);
 postRouter.patch('/news/:newsId',postController.updateNews);

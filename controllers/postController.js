@@ -43,8 +43,7 @@ const getQuestionAll = async ( req, res ) => {
 
 const postNewsByAdminId = catchAsync( async (req, res) => {
 
-    const { adminId, title, content, branchId } = req.body;
-    const image = req.file?.location;
+    const { adminId, title, content, branchId, imageUrl } = req.body;
 
     if ( !adminId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
@@ -52,7 +51,7 @@ const postNewsByAdminId = catchAsync( async (req, res) => {
         throw error;
     }
 
-    await postService.postNewsByAdminId( title, content, +adminId, +branchId, image );
+    await postService.postNewsByAdminId( title, content, +adminId, +branchId, imageUrl );
 
     res.status(201).json({ message : 'SUCCESS' });
 });

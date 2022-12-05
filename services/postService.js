@@ -16,9 +16,9 @@ const getQuestionAll = async ( offset, limit ) => {
     return await postDao.getQuestionAll( offset, limit );
 }
 
-const postNewsByAdminId = async ( title, content, adminId, branchId, image ) => {
+const postNewsByAdminId = async ( title, content, adminId, branchId, imageUrl ) => {
 
-    return await postDao.postNewsByAdminId( title, content, adminId, branchId, image );
+    return await postDao.postNewsByAdminId( title, content, adminId, branchId, imageUrl );
 }
 
 const postNoticeByAdminId = async ( title, content, adminId, branchId ) => {
