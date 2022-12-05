@@ -362,7 +362,7 @@ const getAdminByAdminId = async(adminId) => {
             user_id as adminUserId,
             branch_id as branchId,
             riderlog_editor as riderlogEditor
-        FROM admin
+        FROM admins
         WHERE id=?;`,
         [adminId]
     )
