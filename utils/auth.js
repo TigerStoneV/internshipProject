@@ -44,7 +44,7 @@ const adminLoginRequired = async(req, res, next) => {
 
     const decoded = jwt.verify(accessToken, JWT_SECRET);
 
-    const admin = await adminDao.getAdminByAdminId(decoded['adminId']);
+    const admin = await userDao.getAdminByAdminId(decoded['adminId']);
 
     if (!admin) {
         const error = new Error('ADMIN_DOES_NOT_EXIST');
