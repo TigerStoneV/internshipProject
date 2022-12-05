@@ -428,7 +428,7 @@ const kakaoUserInfo = async(kakaoAccessToken) => {
             'Content-type':'application/x-www-form-urlencoded;charset=utf-8',
             'Authorization': `Bearer ${kakaoAccessToken}`
         }
-    }).then(response => response.data.id)
+    }).then(response => response.data)
     .catch(err => console.log("error " + err));
 };
 
@@ -447,8 +447,8 @@ const riderKakaoSignup = async(kakaoId, companyRegistrationNumber, userName, use
         throw error 
     }
 
-    const riderByPhoneNumber = await userDao.getRiderByuserPhoneNumber(userPhoneNumber);
-    const riderByEmail = await userDao.getRiderByuserEmail(userEmail);
+    const riderByPhoneNumber = await userDao.getRiderByUserPhoneNumber(userPhoneNumber);
+    const riderByEmail = await userDao.getRiderByUserEmail(userEmail);
 
     if(riderByPhoneNumber) {
         const error = new Error(`${userPhoneNumber}는 이미 가입된 사용자입니다`)
@@ -489,8 +489,8 @@ const riderGoogleSignup = async(googleId, companyRegistrationNumber, userName, u
         throw error 
     }
 
-    const riderByPhoneNumber = await userDao.getRiderByuserPhoneNumber(userPhoneNumber);
-    const riderByEmail = await userDao.getRiderByuserEmail(userEmail);
+    const riderByPhoneNumber = await userDao.getRiderByUserPhoneNumber(userPhoneNumber);
+    const riderByEmail = await userDao.getRiderByUserEmail(userEmail);
 
     if(riderByPhoneNumber) {
         const error = new Error(`${userPhoneNumber}는 이미 가입된 사용자입니다`)
@@ -533,8 +533,8 @@ const riderNormalSignup = async(companyRegistrationNumber, userName, userEmail, 
         throw error 
     }
 
-    const riderByPhoneNumber = await userDao.getRiderByuserPhoneNumber(userPhoneNumber);
-    const riderByEmail = await userDao.getRiderByuserEmail(userEmail);
+    const riderByPhoneNumber = await userDao.getRiderByUserPhoneNumber(userPhoneNumber);
+    const riderByEmail = await userDao.getRiderByUserEmail(userEmail);
 
     if(riderByPhoneNumber) {
         const error = new Error(`${userPhoneNumber}는 이미 가입된 사용자입니다`)
