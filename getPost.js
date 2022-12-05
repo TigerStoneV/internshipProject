@@ -1,7 +1,8 @@
 const getPost = (type) =>{
     const postSet = {
       notice: 'notices',
-      news: 'news'
+      news: 'news',
+      question: 'questions'
     }
     return type ? postSet[type] : '' ;
   }

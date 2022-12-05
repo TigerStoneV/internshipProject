@@ -26,9 +26,9 @@ const postNoticeByAdminId = async ( title, content, adminId, branchId ) => {
     return await postDao.postNoticeByAdminId( title, content, adminId, branchId );
 }
 
-const postQuestionByAdminId = async ( title, content, adminId, branchId ) => {
+const postQuestionByUserId = async ( title, content, userId, branchId ) => {
 
-    return await postDao.postQuestionByAdminId( title, content, adminId, branchId );
+    return await postDao.postQuestionByUserId( title, content, userId, branchId );
 }
 
 const updateNews = async ( newsId, title, content ) => {
@@ -93,7 +93,7 @@ const getQuestionByQuestionId = async ( questionId ) => {
 module.exports = { 
     postNewsByAdminId,
     postNoticeByAdminId,
-    postQuestionByAdminId,
+    postQuestionByUserId,
     updateNews,
     updateNotice,
     updateQuestion,

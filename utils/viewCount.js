@@ -5,7 +5,7 @@ const viewCount = async ( req, res, next ) => {
     const queryRunner = appDataSource.createQueryRunner();
     const { postId } = req.params;
     const type = req.url.split('/')[1];
-
+    
     await queryRunner.connect();
     await queryRunner.startTransaction();
     
@@ -27,7 +27,7 @@ const viewCount = async ( req, res, next ) => {
                 WHERE id = ?
             `, [ postId ]);
         }
-        console.log(req.cookies)
+        
         await queryRunner.commitTransaction();
         await queryRunner.release();
 

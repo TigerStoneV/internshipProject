@@ -71,16 +71,16 @@ const postNoticeByAdminId = catchAsync( async (req, res) => {
     res.status(201).json({ message : 'SUCCESS' });
 })
 
-const postQuestionByAdminId = catchAsync( async (req, res) => {
-    const { adminId, title, content, branchId } = req.body;
+const postQuestionByUserId = catchAsync( async (req, res) => {
+    const { userId, title, content, branchId } = req.body;
 
-    if ( !adminId || !title || !content || !branchId ) {
+    if ( !userId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
         error.statusCode = 400;
         throw error;
     }
 
-    await postService.postQuestionByAdminId( title, content, +adminId, +branchId );
+    await postService.postQuestionByUserId( title, content, +userId, +branchId );
 
     res.status(201).json({ message : 'SUCCESS' });
 })
@@ -89,7 +89,7 @@ const postQuestionByAdminId = catchAsync( async (req, res) => {
 const updateNews = catchAsync( async (req, res) => {
     const { newsId } = req.params;
     const { title, content } = req.body;
-    console.log(newsId)
+    
     await postService.updateNews( +newsId, title, content );
     
     res.status(200).json({ message : 'update complete '});
@@ -164,7 +164,7 @@ const getQuestionByQuestionId = catchAsync( async (req, res) => {
 module.exports = { 
     postNewsByAdminId,
     postNoticeByAdminId,
-    postQuestionByAdminId,
+    postQuestionByUserId,
     updateNews,
     updateNotice,
     updateQuestion,
