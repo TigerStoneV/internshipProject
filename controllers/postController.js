@@ -43,7 +43,8 @@ const getQuestionAll = async ( req, res ) => {
 
 const postNewsByAdminId = catchAsync( async (req, res) => {
 
-    const { adminId, title, content, branchId, imageUrl } = req.body;
+    const { title, content, branchId, imageUrl } = req.body;
+    const adminId = req.admin.adminId;
 
     if ( !adminId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
@@ -57,7 +58,8 @@ const postNewsByAdminId = catchAsync( async (req, res) => {
 });
 
 const postNoticeByAdminId = catchAsync( async (req, res) => {
-    const { adminId, title, content, branchId } = req.body;
+    const { title, content, branchId } = req.body;
+    const adminId = req.admin.adminId;
 
     if ( !adminId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
@@ -71,7 +73,8 @@ const postNoticeByAdminId = catchAsync( async (req, res) => {
 })
 
 const postQuestionByUserId = catchAsync( async (req, res) => {
-    const { userId, title, content, branchId } = req.body;
+    const { title, content, branchId } = req.body;
+    const userId = req.user.userId;
 
     if ( !userId || !title || !content || !branchId ) {
         const error = new Error('KEY ERROR');
