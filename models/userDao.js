@@ -552,7 +552,7 @@ const riderKakaoSignup = async(kakaoId, companyRegistrationNumber, userName, use
     }
 };
 
-const getRiderByuserPhoneNumber = async(userPhoneNumber) => {
+const getRiderByUserPhoneNumber = async(userPhoneNumber) => {
 
     const result = await appDataSource.query(`
         SELECT
@@ -567,7 +567,7 @@ const getRiderByuserPhoneNumber = async(userPhoneNumber) => {
     return result[0];
 };
 
-const getRiderByuserEmail = async(userEmail) => {
+const getRiderByUserEmail = async(userEmail) => {
 
     const result = await appDataSource.query(`
         SELECT
@@ -807,8 +807,8 @@ module.exports = {
     getAdminByBranchEmail,
     getAdminByAdminId,
     branchSignup,
-    getRiderByuserPhoneNumber,
-    getRiderByuserEmail,
+    getRiderByUserPhoneNumber,
+    getRiderByUserEmail,
     riderNormalSignup,
     getUserByKaKaoId,
     getUserByGoogleId,

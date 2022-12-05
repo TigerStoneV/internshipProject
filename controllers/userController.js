@@ -191,7 +191,8 @@ const riderKakaoSignup = catchAsync(async(req, res) => {
         throw error
     };
 
-    const kakaoId = await userService.kakaoUserInfo(kakaoAccessToken);
+    const kakaoUserInfo = await userService.kakaoUserInfo(kakaoAccessToken);
+    const kakaoId = kakaoUserInfo['id'];
 
     const insertId = await userService.riderKakaoSignup(kakaoId, companyRegistrationNumber, userName, userEmail, userPhoneNumber);
     res.status(201).json({ 'insertId': insertId });
@@ -218,7 +219,8 @@ const riderKakaoSignin = catchAsync(async(req, res) => {
         throw error
     };
 
-    const kakaoId = await userService.kakaoUserInfo(kakaoAccessToken);
+    const kakaoUserInfo = await userService.kakaoUserInfo(kakaoAccessToken);
+    const kakaoId = kakaoUserInfo['id'];
 
     if (!kakaoId) {
         const error = new Error('KAKAO_ID_IS_NOT_VALID');
