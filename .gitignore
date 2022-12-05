@@ -220,4 +220,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# schema.sql
+db/schema.sql
+
 # End of https://www.toptal.com/developers/gitignore/api/macos,node,dotenv,windows,linux
