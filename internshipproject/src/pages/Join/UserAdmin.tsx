@@ -47,7 +47,7 @@ const UserAdmin = ({ text }: Props) => {
 
   const connect = () => {
     if (login.branchEmail.includes("@")) {
-      fetch(`http://172.20.10.5:3000/user/adminSignin`, {
+      fetch(`http://127.0.0.1:3000/user/adminSignin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

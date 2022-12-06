@@ -108,7 +108,7 @@ const User = ({ text }: Props) => {
 
   //인증번호 발송
   const postNumber = () => {
-    fetch(`http://172.20.10.5:3000/user/sendSMS`, {
+    fetch(`http://127.0.0.1:3000/user/sendSMS`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -128,7 +128,7 @@ const User = ({ text }: Props) => {
           alert(data.SMS);
           setCount(true);
           const timer = setTimeout(() => {
-            fetch("http://172.20.10.5:3000/user", {
+            fetch("http://127.0.0.1:3000/user", {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -156,7 +156,7 @@ const User = ({ text }: Props) => {
 
   //인증번호 확인
   const postNumberCheck = () => {
-    fetch(`http://172.20.10.5:3000/user/contrastCode`, {
+    fetch(`http://127.0.0.1:3000/user/contrastCode`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -189,7 +189,7 @@ const User = ({ text }: Props) => {
       info.userPassword.length > 3 &&
       info.companyRegistrationNumber > -1
     ) {
-      fetch(`http://172.20.10.5:3000/user/riderNormalSignup`, {
+      fetch(`http://127.0.0.1:3000/user/riderNormalSignup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
@@ -212,7 +212,7 @@ const User = ({ text }: Props) => {
       info.userEmail.includes("@") &&
       info.userPassword.length > 3
     ) {
-      fetch(`http://172.20.10.5:3000/user/riderNormalSignin`, {
+      fetch(`http://127.0.0.1:3000/user/riderNormalSignin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
