@@ -103,7 +103,7 @@ const S = {
 
   Link: styled(Link)`
     color: rgb(250, 250, 250);
-    font-size: 20px;
+    font-size: 14px;
     font-weight: semi-bold;
     text-decoration-line: none;
 

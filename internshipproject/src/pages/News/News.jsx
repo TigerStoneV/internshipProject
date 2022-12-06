@@ -8,32 +8,52 @@ import variables from "../../styles/variables";
 import { useDispatch, useSelector } from "react-redux";
 import { Uploader } from "uploader";
 import { UploadDropzone } from "react-uploader";
-export interface News {
-  id: number;
-  title: string;
-  content: string;
-  viewCount: string;
-  imageUrl: string;
-  createdAt: string;
-}
-interface Search {
-  searchParams: Params;
-}
-interface Params {
-  get: string;
-}
 
-interface AdminId {
-  getAdminId: string;
-}
+// 최종 수정 오류로 인하여 ts=>jsx 변환 및 추후 적용
+// export interface News {
+//   id: number;
+//   title: string;
+//   content: string;
+//   viewCount: string;
+//   imageUrl: string;
+//   createdAt: string;
+// }
+// interface Search {
+//   searchParams: Params;
+// }
+// interface Params {
+//   get: string;
+// }
+
+// interface AdminId {
+//   getAdminId: string;
+// }
+// interface Headers {
+//   append(name: string, value: string): void;
+//   delete(name: string): void;
+//   get(name: string): string | null;
+//   has(name: string): boolean;
+//   set(name: string, value: string): void; // 우리가 사용한 메서드!!!!!!
+//   forEach(
+//     callbackfn: (value: string, key: string, parent: Headers) => void,
+//     thisArg?: any
+//   ): void;
+// }
 
 const News = () => {
-  const [newsData, setNewsData] = useState<News[]>([]);
-  const [title, setTitle] = useState<string>();
-  const [content, setContent] = useState<string>();
-  const [image, setImage] = useState<string>();
-  const [show, setShow] = useState<boolean>(false);
-  const [showMoreOffsetCount, setShowMoreOffsetCount] = useState<number>(6);
+  // 최종 수정 오류로 인하여 ts=>jsx 변환 및 추후 적용
+  // const [newsData, setNewsData] = useState<News[]>([]);
+  // const [title, setTitle] = useState<string>();
+  // const [content, setContent] = useState<string>();
+  // const [image, setImage] = useState<string>();
+  // const [show, setShow] = useState<boolean>(false);
+  // const [showMoreOffsetCount, setShowMoreOffsetCount] = useState<number>(6);
+  const [newsData, setNewsData] = useState([]);
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
+  const [image, setImage] = useState();
+  const [show, setShow] = useState(false);
+  const [showMoreOffsetCount, setShowMoreOffsetCount] = useState(6);
 
   //admin 권한 부여
   const admin = useSelector((state) => state);
@@ -48,11 +68,11 @@ const News = () => {
   });
 
   //제목 입력
-  const handleInputTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputTitle = (e) => {
     setTitle(e.target.value);
   };
   //내용 입력
-  const handleInputContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputContent = (e) => {
     setContent(e.target.value);
   };
   //페이지네이션
@@ -62,6 +82,7 @@ const News = () => {
 
   //통신
   useEffect(() => {
+<<<<<<< HEAD:internshipproject/src/pages/News/News.tsx
     //   async function fetchData() {
     //     const respons = await fetch("Data/NewsData.json");
     //     const result = await respons.json();
@@ -71,6 +92,10 @@ const News = () => {
 
     fetch(
       `http://172.20.10.2:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
+=======
+    fetch(
+      `http://172.20.10.5:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
+>>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/News/News.jsx
     )
       .then((res) => res.json())
       .then((res) => {
@@ -79,28 +104,14 @@ const News = () => {
   }, [showMoreOffsetCount]);
 
   // 글쓰기
-
   const Post = () => {
-    // const formData = new FormData();
-    // if (typeof title === "string") formData.append("title", title);
-    // if (typeof content === "string") formData.append("content", content);
-    // formData.append("adminId", "1");
-    // formData.append("branchId", "1");
-
-    // fetch(`http://172.20.10.2:3000/post/news`, {
-    //   method: "post",
-    //   headers: {
-    //     // "Content-Type": "multipart/form-data",
-    //   },
-    //   body: formData,
-    // });
-    fetch(`http://172.20.10.2:3000/post/news`, {
+    fetch(`http://172.20.10.5:3000/post/news`, {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
+        Authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        //     adminId: admin,
         title,
         content,
         imageUrl: image,
@@ -116,7 +127,10 @@ const News = () => {
       });
     handleClose();
   };
+<<<<<<< HEAD:internshipproject/src/pages/News/News.tsx
   console.log(image);
+=======
+>>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/News/News.jsx
   return (
     <>
       <S.CenterColumn>
@@ -148,22 +162,6 @@ const News = () => {
         </S.BoxSize>
         <S.BoxSize>
           {admin === true && <S.Write onClick={handleShow}>글쓰기</S.Write>}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch({ type: "권한", adminId: true });
-            }}
-          >
-            true
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch({ type: "취소", adminId: false });
-            }}
-          >
-            false
-          </button>
           <Modal
             size="lg"
             show={show}
@@ -183,12 +181,7 @@ const News = () => {
               placeholder="내용을 입력하세요."
               onChange={handleInputContent}
             />
-            {/* <S.InputImage
-              placeholder="write your image"
-              type="file"
-              accept="image/*"
-              onChange={onImageChange}
-            /> */}
+
             <UploadDropzone
               uploader={uploader}
               onUpdate={(files) => setImage(files[0].fileUrl)}

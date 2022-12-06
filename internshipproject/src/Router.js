@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ChatBot from "./components/Chat/ChatBot";
-import Chatservice from "./components/Chat/Chatservice";
 import ChatModal from "./components/Chat/Modal/Chatmodal";
 import Footer from "./components/Footer/Footer";
 import CompanyTech from "./pages/CompanyTech";
@@ -15,6 +14,7 @@ import News from "./pages/News/News";
 import NewsPage from "./pages/News/NewsPage";
 import NewsNotice from "./pages/NewsNotice";
 import Notice from "./pages/Notice/Notice";
+import Question from "./pages/Questions/Questions";
 import RiderLog from "./pages/RiderLog/RiderLog";
 import RiderPage from "./pages/RiderPage/RiderPage";
 import RiderPageClient from "./pages/RiderPage/RiderPageClient";
@@ -41,8 +41,9 @@ const Router = () => {
         <Route path="/signup" element={<SignIn />} />
         <Route path="/riderpage" element={<RiderPage />} />
         <Route path="/riderpageClient" element={<RiderPageClient />} />
+        <Route path="/question" element={<Question />} />
+
         <Route path="/chatbot" element={<ChatBot />} />
-        <Route path="/chat" element={<Chatservice />} />
       </Routes>
       <Footer />
     </BrowserRouter>

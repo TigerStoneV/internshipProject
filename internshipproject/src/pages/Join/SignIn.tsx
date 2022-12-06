@@ -65,32 +65,16 @@ const SignIn = () => {
   const handleCloseAdmin = () => setShowAdmin(false);
   const handleShowAdmin = () => setShowAdmin(true);
 
-  // x표시 클릭시 delete fetch
-  // const exit = () => {
-  //   fetch("http://192.168.182.177:3000/user", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       userPhoneNumber: info.userPhoneNumber,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (response.ok === true) {
-  //         return response.json();
-  //       }
-  //       throw new Error("통신실패!");
-  //     })
-  //     .then((data) => alert(data.message));
-  // };
-
   //카카오 로그인
   const [searchParams, setSearchParams] = useSearchParams();
   const code = searchParams.get("code");
 
   useEffect(() => {
+<<<<<<< HEAD
     fetch(`http://192.168.182.177:3000/user/riderKakaoRegister`, {
+=======
+    fetch(`http://172.20.10.5:3000/user/riderKakaoRegister`, {
+>>>>>>> 29dd523 ([modify]front/최종)
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +98,10 @@ const SignIn = () => {
         }
       });
   }, []);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 29dd523 ([modify]front/최종)
   //로그아웃
   const navigate = useNavigate();
 

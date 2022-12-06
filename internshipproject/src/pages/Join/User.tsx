@@ -53,8 +53,6 @@ const User = ({ text }: Props) => {
   //타이머
   const [count, setCount] = useState<boolean>(false);
 
-  //인증번호 시간초과
-
   //인증 비활성화
   const [block, setBlock] = useState<boolean>(false);
   const blockBox = () => {};
@@ -108,31 +106,9 @@ const User = ({ text }: Props) => {
     }
   }, [info]);
 
-  //인븡번호 타이머
-  // const timer = setTimeout(() => {
-  //   fetch("http://192.168.182.177:3000/user", {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       userPhoneNumber: info.userPhoneNumber,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (response.ok === true) {
-  //         return response.json();
-  //       }
-  //       throw new Error("통신실패!");
-  //     })
-  //     .then((data) => alert(data.message));
-  // }, 30000);
-  // if (disableCheck === false) {
-  //   clearTimeout(timer);
-  // }
   //인증번호 발송
   const postNumber = () => {
-    fetch(`http://192.168.182.177:3000/user/sendSMS`, {
+    fetch(`http://172.20.10.5:3000/user/sendSMS`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -152,7 +128,7 @@ const User = ({ text }: Props) => {
           alert(data.SMS);
           setCount(true);
           const timer = setTimeout(() => {
-            fetch("http://192.168.182.177:3000/user", {
+            fetch("http://172.20.10.5:3000/user", {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -177,9 +153,10 @@ const User = ({ text }: Props) => {
         }
       });
   };
+
   //인증번호 확인
   const postNumberCheck = () => {
-    fetch(`http://192.168.182.177:3000/user/contrastCode`, {
+    fetch(`http://172.20.10.5:3000/user/contrastCode`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -212,7 +189,7 @@ const User = ({ text }: Props) => {
       info.userPassword.length > 3 &&
       info.companyRegistrationNumber > -1
     ) {
-      fetch(`http://192.168.182.177:3000/user/riderNormalSignup`, {
+      fetch(`http://172.20.10.5:3000/user/riderNormalSignup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
@@ -235,7 +212,7 @@ const User = ({ text }: Props) => {
       info.userEmail.includes("@") &&
       info.userPassword.length > 3
     ) {
-      fetch(`http://192.168.182.177:3000/user/riderNormalSignin`, {
+      fetch(`http://172.20.10.5:3000/user/riderNormalSignin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

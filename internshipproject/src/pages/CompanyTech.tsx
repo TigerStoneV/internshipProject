@@ -3,8 +3,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import News from "./News/News";
-import Notice from "./Notice/Notice";
 import variables from "../styles/variables";
 import styled from "styled-components";
 import NavbarBlock from "../components/Nav/NavBlock";
@@ -12,8 +10,6 @@ import Company from "./Introduce/Company/Company";
 import Tech from "./Introduce/Tech/Tech";
 
 function CompanyTech() {
-  const [key, setKey] = useState("Company");
-
   return (
     <>
       <S.NoticeMainImage>

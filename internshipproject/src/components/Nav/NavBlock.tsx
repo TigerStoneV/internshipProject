@@ -52,6 +52,9 @@ const NavbarBlock = () => {
                 <S.Link to="/contact" onClick={goTop}>
                   CONTACT
                 </S.Link>
+                <S.Link to="/question" onClick={goTop}>
+                  QUESTION
+                </S.Link>
                 <S.Link to="/join" onClick={goTop}>
                   JOIN
                 </S.Link>

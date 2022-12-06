@@ -19,7 +19,11 @@ body {
   position: fixed;
   z-index: 500;
   top: 8%;
+<<<<<<< HEAD
   left: 60%;
+=======
+  left: 70%;
+>>>>>>> 29dd523 ([modify]front/최종)
   border: 1px solid black;
   border-radius: 10px;
 }

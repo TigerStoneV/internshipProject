@@ -8,29 +8,38 @@ import "aos/dist/aos.css";
 import styled from "styled-components/macro";
 import variables from "../../styles/variables";
 import { useDispatch, useSelector } from "react-redux";
+import NavbarBlock from "../../components/Nav/NavBlock";
 
-export interface Notice {
-  id: number;
-  title: string;
-  content: string;
-  viewCount: string;
-  createdAt: string;
-}
+// 최종 수정 오류로 인하여 ts=>jsx 변환 및 추후 적용
+// export interface Question {
+//   id: number;
+//   title: string;
+//   content: string;
+//   viewCount: string;
+//   createdAt: string;
+// }
 
-interface PostNotice {
-  adminId: number;
-  title: string;
-  content: string;
-  branchId: number;
-}
+// interface PostQusetion {
+//   adminId: number;
+//   title: string;
+//   content: string;
+//   branchId: number;
+// }
 
-const Notice = () => {
-  const [noticeData, setNoticeData] = useState<Notice[]>([]);
-  const [postData, setPostData] = useState<PostNotice[]>([]);
-  const [title, setTitle] = useState<string>();
-  const [content, setContent] = useState<string>();
-  const [show, setShow] = useState<boolean>(false);
-  const [token, setToken] = useState<string>("undefined");
+const Question = () => {
+  //   const [questionData, setQuestionData] = useState<Question[]>([]);
+  //   const [postData, setPostData] = useState<PostQusetion[]>([]);
+  //   const [title, setTitle] = useState<string>();
+  //   const [content, setContent] = useState<string>();
+  //   const [show, setShow] = useState<boolean>(false);
+  //   const [token, setToken] = useState<string>("undefined");
+  const [questionData, setQuestionData] = useState([]);
+  const [postData, setPostData] = useState([]);
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
+  const [show, setShow] = useState(false);
+  const [token, setToken] = useState("undefined");
+  const [update, setUpdate] = useState(0);
 
   //admin 권한 부여
   const admin = useSelector((state) => state);
@@ -46,36 +55,30 @@ const Notice = () => {
 
   //통신
   useEffect(() => {
-    //   async function fetchData() {
-    //     const respons = await fetch("Data/NoticeData.json");
-    //     const result = await respons.json();
-    //     setNoticeData(result);
-    //   }
-    //   fetchData();
-
-    fetch("http://172.20.10.2:3000/post/notice?offset=0&limit=10")
+    fetch("http://172.20.10.5:3000/post/question?offset=0&limit=10")
       .then((res) => res.json())
       .then((res) => {
-        setNoticeData(res.data);
+        setQuestionData(res.data);
       });
-  }, []);
+  }, [update]);
 
   //글쓰기
-  const writeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const writeTitle = (e) => {
     setTitle(e.target.value);
   };
-  const writeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const writeContent = (e) => {
     setContent(e.target.value);
   };
 
   const Post = () => {
-    fetch(`http://172.20.10.2:3000/post/notice`, {
+    fetch(`http://172.20.10.5:3000/post/question`, {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
+        Authorization: localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        adminId: admin,
+        userId: 1,
         title: title,
         content: content,
         branchId: 1,
@@ -88,13 +91,30 @@ const Notice = () => {
         }
       });
     handleClose();
+    setUpdate((res) => res + 1);
   };
-
   return (
     <>
+      <S.QuestionImage>
+        <NavbarBlock />
+        <S.QuestionImageMessage>
+          <div
+            data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-duration="1000"
+          >
+            고객의 <b>소리</b>
+          </div>
+        </S.QuestionImageMessage>
+      </S.QuestionImage>
+      <div data-aos="fade-up" data-aos-offset="300" data-aos-duration="1000">
+        <S.Center>
+          <S.Question>QUESTION</S.Question>
+        </S.Center>
+      </div>
       <S.CenterColumn>
-        <S.NoticeListBox>
-          {noticeData.map((data) => (
+        <S.QuestionListBox>
+          {questionData.map((data) => (
             <Accordion defaultActiveKey="0" key={data.id}>
               <Accordion.Item eventKey={data.title}>
                 <Accordion.Header>{data.title}</Accordion.Header>
@@ -112,7 +132,9 @@ const Notice = () => {
           ))}
           <S.BottomBox>
             <S.BoxSize>
-              {admin === true && <S.Write onClick={handleShow}>글쓰기</S.Write>}
+              {admin === undefined && (
+                <S.Write onClick={handleShow}>글쓰기</S.Write>
+              )}
               <Modal
                 size="lg"
                 show={show}
@@ -140,15 +162,39 @@ const Notice = () => {
               </Modal>
             </S.BoxSize>
           </S.BottomBox>
-        </S.NoticeListBox>
+        </S.QuestionListBox>
       </S.CenterColumn>
     </>
   );
 };
 
-export default Notice;
+export default Question;
 
 const S = {
+  QuestionImage: styled.div`
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-image: url("http://www.star-pickers.com/html/img/sub_visual01.png");
+  `,
+
+  QuestionImageMessage: styled.div`
+    position: absolute;
+    color: #fff;
+    font-size: 50px;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+    font-weight: 300;
+    letter-spacing: -2px;
+  `,
+
+  Question: styled.div`
+    font-size: 50px;
+    font-weight: bold;
+    padding: 40px 0 10px;
+  `,
+
   NoticeMainImage: styled.div`
     position: relative;
     width: 100%;
@@ -174,6 +220,8 @@ const S = {
   CenterColumn: styled.div`
     ${variables.flex("column", "center", "center")}
     margin:30px 0 60px;
+    height: 100%;
+    padding-bottom: 50px;
   `,
 
   Notice: styled.div`
@@ -187,7 +235,7 @@ const S = {
     height: 100%;
   `,
 
-  NoticeListBox: styled.div`
+  QuestionListBox: styled.div`
     width: 80%;
     height: 100%;
     margin-top: 30px;
