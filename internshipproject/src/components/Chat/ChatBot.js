@@ -13,8 +13,13 @@ const ChatBot = () => {
   const send = (event) => {
     //확인용(통신x)
     if (text.length > 0) {
+<<<<<<< HEAD
       // $("#messages").append("<li>user : " + text + "</li>");
       // setText("");
+=======
+      $("#messages").append("<li>user : " + text + "</li>");
+      setText("");
+>>>>>>> 29dd523 ([modify]front/최종)
 
       // 예제
       event.preventDefault();

@@ -8,11 +8,12 @@ import { Provider } from "react-redux";
 
 //redux
 const admin = false;
-function reducer(state = admin, action: any) {
+
+function reducer(admin: any, action: any) {
   if (action.type === "권한") {
-    return action.adminId;
+    return (admin = true);
   } else if (action.type === "취소") {
-    return action.adminId;
+    return (admin = false);
   }
 }
 

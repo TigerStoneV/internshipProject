@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import Chatting from "../Chat";
 import ChatBot from "../ChatBot";
 
 const ChatModal = () => {
-  //모달 실행/취소
-  // const modal = useSelector((state) => state);
-  // const dispatch = useDispatch();
   const [modal, setModal] = useState<boolean>(false);
 
   const modalOpen = () => {
-    // dispatch({ type: "모달 실행", modal: true });
     if (!modal) {
       setModal(true);
     } else {

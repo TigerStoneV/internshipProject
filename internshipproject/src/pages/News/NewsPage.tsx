@@ -28,16 +28,9 @@ const NewsPage = () => {
   useEffect(() => {
     AOS.init();
   });
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const respons = await fetch("Data/NewsData.json");
-  //     const result = await respons.json();
-  //     console.log(result);
-  //   }
-  //   fetchData();
-  // }, []);
+
   useEffect(() => {
-    fetch(`http://172.20.10.2:3000/post/news/${id}`)
+    fetch(`http://172.20.10.5:3000/post/news/${id}`)
       .then((res) => res.json())
       .then((res) => {
         setNewsPageData(res.data[0]);

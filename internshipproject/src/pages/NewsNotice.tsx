@@ -10,8 +10,6 @@ import styled from "styled-components";
 import NavbarBlock from "../components/Nav/NavBlock";
 
 function NewsNotice() {
-  const [key, setKey] = useState<string>("News");
-
   return (
     <>
       <S.NoticeMainImage>
