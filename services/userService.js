@@ -215,11 +215,11 @@ const checkHash = async(plainPassword, hashedPassword) => {
     return await bcrypt.compare(plainPassword, hashedPassword);
 };
 
-const createJWTAccessToken = async(userId) => {
+const createJWTAccessToken = async(id) => {
 
     const { ALGORITHM, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
 
-    const jwtAccessToken = jwt.sign({'userId':userId}, JWT_SECRET, {
+    const jwtAccessToken = jwt.sign({'id':id}, JWT_SECRET, {
         algorithm: ALGORITHM,
         expiresIn: JWT_EXPIRES_IN
     });
