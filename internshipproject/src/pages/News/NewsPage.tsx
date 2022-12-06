@@ -30,7 +30,7 @@ const NewsPage = () => {
   });
 
   useEffect(() => {
-    fetch(`http://172.20.10.5:3000/post/news/${id}`)
+    fetch(`http://127.0.0.1:3000/post/news/${id}`)
       .then((res) => res.json())
       .then((res) => {
         setNewsPageData(res.data[0]);

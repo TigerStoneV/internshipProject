@@ -55,7 +55,7 @@ const Question = () => {
 
   //통신
   useEffect(() => {
-    fetch("http://172.20.10.5:3000/post/question?offset=0&limit=10")
+    fetch("http://127.0.0.1:3000/post/question?offset=0&limit=10")
       .then((res) => res.json())
       .then((res) => {
         setQuestionData(res.data);
@@ -71,7 +71,7 @@ const Question = () => {
   };
 
   const Post = () => {
-    fetch(`http://172.20.10.5:3000/post/question`, {
+    fetch(`http://127.0.0.1:3000/post/question`, {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8",

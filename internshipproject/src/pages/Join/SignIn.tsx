@@ -70,11 +70,7 @@ const SignIn = () => {
   const code = searchParams.get("code");
 
   useEffect(() => {
-<<<<<<< HEAD
-    fetch(`http://192.168.182.177:3000/user/riderKakaoRegister`, {
-=======
-    fetch(`http://172.20.10.5:3000/user/riderKakaoRegister`, {
->>>>>>> 29dd523 ([modify]front/최종)
+    fetch(`http://127.0.0.1:3000/user/riderKakaoRegister`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,10 +94,6 @@ const SignIn = () => {
         }
       });
   }, []);
-<<<<<<< HEAD
-
-=======
->>>>>>> 29dd523 ([modify]front/최종)
   //로그아웃
   const navigate = useNavigate();
 

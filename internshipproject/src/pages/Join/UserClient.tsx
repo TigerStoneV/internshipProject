@@ -102,7 +102,7 @@ const UserClient = ({ text }: Props) => {
   }, [info]);
   //인증번호 발송
   const postNumber = () => {
-    fetch(`http://172.20.10.5:3000/user/sendSMS`, {
+    fetch(`http://127.0.0.1:3000/user/sendSMS`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -122,7 +122,7 @@ const UserClient = ({ text }: Props) => {
           alert(data.SMS);
           setCount(true);
           const timer = setTimeout(() => {
-            fetch("http://172.20.10.5:3000/user", {
+            fetch("http://127.0.0.1:3000/user", {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -150,7 +150,7 @@ const UserClient = ({ text }: Props) => {
 
   //인증번호 확인
   const postNumberCheck = () => {
-    fetch(`http://172.20.10.5:3000/user/contrastCode`, {
+    fetch(`http://127.0.0.1:3000/user/contrastCode`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -184,7 +184,7 @@ const UserClient = ({ text }: Props) => {
       info.companyPassword.length > 3 &&
       info.companyRegistrationNumber > -1
     ) {
-      fetch(`http://172.20.10.5:3000/user/clientSignup`, {
+      fetch(`http://127.0.0.1:3000/user/clientSignup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(info),
@@ -208,7 +208,7 @@ const UserClient = ({ text }: Props) => {
       info.userEmail.includes("@") &&
       info.companyPassword.length > 3
     ) {
-      fetch(`http://172.20.10.5:3000/user/clientSignin`, {
+      fetch(`http://127.0.0.1:3000/user/clientSignin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -82,20 +82,8 @@ const News = () => {
 
   //통신
   useEffect(() => {
-<<<<<<< HEAD:internshipproject/src/pages/News/News.tsx
-    //   async function fetchData() {
-    //     const respons = await fetch("Data/NewsData.json");
-    //     const result = await respons.json();
-    //     setNewsData(result);
-    //   }
-    //   fetchData();
-
     fetch(
-      `http://172.20.10.2:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
-=======
-    fetch(
-      `http://172.20.10.5:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
->>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/News/News.jsx
+      `http://127.0.0.1:3000/post/news?offset=0&limit=${showMoreOffsetCount}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -105,7 +93,7 @@ const News = () => {
 
   // 글쓰기
   const Post = () => {
-    fetch(`http://172.20.10.5:3000/post/news`, {
+    fetch(`http://127.0.0.1:3000/post/news`, {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -127,10 +115,6 @@ const News = () => {
       });
     handleClose();
   };
-<<<<<<< HEAD:internshipproject/src/pages/News/News.tsx
-  console.log(image);
-=======
->>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/News/News.jsx
   return (
     <>
       <S.CenterColumn>

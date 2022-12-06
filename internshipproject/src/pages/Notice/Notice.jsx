@@ -41,18 +41,7 @@ const Notice = () => {
 
   //통신
   useEffect(() => {
-<<<<<<< HEAD:internshipproject/src/pages/Notice/Notice.tsx
-    //   async function fetchData() {
-    //     const respons = await fetch("Data/NoticeData.json");
-    //     const result = await respons.json();
-    //     setNoticeData(result);
-    //   }
-    //   fetchData();
-
-    fetch("http://172.20.10.2:3000/post/notice?offset=0&limit=10")
-=======
-    fetch("http://172.20.10.5:3000/post/notice?offset=0&limit=10")
->>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/Notice/Notice.jsx
+    fetch("http://127.0.0.1:3000/post/notice?offset=0&limit=10")
       .then((res) => res.json())
       .then((res) => {
         setNoticeData(res.data);
@@ -69,18 +58,11 @@ const Notice = () => {
   };
 
   const Post = () => {
-<<<<<<< HEAD:internshipproject/src/pages/Notice/Notice.tsx
-    fetch(`http://172.20.10.2:3000/post/notice`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-=======
-    fetch(`http://172.20.10.5:3000/post/notice`, {
+    fetch(`http://127.0.0.1:3000/post/notice`, {
       method: "post",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         Authorization: localStorage.getItem("token"),
->>>>>>> 29dd523 ([modify]front/최종):internshipproject/src/pages/Notice/Notice.jsx
       },
       body: JSON.stringify({
         adminId: admin,
