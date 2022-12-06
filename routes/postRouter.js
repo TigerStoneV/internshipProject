@@ -2,13 +2,15 @@ const postRouter = require('express').Router();
 const { viewCount } = require('../utils/viewCount');
 const { imageUploader } = require('../utils/imageUploader');
 const postController = require('../controllers/postController');
+const { adminLoginRequired } = require('../utils/auth');
+const { userLoginRequired } = require('../utils/auth');
 
 postRouter.get('/news', postController.getNewsAll);
 postRouter.get('/notice', postController.getNoticeAll);
 postRouter.get('/question', postController.getQuestionAll)
-postRouter.post('/news', postController.postNewsByAdminId);
-postRouter.post('/notice', postController.postNoticeByAdminId);
-postRouter.post('/question', postController.postQuestionByUserId);
+postRouter.post('/news', adminLoginRequired, postController.postNewsByAdminId);
+postRouter.post('/notice', adminLoginRequired, postController.postNoticeByAdminId);
+postRouter.post('/question', userLoginRequired, postController.postQuestionByUserId);
 postRouter.patch('/news/:newsId',postController.updateNews);
 postRouter.patch('/notice/:noticeId',postController.updateNotice);
 postRouter.patch('/question/:questionId',postController.updateQuestion);
